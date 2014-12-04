@@ -30,16 +30,16 @@ Frequently Asked Questions
 --------------------------
 
 <b>Where can I translate this plugin into my favourite language?</b>
-<a href='http://translate.twinpictures.de/projects/colomat'>Community translation for Collapse-O-Matic</a> has been set up. All are <a href='http://translate.twinpictures.de/wordpress/wp-login.php?action=register'>welcome to join</a>.
+* <a href='http://translate.twinpictures.de/projects/colomat'>Community translation for Collapse-O-Matic</a> has been set up. All are <a href='http://translate.twinpictures.de/wordpress/wp-login.php?action=register'>welcome to join</a>.
 
 <b>I am a Social Netwookiee, might Twinpictures have a Facebook page?</b>
-Yes, yes... <a href='http://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.
+* Yes, yes... <a href='http://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.
 
 <b>Does Twinpictures do the Twitter?</b>
-Ah yes! <a href='http://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
+* Ah yes! <a href='http://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
 
 <b>How does one use the shortcode, exactly?</b>
-A <a href='http://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
+* A <a href='http://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
 <b>Is Galato the same as Ice Cream?</b>
-No. Not even close.
+* No. Not even close.
