@@ -5,7 +5,7 @@ Text Domain: colomat
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.6.3
+Version: 1.6.4a
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -23,7 +23,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.3';
+	var $version = '1.6.4a';
 
 	/**
 	 * Used as prefix for options entry
@@ -48,6 +48,7 @@ class WP_Collapse_O_Matic {
 		'targtag' => 'div',
 		'targclass' => '',
 		'duration' => 'fast',
+		'tabindex' => '',
 		'slideEffect' => 'slideFade',
 		'custom_css' => '',
 		'script_check' => '',
@@ -112,7 +113,7 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.5.12', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.5.13', $load_in_footer);
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -176,7 +177,8 @@ class WP_Collapse_O_Matic {
 			'startwrap' => '',
 			'endwrap' => '',
 			'elwraptag' => '',
-			'elwrapclass' => ''
+			'elwrapclass' => '',
+			'tabindex' => $options['tabindex']
 		), $atts));
 		
 		if(!empty($cid)){
@@ -284,6 +286,10 @@ class WP_Collapse_O_Matic {
 		if($rel){
 			$relatt = 'rel="'.$rel.'"';
 		}
+		$inexatt = '';
+		if($tabindex){
+			$inexatt = 'tabindex="'.$tabindex.'"';
+		}
 		if($expanded){
 			$trigclass .= ' colomat-close';
 		}
@@ -301,7 +307,7 @@ class WP_Collapse_O_Matic {
 			$trigclass .= ' scroll-to-trigger';
 			$closeanchor = '<input type="hidden" id="scrollonclose-'.$id.'" name="'.$scrollonclose.'"/>';
 		}
-		$link = $closeanchor.$anchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$altatt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+		$link = $closeanchor.$anchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
 		if($swaptitle){
 			$link .= "<".$tag." id='swap-".$id."' alt='".$swapalt."' class='colomat-swap' style='display:none;'>".$startwrap.$swaptitle.$endwrap."</".$tag.">";
 		}
@@ -452,6 +458,13 @@ class WP_Collapse_O_Matic {
 									<th><?php _e( 'Targclass Attribute', 'colomat' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[targclass]" name="<?php echo $this->options_name ?>[targclass]" value="<?php echo $options['targclass']; ?>" />
 										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'colomat'), '<a href="http://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#targclass" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
+								
+								<tr>
+									<th><?php _e( 'Tabindex Attribute', 'colomat' ) ?>:</th>
+									<td><label><input type="text" id="<?php echo $this->options_name ?>[tabindex]" name="<?php echo $this->options_name ?>[tabindex]" value="<?php echo $options['tabindex']; ?>" />
+										<br /><span class="description"><?php printf(__('Default tabindex value to be assigned to the trigger element. See %sTabindex Attribute%s in the documentation for more info.', 'colomat'), '<a href="http://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#tabindex" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								
