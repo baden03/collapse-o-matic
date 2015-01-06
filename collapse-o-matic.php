@@ -5,7 +5,7 @@ Text Domain: colomat
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.6.4c
+Version: 1.6.5
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -16,14 +16,21 @@ License: GPL2
  * @package WP_Collapse_O_Matic
  * @category WordPress Plugins
  */
-		
+
+if(!defined('PLUGIN_OVEN_URL')){
+	define( 'PLUGIN_OVEN_URL', 'http://plugins.twinpictures.de' );
+}
+if(!defined('PLUGIN_OVEN_CC')){
+	define( 'PLUGIN_OVEN_CC', 'Collapse Commander' );
+}
+
 class WP_Collapse_O_Matic {
 
 	/**
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.4c';
+	var $version = '1.6.5';
 
 	/**
 	 * Used as prefix for options entry
@@ -56,6 +63,15 @@ class WP_Collapse_O_Matic {
 		'cc_download_key' => '',
 		'cc_email' => ''
 	);
+	
+	var $license_group = 'colomat_licenseing';
+        
+        var $license_name = 'WP_Collapse_O_Matic_license';
+        
+        var $license_options = array(
+                'collapse_commander_license_key' => '',
+                'collapse_commander_license_status' => ''
+        );
 
 	/**
 	 * PHP5 constructor
@@ -113,7 +129,7 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.5.13', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.5.14', $load_in_footer);
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -139,6 +155,7 @@ class WP_Collapse_O_Matic {
 	function admin_init() {
 		// register settings
 		register_setting( $this->domain, $this->options_name );
+		register_setting( $this->license_group, $this->license_name, array($this, 'edd_sanitize_license') );
 	}
 	
 	/**
@@ -191,10 +208,8 @@ class WP_Collapse_O_Matic {
 				while ( $query_commander->have_posts() ) {
 					$query_commander->the_post();
 					$title = get_the_title();
-					if(get_the_content()){
-						$content = apply_filters('the_content',get_the_content());
-					}
-
+					
+					//meta values
 					$meta_values = get_post_meta( $cid );
 					foreach($meta_values as $key => $value){
 						if(!empty($value) && $key[0] != '_'){
@@ -207,8 +222,19 @@ class WP_Collapse_O_Matic {
 					if(!empty($highlander) && !empty($rel)){
 						$rel .= '-highlander';
 					}
+					
+					//content
+					if(get_the_content()){
+						if(empty($filter)){
+							$content = get_the_content();
+						}else{
+							$content = apply_filters( 'the_content', get_the_content() );
+							$content = str_replace( ']]>', ']]&gt;', $content );
+						}
+					}
 				}
 			}
+			wp_reset_postdata();
 		}
 		
 		$ewo = '';
@@ -395,7 +421,6 @@ class WP_Collapse_O_Matic {
 						<form method="post" action="options.php">
 							<?php
 								settings_fields( $this->domain );
-								$this->_set_options();
 								$options = $this->options;
 							?>
 							<fieldset class="options">
@@ -544,13 +569,13 @@ class WP_Collapse_O_Matic {
 								<?php if( !is_plugin_active( 'collapse-commander/collapse-commander.php' ) ) : ?>
 								<tr>
 									<th><strong><?php _e( 'Take Command!', 'colomat' ) ?></strong></th>
-									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'colomat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/collapse-commander/">', '</a>'); ?>
+									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'colomat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">', '</a>'); ?>
 									</td>
 								</tr>
 								<?php endif; ?>
 								<tr>
 									<th><strong><?php _e( 'Level Up!', 'colomat' ) ?></strong></th>
-									<td><?php printf(__( '%sCollapse-Pro-Matic%s is our premium plugin that offers additional attributes and features for <i>ultimate</i> flexibility.', 'colomat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/">', '</a>'); ?>
+									<td><?php printf(__( '%sCollapse-Pro-Matic%s is our premium plugin that offers additional attributes and features for <i>ultimate</i> flexibility.', 'colomat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-o-matic-pro">', '</a>'); ?>
 									</td>
 								</tr>
 								</table>
@@ -559,6 +584,7 @@ class WP_Collapse_O_Matic {
 							<p class="submit">
 								<input class="button-primary" type="submit" value="<?php _e( 'Save Changes' ) ?>" />
 							</p>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -578,7 +604,9 @@ class WP_Collapse_O_Matic {
 							<li><?php printf( __('If this plugin %s, please consider %sreviewing it at WordPress.org%s to help others.', 'colomat'), $like_it, '<a href="http://wordpress.org/support/view/plugin-reviews/jquery-collapse-o-matic" target="_blank">', '</a>' ) ?></li>
 							<li><a href="http://wordpress.org/extend/plugins/jquery-collapse-o-matic/" target="_blank">WordPress.org</a> | <a href="http://plugins.twinpictures.de/plugins/collapse-o-matic/" target="_blank">Twinpictues Plugin Oven</a></li>
 						</ul>
+						<!--
 						<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Limited Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/">Upgrade to Collapse-Pro-Matic</a> or add on <a href="http://plugins.twinpictures.de/premium-plugins/collapse-commander/">Collapse Commander</a> before January 1, 2015 and receive a lifetime unlimited licence.  Starting in 2015, all Plugin Oven pro plugins will introduce new pricing and licensing tiers.</p>
+						-->
 					</div>
 				</div>
 			</div>
@@ -592,34 +620,66 @@ class WP_Collapse_O_Matic {
 				<div class="postbox">
 					<h3 class="handle"><?php _e( 'Register Collapse Commander', 'colomat') ?></h3>
 					<div class="inside">
-					<p><?php _e('To receive plugin updates you must register your plugin. Enter your Receipt ID and email address used to purchase the plugin below.', 'colomat'); ?></p>
+                                            <p><?php printf( __('To receive plugin updates you must register your plugin. Enter your Collapse Commander licence key below. Licence keys may be viewed and manged by logging into %syour account%s.', 'colpromat'), '<a href="http://plugins.twinpictures.de/your-account/" target="_blank">', '</a>'); ?></p>
+						<form method="post" action="options.php">
+                                                    <?php
+                                                        settings_fields( $this->license_group );
+                                                        $options = get_option($this->license_name);
+                                                        $cc_licence = ( !isset( $options['collapse_commander_license_key'] ) ) ? '' : $options['collapse_commander_license_key'];
+						     ?>
 							<fieldset>
-								<table>
-									<tr>
-										<th><?php _e( 'Receipt ID', 'colomat' ) ?>:</th>
-										<td><label><input type="text" id="<?php echo $this->options_name ?>[cc_download_key]" name="<?php echo $this->options_name ?>[cc_download_key]" value="<?php echo $options['cc_download_key']; ?>" style="width: 100%" />
-											<br /><span class="description"><?php _e('Receipt ID is found in the Collapse Commander Purchase Receipt', 'colomat'); ?></span></label>
-										</td>
-									</tr>
-									
-									<tr>
-										<th><?php _e( 'Email', 'colomat' ) ?>:</th>
-										<td><label><input type="text" id="<?php echo $this->options_name ?>[cc_email]" name="<?php echo $this->options_name ?>[cc_email]" value="<?php echo $options['cc_email']; ?>" style="width: 100%" />
-										<br /><span class="description"><?php _e('Email address used to purchase Collapse Commander', 'colomat'); ?></span></label>
-										</td>
-									</tr>
+								<table style="width: 100%">
+									<tbody>
+										<tr>
+											<th><?php _e( 'License Key', 'colpromat' ) ?>:</th>
+											<td><label for="<?php echo $this->license_name ?>[collapse_commander_license_key]"><input type="text" id="<?php echo $this->license_name ?>[collapse_commander_license_key]" name="<?php echo $this->license_name ?>[collapse_commander_license_key]" value="<?php esc_attr_e( $cc_licence ); ?>" style="width: 100%" />
+												<br /><span class="description"><?php _e('Enter your license key', 'colpromat'); ?></span></label>
+											</td>
+											
+										</tr>
+											
+										<?php if( isset($options['collapse_commander_license_key']) ) { ?>
+										    <tr valign="top">	
+											<th><?php _e('License Status', 'colpromat'); ?>:</th>
+											<td>
+											    <?php if( isset($options['collapse_commander_license_status']) && $options['collapse_commander_license_status'] == 'valid' ) { ?>
+												<span style="color:green;"><?php _e('active'); ?></span><br/>
+												<input type="submit" class="button-secondary" name="edd_cc_license_deactivate" value="<?php _e('Deactivate License'); ?>"/>
+											    <?php } else {
+												    if( isset($options['collapse_commander_license_status']) ){ ?>
+													<span style="color: red"><?php echo $options['collapse_commander_license_status']; ?></span><br/>        
+												<?php } else { ?>
+													<span style="color: grey">inactive</span><br/>
+												<?php } ?>
+												    <input type="submit" class="button-secondary" name="edd_cc_license_activate" value="<?php _e('Activate License'); ?>"/>
+											    <?php } ?>
+											    </td>
+										    </tr>
+										<?php } ?>
+									</tbody>
 								</table>
 							</fieldset>
-							<p class="submit" style="margin-bottom: 20px;">
-								<input class="button-primary" type="submit" style="float: right;" value="<?php _e( 'Register', 'colomat') ?>" />
-							</p>
+							<?php submit_button( __( 'Register', 'colpromat') ); ?>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		<?php else: ?>
+		<div class="postbox-container side metabox-holder meta-box-sortables" style="width:29%;">
+			<div style="margin:0 5px;">
+				<div class="postbox">
+					<div class="handlediv" title="<?php _e( 'Click to toggle', 'colomat' ) ?>"><br/></div>
+					<h3 class="hndle">Collapse Commander</h3>
+						<div class="inside">
+							<p>A brief and not-exactly-sober overview of <a href="http://plugins.twinpictures.de/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">Collapse Commander</a>, a new add-on plugin for Collapse-O-Matic and Collapse-Pro-Matic that adds and advanded expand shortcode management system.</p>
+							<iframe width="100%" height="300" src="//www.youtube.com/embed/w9X4nXpAEfo" frameborder="0" allowfullscreen></iframe>
+						</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
 		<?php endif; ?>
-		</form>
 	<?php
 	}
 	
@@ -641,6 +701,58 @@ class WP_Collapse_O_Matic {
 				$this->options[ $key ] = ( empty( $saved_options[ $key ] ) ) ? '' : $saved_options[ $key ];
 			}
 		}
+	}
+	
+	function edd_sanitize_license( $new ) {
+            //collapse commander
+            $options = get_option($this->license_name);
+            $old_cc = ( !isset( $options['collapse_commander_license_key'] ) ) ? '' : $options['collapse_commander_license_key'];
+            $old_cc_status = ( !isset( $options['collapse_commander_license_status'] ) ) ? '' : $options['collapse_commander_license_status'];
+                                                                    
+            if( !empty($old_cc) && $old_cc != $new['collapse_commander_license_key'] ) {
+                    $new['collapse_commander_license_status'] = '';
+            }
+            else{
+                $new['collapse_commander_license_status'] = $old_cc_status;
+            }
+            
+            if( isset( $_POST['edd_cc_license_activate'] ) ) {
+                $new['collapse_commander_license_status'] = $this->plugin_oven_activate_license( urlencode( PLUGIN_OVEN_CC ), $new['collapse_commander_license_key'], 'activate_license');
+            }
+            
+            if( isset( $_POST['edd_cc_license_deactivate'] ) ) {
+                $new['collapse_commander_license_status'] = $this->plugin_oven_activate_license( urlencode( PLUGIN_OVEN_CC ), $new['collapse_commander_license_key'], 'deactivate_license');
+            }
+            return $new;
+        }
+        
+	
+	/************************************
+	* this illustrates how to activate 
+	* a license key
+	*************************************/
+	
+	function plugin_oven_activate_license($plugin_name, $license_key, $edd_action) {                    
+            // data to send in our API request
+            $api_params = array( 
+                    'edd_action'    => $edd_action, 
+                    'license' 	    => $license_key, 
+                    'item_name'     => $plugin_name,
+                    'url'           => home_url()
+            );
+            
+            // Call the custom API.
+            $response = wp_remote_get( add_query_arg( $api_params, PLUGIN_OVEN_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+           
+            // make sure the response came back okay
+            if ( is_wp_error( $response ) )
+                    return false;
+                
+            // decode the license data
+            $license_data = json_decode( wp_remote_retrieve_body( $response ) );
+            
+            // $license_data->license will be either "valid" or "invalid"
+            return $license_data->license;
 	}
 
 } // end class WP_Collapse_O_Matic
