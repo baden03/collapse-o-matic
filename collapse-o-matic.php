@@ -5,7 +5,7 @@ Text Domain: colomat
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.6.5
+Version: 1.6.6
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,7 +30,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.5';
+	var $version = '1.6.6';
 
 	/**
 	 * Used as prefix for options entry
@@ -195,6 +195,7 @@ class WP_Collapse_O_Matic {
 			'endwrap' => '',
 			'elwraptag' => '',
 			'elwrapclass' => '',
+			'filter' => 'true',
 			'tabindex' => $options['tabindex']
 		), $atts));
 		
@@ -235,6 +236,10 @@ class WP_Collapse_O_Matic {
 				}
 			}
 			wp_reset_postdata();
+		}
+		else if(!empty($filter)){
+			$content = apply_filters( 'the_content', $content );
+			$content = str_replace( ']]>', ']]&gt;', $content );
 		}
 		
 		$ewo = '';
@@ -279,7 +284,7 @@ class WP_Collapse_O_Matic {
 				$inline_class = 'colomat-inline ';
 				$collapse_class = 'collapseomatic_content_inline ';
 			}
-			$eDiv = '<'.$targtag.' id="target-'.$id.'" class="'.$collapse_class.$inline_class.$targclass.'">'.do_shortcode($content).'</'.$targtag.'>';	
+			$eDiv = '<'.$targtag.' id="target-'.$id.'" class="'.$collapse_class.$inline_class.$targclass.'">'.$content.'</'.$targtag.'>';	
 		}
 			
 		if($excerpt){
@@ -765,8 +770,8 @@ $WP_Collapse_O_Matic = new WP_Collapse_O_Matic;
 
 //clean unwanted p and br tags from shortcodes
 //http://www.wpexplorer.com/clean-up-wordpress-shortcode-formatting
-if (!function_exists('wpex_clean_shortcodes')) {
-	function wpex_clean_shortcodes($content){   
+if (!function_exists('tp_clean_shortcodes')) {
+	function tp_clean_shortcodes($content){   
 		$array = array (
 		    '<p>[' => '[', 
 		    ']</p>' => ']', 
@@ -775,7 +780,7 @@ if (!function_exists('wpex_clean_shortcodes')) {
 		$content = strtr($content, $array);
 		return $content;
 	}
-	add_filter('the_content', 'wpex_clean_shortcodes');
+	add_filter('the_content', 'tp_clean_shortcodes');
 }
 
 ?>
