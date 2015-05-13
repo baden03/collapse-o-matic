@@ -301,6 +301,14 @@ jQuery(document).ready(function() {
 		mouseleave: function(){
 			//stuff to do on mouseleave
 			jQuery(this).removeClass('colomat-hover');
+		},
+		focusin: function(){
+			//stuff to do on keyboard focus
+			jQuery(this).addClass('colomat-hover');
+		},
+		focusout: function(){
+			//stuff to do on losing keyboard focus
+			jQuery(this).removeClass('colomat-hover');
 		}
 	}, '.collapseomatic'); //pass the element as an argument to .on
 
