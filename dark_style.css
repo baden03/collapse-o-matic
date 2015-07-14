@@ -4,6 +4,10 @@
 	padding: 0 0 10px 16px;
 	cursor: pointer;
 }
+.collapseomatic:focus {
+      display: block;
+      outline: 0;
+}
 .arrowright {
 	background-position: top right;
 	padding: 0 16px 10px 0;
