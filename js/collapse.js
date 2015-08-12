@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.5.16
+ * Collapse-O-Matic JavaSctipt v1.5.17
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2015, Twinpictures
@@ -106,6 +106,14 @@ function toggleState (obj, id, maptastic, trig_id) {
 				jQuery('html, body').animate({scrollTop:offset_top}, 500);
 			}
 		});
+	}
+
+	//deal with google maps builder resize
+	if(jQuery(this).is(':visible')){
+		var numItems = jQuery('.google-maps-builder').length;
+	    for(var i=0; i< numItems; i++){
+	        google.maps.event.trigger(document.getElementsByClassName("google-maps-builder")[i], 'resize');
+	    }
 	}
 }
 
