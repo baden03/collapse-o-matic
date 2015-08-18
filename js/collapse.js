@@ -109,11 +109,11 @@ function toggleState (obj, id, maptastic, trig_id) {
 	}
 
 	//deal with google maps builder resize
-	if(jQuery(this).is(':visible')){
-		var numItems = jQuery('.google-maps-builder').length;
-	    for(var i=0; i< numItems; i++){
-	        google.maps.event.trigger(document.getElementsByClassName("google-maps-builder")[i], 'resize');
-	    }
+	if(jQuery('#'+id).hasClass('colomat-close')){
+		jQuery('.google-maps-builder').each(function(index) {
+			map = jQuery(".google-maps-builder")[index];
+			google.maps.event.trigger(map, 'resize');
+		});
 	}
 }
 
