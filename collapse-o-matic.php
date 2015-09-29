@@ -33,6 +33,12 @@ class WP_Collapse_O_Matic {
 	var $version = '1.6.14';
 
 	/**
+	 * Used as prefix for options entry
+	 * @var string
+	 */
+	var $domain = 'colomat';
+	
+	/**
 	 * Name of the options
 	 * @var string
 	 */
