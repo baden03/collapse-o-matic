@@ -5,7 +5,7 @@ Text Domain: jquery-collapse-o-matic
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.6.14
+Version: 1.6.15
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,14 +30,14 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.14';
+	var $version = '1.6.15';
 
 	/**
 	 * Used as prefix for options entry
 	 * @var string
 	 */
 	var $domain = 'colomat';
-	
+
 	/**
 	 * Name of the options
 	 * @var string
