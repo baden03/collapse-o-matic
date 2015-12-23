@@ -5,7 +5,7 @@ Text Domain: jquery-collapse-o-matic
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.6.15
+Version: 1.7.0a
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,7 +30,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.15';
+	var $version = '1.7.0a';
 
 	/**
 	 * Used as prefix for options entry
@@ -130,7 +130,7 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.5.18', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.6.0', $load_in_footer);
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -345,14 +345,15 @@ class WP_Collapse_O_Matic {
 			if($findme != 'true' && $findme != 'auto'){
 				$offset = $findme;
 			}
-			$anchor = '<input type="hidden" id="find-'.$id.'" name="'.$offset.'"/>';
+			//$anchor = '<input type="hidden" id="find-'.$id.'" name="'.$offset.'"/>';
+			$anchor = 'data-findme="'.$offset.'"';
 		}
 		$closeanchor = '';
 		if($scrollonclose && (is_numeric($scrollonclose) || $scrollonclose == 0)){
 			$trigclass .= ' scroll-to-trigger';
 			$closeanchor = '<input type="hidden" id="scrollonclose-'.$id.'" name="'.$scrollonclose.'"/>';
 		}
-		$link = $closeanchor.$anchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+		$link = $closeanchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
 		if($swaptitle){
 			$link .= "<".$tag." id='swap-".$id."' alt='".$swapalt."' class='colomat-swap' style='display:none;'>".$startwrap.$swaptitle.$endwrap."</".$tag.">";
 		}
