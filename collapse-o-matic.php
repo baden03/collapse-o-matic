@@ -5,7 +5,7 @@ Text Domain: jquery-collapse-o-matic
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.1b
+Version: 1.7.1c
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,7 +30,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.1b';
+	var $version = '1.7.1c';
 
 	/**
 	 * Used as prefix for options entry
@@ -59,6 +59,7 @@ class WP_Collapse_O_Matic {
 		'slideEffect' => 'slideFade',
 		'custom_css' => '',
 		'script_check' => '',
+		'css_check' => '',
 		'script_location' => 'footer',
 		'cc_download_key' => '',
 		'cc_email' => '',
@@ -138,7 +139,9 @@ class WP_Collapse_O_Matic {
 		//css
 		if ($this->options['style'] !== 'none') {
 			wp_register_style( 'collapseomatic-css', plugins_url('/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
-			wp_enqueue_style( 'collapseomatic-css' );
+			if( empty($this->options['css_check']) ){
+				wp_enqueue_style( 'collapseomatic-css' );
+			}
 		}
 	}
 
@@ -168,6 +171,9 @@ class WP_Collapse_O_Matic {
 		$options = $this->options;
 		if( !empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
+		}
+		if( !empty($this->options['css_check']) ){
+			wp_enqueue_style( 'collapseomatic-css' );
 		}
 		//find a random number, if no id is assigned
 		$ran = rand(1, 10000);
@@ -585,6 +591,13 @@ class WP_Collapse_O_Matic {
 									<th><?php _e( 'Shortcode Loads Scripts', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[script_check]" name="<?php echo $this->options_name ?>[script_check]" value="1"  <?php echo checked( $options['script_check'], 1 ); ?> /> <?php _e('Only load scripts with shortcode.', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Only load Collapse-O-Matic scripts if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
+									</td>
+								</tr>
+
+								<tr>
+									<th><?php _e( 'Shortcode Loads CSS', 'jquery-collapse-o-matic' ) ?>:</th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[css_check]" name="<?php echo $this->options_name ?>[css_check]" value="1"  <?php echo checked( $options['css_check'], 1 ); ?> /> <?php _e('Only load CSS with shortcode.', 'jquery-collapse-o-matic'); ?>
+										<br /><span class="description"><?php _e('Only load Collapse-O-Matic CSS if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
