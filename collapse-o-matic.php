@@ -5,7 +5,7 @@ Text Domain: jquery-collapse-o-matic
 Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.0
+Version: 1.7.1b
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,7 +30,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.0';
+	var $version = '1.7.1b';
 
 	/**
 	 * Used as prefix for options entry
@@ -130,7 +130,7 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.6.0', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.6.1', $load_in_footer);
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -186,6 +186,7 @@ class WP_Collapse_O_Matic {
 			'targpos' => '',
 			'trigpos' => 'above',
 			'rel' => '',
+			'group' => '',
 			'expanded' => '',
 			'excerpt' => '',
 			'swapexcerpt' => false,
@@ -331,6 +332,10 @@ class WP_Collapse_O_Matic {
 		if($rel){
 			$relatt = 'rel="'.$rel.'"';
 		}
+		$groupatt = '';
+		if($group){
+			$groupatt = 'data-groupname="'.$group.'"';
+		}
 		$inexatt = '';
 		if(!empty($tabindex) || $tabindex == 0 ){
 			$inexatt = 'tabindex="'.$tabindex.'"';
@@ -353,7 +358,19 @@ class WP_Collapse_O_Matic {
 			$trigclass .= ' scroll-to-trigger';
 			$closeanchor = '<input type="hidden" id="scrollonclose-'.$id.'" name="'.$scrollonclose.'"/>';
 		}
-		$link = $closeanchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+
+		//deal with image from collapse-commander
+		if( !empty($trigtype) && $trigtype == 'image' && !empty($triggerimage) && strtolower($tag) == 'img' ){
+			$imageclass = 'collapseomatic noarrow' . $trigclass;
+			$link = $closeanchor.wp_get_attachment_image( $triggerimage, 'full', false, array( 'id' => $id, 'class' => $imageclass, 'alt' => $altatt ) );
+		}
+		else{
+			if(!empty($trigtype) && $trigtype == 'image' && !empty($triggerimage)){
+				$title =  wp_get_attachment_image( $triggerimage, 'full' );
+			}
+			$link = $closeanchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+		}
+
 		if($swaptitle){
 			$link .= "<".$tag." id='swap-".$id."' alt='".$swapalt."' class='colomat-swap' style='display:none;'>".$startwrap.$swaptitle.$endwrap."</".$tag.">";
 		}

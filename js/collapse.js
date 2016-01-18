@@ -1,8 +1,8 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.0
+ * Collapse-O-Matic JavaSctipt v1.6.1
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
- * Copyright 2015, Twinpictures
+ * Copyright 2016, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -451,6 +451,10 @@ jQuery(document).ready(function() {
 			var rel = jQuery(this).attr('rel');
 			var loop_items = jQuery('.collapseomatic:not(.colomat-close)[rel="' + rel +'"]');
 		}
+		else if(jQuery(this).attr('data-groupname') !== undefined){
+			var groupname = jQuery(this).attr('data-groupname');
+			var loop_items = jQuery('.collapseomatic:not(.colomat-close)[data-groupname="' + groupname +'"]');
+		}
 		else{
 			var loop_items = jQuery('.collapseomatic:not(.colomat-close)');
 		}
@@ -462,6 +466,10 @@ jQuery(document).ready(function() {
 		if(jQuery(this).attr('rel') !== undefined){
 			var rel = jQuery(this).attr('rel');
 			var loop_items = jQuery('.collapseomatic.colomat-close[rel="' + rel +'"]');
+		}
+		else if(jQuery(this).attr('data-groupname') !== undefined){
+			var groupname = jQuery(this).attr('data-groupname');
+			var loop_items = jQuery('.collapseomatic.colomat-close[data-groupname="' + groupname +'"]');
 		}
 		else {
 			var loop_items = jQuery('.collapseomatic.colomat-close');
