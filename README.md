@@ -6,7 +6,7 @@ Collapse-O-Matic
 * Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 * Requires at least: 4.0
 * Tested up to: 4.4.1
-* Stable tag: 1.7.1c
+* Stable tag: 1.7.1d
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
