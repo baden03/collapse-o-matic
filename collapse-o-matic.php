@@ -208,7 +208,7 @@ class WP_Collapse_O_Matic {
 			'elwrapclass' => '',
 			'filter' => $options['filter_content'],
 			'tabindex' => $options['tabindex']
-		), $atts));
+		), $atts, 'expand'));
 		if(!empty($cid)){
 			$args = array(
 				'post_type'	=> 'expand-element',
