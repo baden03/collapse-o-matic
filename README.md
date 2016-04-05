@@ -5,8 +5,8 @@ Collapse-O-Matic
 * Donate link: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 * Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 * Requires at least: 4.0
-* Tested up to: 4.4.1
-* Stable tag: 1.7.1d
+* Tested up to: 4.5
+* Stable tag: 1.7.1
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ Frequently Asked Questions
 --------------------------
 
 <b>Where can I translate this plugin into my favourite language?</b>
-* <a href='http://translate.twinpictures.de/projects/colomat'>Community translation for Collapse-O-Matic</a> has been set up. All are <a href='http://translate.twinpictures.de/wordpress/wp-login.php?action=register'>welcome to join</a>.
+* <a href='https://translate.wordpress.org/projects/wp-plugins/jquery-collapse-o-matic'>Community translation for Collapse-O-Matic</a> is available via the WordPress Translation project.
 
 <b>I am a Social Netwookiee, might Twinpictures have a Facebook page?</b>
 * Yes, yes... <a href='http://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.

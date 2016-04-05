@@ -2,10 +2,9 @@
 /*
 Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
-Domain Path: /languages
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.1d
+Version: 1.7.1
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -30,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.1d';
+	var $version = '1.7.1';
 
 	/**
 	 * Used as prefix for options entry
@@ -83,7 +82,7 @@ class WP_Collapse_O_Matic {
 		$this->_set_options();
 
 		// load text domain for translations
-		load_plugin_textdomain( 'jquery-collapse-o-matic', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'jquery-collapse-o-matic' );
 
 		//load the script and style if viewing the front-end
 		add_action('wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
@@ -677,7 +676,7 @@ class WP_Collapse_O_Matic {
 					<div class="inside">
 						<h4><img src="<?php echo plugins_url( 'images/collapse-o-matic-icon.png', __FILE__ ) ?>" width="16" height="16"/> Collapse-O-Matic Version <?php echo $this->version; ?></h4>
 						<p><?php _e( 'Remove clutter, save space. Display and hide additional content in a SEO friendly way. Wrap any content&mdash;including other shortcodes&mdash;into a lovely jQuery expanding and collapsing element.', 'jquery-collapse-o-matic') ?></p>
-						<!--<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Last Chance for 2015 Prices:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-pro-year-end">Update to Collapse-Pro-Matic</a> before January 2016 to take advantage of 2015 pricing.</p>-->
+						<?php /*<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Last Chance for 2015 Prices:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-pro-year-end">Update to Collapse-Pro-Matic</a> before January 2016 to take advantage of 2015 pricing.</p> */ ?>
 						<ul>
 							<li><?php printf( __( '%sDetailed documentation%s, complete with working demonstrations of all shortcode attributes, is available for your instructional enjoyment.', 'jquery-collapse-o-matic'), '<a href="http://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/" target="_blank">', '</a>'); ?></li>
 							<li><?php printf( __( '%sFree Opensource Support%s', 'jquery-collapse-o-matic'), '<a href="http://wordpress.org/support/plugin/jquery-collapse-o-matic" target="_blank">', '</a>'); ?></li>
