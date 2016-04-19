@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.2
+ * Collapse-O-Matic JavaSctipt v1.6.3
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2016, Twinpictures
@@ -88,7 +88,7 @@ function toggleState (obj, id, maptastic, trig_id) {
 				//offset_top = jQuery('#find-'+trig_id).attr('name');
 				offset_top = jQuery('#'+trig_id).attr('data-findme');
 
-				if(!offset_top){
+				if(!offset_top || offset_top == 'auto'){
 					target_offset = jQuery('#'+trig_id).offset();
 					offset_top = target_offset.top;
 				}
@@ -111,7 +111,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 			if(trig_id && jQuery('#'+trig_id).is('.find-me.colomat-close')){
 				//offset_top = jQuery('#find-'+trig_id).attr('name');
 				offset_top = jQuery('#'+trig_id).attr('data-findme');
-				if(!offset_top){
+
+				if(!offset_top || offset_top == 'auto'){
 					target_offset = jQuery('#'+trig_id).offset();
 					offset_top = target_offset.top;
 				}
