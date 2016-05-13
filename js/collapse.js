@@ -350,7 +350,7 @@ jQuery(document).ready(function() {
 		}
 
 		//highlander must be one
-		if(jQuery(this).attr('rel').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
+		if(jQuery(this).attr('rel') && jQuery(this).attr('rel').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
 			return;
 		}
 
