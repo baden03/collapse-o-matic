@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.4
+ * Collapse-O-Matic JavaSctipt v1.6.5
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2016, Twinpictures
@@ -75,9 +75,28 @@ function toggleState (obj, id, maptastic, trig_id) {
 		jQuery('[id^=target][id$='+id+']').removeClass('maptastic');
 	}
 
+	//reset effect and duration to default
+	com_effect = colomatslideEffect;
+	com_duration = colomatduration;
+
+	//effect override
+	if( obj.attr('data-effect') ){
+		com_effect = obj.attr('data-effect');
+	}
+
+	//duration override
+	if( obj.attr('data-duration') ){
+		com_duration = obj.attr('data-duration');
+	}
+
+	//if durration is a number, make it a number
+	if( isFinite(com_duration) ){
+		com_duration = parseFloat(com_duration);
+	}
+
 	//slideToggle
-	if(colomatslideEffect == 'slideToggle'){
-		jQuery('[id^=target][id$='+id+']').slideToggle(colomatduration, function() {
+	if(com_effect == 'slideToggle'){
+		jQuery('[id^=target][id$='+id+']').slideToggle(com_duration, function() {
 			// Animation complete.
 			if( jQuery(this).hasClass('colomat-inline') && jQuery(this).is(':visible') ){
 				jQuery(this).css('display', 'inline');
@@ -97,11 +116,11 @@ function toggleState (obj, id, maptastic, trig_id) {
 		});
 	}
 	//slideFade
-	else if(colomatslideEffect == 'slideFade'){
+	else if(com_effect == 'slideFade'){
 		jQuery('[id^=target][id$='+id+']').animate({
 			height: "toggle",
 			opacity: "toggle"
-		}, colomatduration, function (){
+		}, com_duration, function (){
 			//Animation complete
 			if( jQuery(this).hasClass('colomat-inline') && jQuery(this).is(':visible') ){
 				jQuery(this).css('display', 'inline');

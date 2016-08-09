@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: http://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.2
+Version: 1.7.3a
 Author: twinpictures, baden03
 Author URI: http://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.2';
+	var $version = '1.7.3a';
 
 	/**
 	 * Used as prefix for options entry
@@ -206,7 +206,9 @@ class WP_Collapse_O_Matic {
 			'elwraptag' => '',
 			'elwrapclass' => '',
 			'filter' => $options['filter_content'],
-			'tabindex' => $options['tabindex']
+			'tabindex' => $options['tabindex'],
+			'effect' => '',
+			'duration' => '',
 		), $atts, 'expand'));
 		if(!empty($cid)){
 			$args = array(
@@ -365,6 +367,19 @@ class WP_Collapse_O_Matic {
 			//$anchor = '<input type="hidden" id="find-'.$id.'" name="'.$offset.'"/>';
 			$anchor = 'data-findme="'.$offset.'"';
 		}
+
+		//effect
+		$effatt = '';
+		if($effect){
+			$effatt = 'data-effect="'.$effect.'"';
+		}
+
+		//duration
+		$duratt = '';
+		if($duration){
+			$duratt = 'data-duration="'.$duration.'"';
+		}
+
 		$closeanchor = '';
 		if($scrollonclose && (is_numeric($scrollonclose) || $scrollonclose == 0)){
 			$trigclass .= ' scroll-to-trigger';
@@ -384,7 +399,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($trigtype) && $trigtype == 'image' && !empty($triggerimage)){
 				$title =  wp_get_attachment_image( $triggerimage, 'full' );
 			}
-			$link = $closeanchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+			$link = $closeanchor.'<'.$tag.' class="collapseomatic '.$trigclass.'" id="'.$id.'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
 		}
 
 		//swap image
@@ -698,11 +713,11 @@ class WP_Collapse_O_Matic {
 					<div class="inside">
                                             <p><?php printf( __('To receive plugin updates you must register your plugin. Enter your Collapse Commander licence key below. Licence keys may be viewed and manged by logging into %syour account%s.', 'colpromat'), '<a href="http://plugins.twinpictures.de/your-account/" target="_blank">', '</a>'); ?></p>
 						<form method="post" action="options.php">
-                                                    <?php
-                                                        settings_fields( $this->license_group );
-                                                        $options = get_option($this->license_name);
-                                                        $cc_licence = ( !isset( $options['collapse_commander_license_key'] ) ) ? '' : $options['collapse_commander_license_key'];
-						     ?>
+                            <?php
+                                settings_fields( $this->license_group );
+                                $options = get_option($this->license_name);
+                                $cc_licence = ( !isset( $options['collapse_commander_license_key'] ) ) ? '' : $options['collapse_commander_license_key'];
+						    ?>
 							<fieldset>
 								<table style="width: 100%">
 									<tbody>
