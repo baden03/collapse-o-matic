@@ -80,8 +80,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 	com_duration = colomatduration;
 
 	//effect override
-	if( obj.attr('data-effect') ){
-		com_effect = obj.attr('data-effect');
+	if( obj.attr('data-animation_effect') ){
+		com_effect = obj.attr('data-animation_effect');
 	}
 
 	//duration override
