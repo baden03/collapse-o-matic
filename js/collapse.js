@@ -2,7 +2,7 @@
  * Collapse-O-Matic JavaSctipt v1.6.6
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
- * Copyright 2016, Twinpictures
+ * Copyright 2017, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,9 @@ function swapTitle(origObj, swapObj){
 }
 
 function toggleState (obj, id, maptastic, trig_id) {
+	//toggletarget class
+	//jQuery('[id^=target][id$='+id+']').toggleClass('colomat-targ-visable');
+
 	if (maptastic && jQuery('[id^=target][id$='+id+']').hasClass('maptastic') ) {
 		jQuery('[id^=target][id$='+id+']').removeClass('maptastic');
 	}
