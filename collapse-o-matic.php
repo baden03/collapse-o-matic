@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.5
+Version: 1.7.6a
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.5';
+	var $version = '1.7.6a';
 
 	/**
 	 * Used as prefix for options entry
@@ -179,6 +179,7 @@ class WP_Collapse_O_Matic {
 		extract(shortcode_atts(array(
 			'title' => '',
 			'cid' => $options['cid'],
+			'template_id' => '',
 			'swaptitle' => '',
 			'alt' => '',
 			'swapalt' => '',
@@ -210,6 +211,8 @@ class WP_Collapse_O_Matic {
 			'animation_effect' => '',
 			'duration' => '',
 		), $atts, 'expand'));
+
+		//collapse commander
 		if(!empty($cid)){
 			$args = array(
 				'post_type'	=> 'expand-element',
@@ -237,6 +240,31 @@ class WP_Collapse_O_Matic {
 
 					//content
 					$content = get_the_content();
+				}
+			}
+			wp_reset_postdata();
+		}
+
+		//expand templates from collapse commander
+		if(!empty($template_id)){
+			$args = array(
+				'post_type'	=> 'expand-template',
+				'p'			=> $template_id,
+			);
+			$query_commander = new WP_Query( $args );
+			if ( $query_commander->have_posts() ) {
+				while ( $query_commander->have_posts() ) {
+					$query_commander->the_post();
+					$meta_values = get_post_meta( $template_id );
+					foreach($meta_values as $key => $value){
+						if(!empty($value) && $key[0] != '_'){
+							//var_dump( substr($key, 9), $value[0]);
+							${substr($key, 9)} = $value[0];
+						}
+					}
+					if(!empty($highlander) && !empty($rel)){
+						$rel .= '-highlander';
+					}
 				}
 			}
 			wp_reset_postdata();
