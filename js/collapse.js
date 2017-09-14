@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.6
+ * Collapse-O-Matic JavaSctipt v1.6.7
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2017, Twinpictures
@@ -149,6 +149,11 @@ function toggleState (obj, id, maptastic, trig_id) {
 			map = jQuery(".google-maps-builder")[index];
 			google.maps.event.trigger(map, 'resize');
 		});
+	}
+
+	//callback
+	if( jQuery.isFunction( colomatcallback ) ){
+		colomatcallback();
 	}
 }
 
