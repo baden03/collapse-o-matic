@@ -152,8 +152,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 	}
 
 	//callback
-	if( jQuery.isFunction( colomatcallback ) ){
-		colomatcallback();
+	if ( typeof colomat_callback != 'undefined' ) {
+		colomat_callback();
 	}
 }
 
