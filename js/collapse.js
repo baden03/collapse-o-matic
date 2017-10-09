@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.7
+ * Collapse-O-Matic JavaSctipt v1.6.8
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2017, Twinpictures
@@ -327,8 +327,13 @@ function colomat_collapseall(loop_items){
 
 
 jQuery(document).ready(function() {
-	//console.log(colomatduration, colomatslideEffect);
-	collapse_init();
+	//console.log(colomatduration, colomatslideEffect, colomatpauseInit);
+	if(colomatpauseInit){
+		init_pause = setTimeout(collapse_init, colomatpauseInit);
+	}
+	else{
+		collapse_init();
+	}
 
 	//jetpack infinite scroll catch-all
 	jQuery( document.body ).on( 'post-load', function () {

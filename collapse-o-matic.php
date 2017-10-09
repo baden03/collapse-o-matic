@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.7b
+Version: 1.7.7c
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.7b';
+	var $version = '1.7.7c';
 
 	/**
 	 * Used as prefix for options entry
@@ -63,6 +63,7 @@ class WP_Collapse_O_Matic {
 		'cc_download_key' => '',
 		'cc_email' => '',
 		'filter_content' => '',
+		'pauseinit' => '',
 	);
 
 	var $license_group = 'colomat_licenseing';
@@ -113,6 +114,7 @@ class WP_Collapse_O_Matic {
 		echo "<script type='text/javascript'>\n";
 		echo "var colomatduration = '".$this->options['duration']."';\n";
 		echo "var colomatslideEffect = '".$this->options['slideEffect']."';\n";
+		echo "var colomatpauseInit = '".$this->options['pauseinit']."';\n";
 		echo "</script>";
 		if( !empty( $this->options['custom_css'] ) ){
 			echo "\n<style>\n";
@@ -597,6 +599,13 @@ class WP_Collapse_O_Matic {
 									<th><?php _e( 'Targclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[targclass]" name="<?php echo $this->options_name ?>[targclass]" value="<?php echo $options['targclass']; ?>" />
 										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#targclass" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
+
+								<tr>
+									<th><?php _e( 'Initial Pause', 'jquery-collapse-o-matic' ) ?>:</th>
+									<td><label><input type="number" id="<?php echo $this->options_name ?>[pauseinit]" name="<?php echo $this->options_name ?>[pauseinit]" value="<?php echo $options['pauseinit']; ?>" />
+										<br /><span class="description"><?php _e('Amount of time in milliseconds to pause before the initial collapse is triggered on page load.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
