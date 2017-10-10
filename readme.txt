@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.4
 Tested up to: 4.8.2
-Stable tag: 1.7.7c
+Stable tag: 1.7.7d
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,7 @@ No. Not even close.
 = 1.7.7 =
 * added check for a callback function: colomat_callback on any expand element state change
 * added Initial Pause option to pause initial collapse of expand elements on page load
+* tabindex allows for a value of 0
 
 = 1.7.6 =
 * integrated collapse-commander expand templates
