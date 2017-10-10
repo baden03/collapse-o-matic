@@ -381,7 +381,7 @@ class WP_Collapse_O_Matic {
 			$groupatt = 'data-togglegroup="'.$togglegroup.'"';
 		}
 		$inexatt = '';
-		var_dump($tabindex);
+		//var_dump($tabindex);
 		if(!empty($tabindex) || $tabindex == 0 ){
 			$inexatt = 'tabindex="'.$tabindex.'"';
 		}
