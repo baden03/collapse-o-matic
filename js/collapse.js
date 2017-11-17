@@ -335,6 +335,16 @@ jQuery(document).ready(function() {
 		collapse_init();
 	}
 
+	function is_valid_jquery_selector(sel) {
+		try {
+			jQuery(sel);
+			return true;
+		}
+		catch(ex) {
+			return false;
+		}
+	}
+
 	//jetpack infinite scroll catch-all
 	jQuery( document.body ).on( 'post-load', function () {
 		collapse_init();
@@ -541,7 +551,7 @@ jQuery(document).ready(function() {
 		}
 
 		//if the element exists
-		if( jQuery('#' + anchor).length ){
+		if( is_valid_jquery_selector('#' + anchor) && jQuery('#' + anchor).length ){
 
 			//if the element isn't already expanded, expand it
 			if(!jQuery('#' + anchor).hasClass('colomat-close')){
@@ -581,7 +591,7 @@ jQuery(document).ready(function() {
 				anchor = anchor_arr[0];
 			}
 
-			if( jQuery('#' + anchor).length ){
+			if( is_valid_jquery_selector('#' + anchor) && jQuery('#' + anchor).length ){
 				//expand any nested parents
 				jQuery('#' + anchor).parents('.collapseomatic_content').each(function(index) {
 					parent_arr = jQuery(this).attr('id').split('-');
