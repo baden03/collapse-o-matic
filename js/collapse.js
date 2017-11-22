@@ -383,7 +383,7 @@ jQuery(document).ready(function() {
 	});
 
 	//the main collapse/expand function
-	jQuery(document).on('click', '.collapseomatic', function(event) {
+	jQuery(document).on('click touchstart', '.collapseomatic', function(event) {
 		var offset_top;
 
 		//alert('phones ringin dude');
@@ -504,7 +504,7 @@ jQuery(document).ready(function() {
 	});
 
 
-	jQuery(document).on('click', '.expandall', function(event) {
+	jQuery(document).on('click touchstart', '.expandall', function(event) {
 		if(jQuery(this).attr('rel') !== undefined){
 			var rel = jQuery(this).attr('rel');
 			var loop_items = jQuery('.collapseomatic:not(.colomat-close)[rel="' + rel +'"]');
@@ -520,7 +520,7 @@ jQuery(document).ready(function() {
 		colomat_expandall(loop_items);
 	});
 
-	jQuery(document).on('click', '.collapseall', function(event) {
+	jQuery(document).on('click touchstart', '.collapseall', function(event) {
 		if(jQuery(this).attr('rel') !== undefined){
 			var rel = jQuery(this).attr('rel');
 			var loop_items = jQuery('.collapseomatic.colomat-close[rel="' + rel +'"]');
@@ -575,7 +575,7 @@ jQuery(document).ready(function() {
 	}
 
 	//handle anchor links within the same page
-	jQuery(document).on('click', 'a.expandanchor', function(event) {
+	jQuery(document).on('click touchstart', 'a.expandanchor', function(event) {
 		//event.preventDefault();
 		var fullurl = jQuery(this).attr('href');
 		// the URL contains an anchor but not a hash-bang
@@ -609,7 +609,7 @@ jQuery(document).ready(function() {
 		}
 	});
 
-	jQuery(document).on('click', 'a.colomat-nolink', function(event) {
+	jQuery(document).on('click touchstart', 'a.colomat-nolink', function(event) {
 		event.preventDefault();
 	});
 });
