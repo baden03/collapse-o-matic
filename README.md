@@ -4,9 +4,9 @@ Collapse-O-Matic
 * Contributors: twinpictures, baden03
 * Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 * Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
-* Requires at least: 4.4
-* Tested up to: 4.8.2
-* Stable tag: 1.7.7d
+* Requires at least: 4.5
+* Tested up to: 4.9.0
+* Stable tag: 1.7.7f
 * License: GPLv2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

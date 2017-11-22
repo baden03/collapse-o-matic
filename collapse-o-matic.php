@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.7d
+Version: 1.7.7f
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.7d';
+	var $version = '1.7.7f';
 
 	/**
 	 * Used as prefix for options entry
@@ -64,6 +64,8 @@ class WP_Collapse_O_Matic {
 		'cc_email' => '',
 		'filter_content' => '',
 		'pauseinit' => '',
+		'cc_display_id' => '',
+		'cc_display_title' => '',
 	);
 
 	var $license_group = 'colomat_licenseing';
@@ -243,6 +245,9 @@ class WP_Collapse_O_Matic {
 					//content
 					$content = get_the_content();
 				}
+			}
+			else {
+				return;
 			}
 			wp_reset_postdata();
 		}
@@ -659,6 +664,25 @@ class WP_Collapse_O_Matic {
 										<br /><span class="description"><?php _e('Apply the_content filter to target content.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
+
+								<?php
+									//if collapse-commander is installed, display options for displaying id and text in shortocdes
+									if( is_plugin_active( 'collapse-commander/collapse-commander.php' ) ) :
+								?>
+								<tr>
+									<th><?php _e( 'Display ID', 'colpromat' ) ?>:</th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[cc_display_id]" name="<?php echo $this->options_name ?>[cc_display_id]" value="1"  <?php echo checked( $options['cc_display_id'], 1 ); ?> /> <?php _e('Display ID', 'colpromat'); ?>
+										<br /><span class="description"><?php _e('Display custom ID attribute in shortcodes if set for easier shortcode managment.', 'colpromat'); ?></span></label>
+									</td>
+								</tr>
+
+								<tr>
+									<th><?php _e( 'Display Title', 'colpromat' ) ?>:</th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[cc_display_title]" name="<?php echo $this->options_name ?>[cc_display_title]" value="1"  <?php echo checked( $options['cc_display_title'], 1 ); ?> /> <?php _e('Display Title', 'colpromat'); ?>
+										<br /><span class="description"><?php _e('Display custom eT attribute in shortcodes that shows expand title for easier shortcode managment.', 'colpromat'); ?></span></label>
+									</td>
+								</tr>
+								<?php endif; ?>
 
 								<tr>
 									<th><?php _e( 'Shortcode Loads Scripts', 'jquery-collapse-o-matic' ) ?>:</th>
