@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.8
+ * Collapse-O-Matic JavaSctipt v1.6.9
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2017, Twinpictures
