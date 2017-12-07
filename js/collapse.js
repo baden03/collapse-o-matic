@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.10
+ * Collapse-O-Matic JavaSctipt v1.6.11
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2017, Twinpictures
@@ -99,7 +99,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 
 	//slideToggle
 	if(com_effect == 'slideToggle'){
-		jQuery('[id^=target][id$='+id+']').slideToggle(com_duration, function() {
+		//jQuery('[id^=target][id$='+id+']').slideToggle(com_duration, function() {
+		jQuery('#target-'+id).slideToggle(com_duration, function() {
 			// Animation complete.
 			if( jQuery(this).hasClass('colomat-inline') && jQuery(this).is(':visible') ){
 				jQuery(this).css('display', 'inline');
@@ -120,7 +121,7 @@ function toggleState (obj, id, maptastic, trig_id) {
 	}
 	//slideFade
 	else if(com_effect == 'slideFade'){
-		jQuery('[id^=target][id$='+id+']').animate({
+		jQuery('#target-'+id).animate({
 			height: "toggle",
 			opacity: "toggle"
 		}, com_duration, function (){
