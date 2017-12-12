@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.5
 Tested up to: 4.9.1
-Stable tag: 1.7.9a
+Stable tag: 1.7.9b
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,7 @@ No. Not even close.
 == Changelog ==
 
 = 1.7.9 =
+* jQuery selector for expandanchor expanded to include any element, not just a tags.
 * jQuery selectors look for exact match for targets, preventing multiple targets expanding if the id’s end the same.
 
 = 1.7.8 =
@@ -358,4 +359,5 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* touchstart binding now an option
+* jQuery selector for expandanchor expanded to include any element, not just a tags.
+* jQuery selectors look for exact match for targets, preventing multiple targets expanding if the id’s end the same.

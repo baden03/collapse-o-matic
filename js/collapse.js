@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.11
+ * Collapse-O-Matic JavaSctipt v1.6.12
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2017, Twinpictures
@@ -544,7 +544,7 @@ jQuery(document).ready(function() {
 
 	//handle new page loads with anchor
 	var fullurl = document.location.toString();
-	// the URL contains an anchor, but not a hash-bang (#!)
+	//if the URL contains an anchor, but not a hash-bang (#!)
 	if (fullurl.match('#(?!\!)')) {
 		// click the navigation item corresponding to the anchor
 		var anchor_arr = fullurl.split(/#(?!\!)/);
@@ -581,7 +581,7 @@ jQuery(document).ready(function() {
 	}
 
 	//handle anchor links within the same page
-	jQuery(document).on(com_binding, 'a.expandanchor', function(event) {
+	jQuery(document).on(com_binding, '.expandanchor', function(event) {
 		//event.preventDefault();
 		var fullurl = jQuery(this).attr('href');
 		// the URL contains an anchor but not a hash-bang
