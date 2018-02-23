@@ -51,10 +51,10 @@ No. Not even close.
 == Changelog ==
 
 = 1.7.9 =
-* jQuery selector for expandanchor expanded to include any element, not just a tags.
+* jQuery selector for expandanchor no longer needed.
 * jQuery selectors look for exact match for targets, preventing multiple targets expanding if the id’s end the same.
 * alt tag not used unless alt value is provided
-* reworked the way url hashtags are handled to include manual hash changes in url, expandanchor class no longer required
+* reworked the way url hashtags are handled to include manual hash changes in url
 
 = 1.7.8 =
 * touchstart binding now an option
