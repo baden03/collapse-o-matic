@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.13
+ * Collapse-O-Matic JavaSctipt v1.6.14
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2018, Twinpictures
@@ -546,12 +546,7 @@ jQuery(document).ready(function() {
 	var fullurl = document.location.toString();
 	hashmaster(fullurl);
 
-	//handle anchor links within the same page
-	jQuery(document).on(com_binding, '.expandanchor', function(event) {
-		fullurl = jQuery(this).attr('href');
-		hashmaster(fullurl);
-	});
-
+	//handle no-link triggers within the same page
 	jQuery(document).on(com_binding, 'a.colomat-nolink', function(event) {
 		event.preventDefault();
 	});
@@ -576,7 +571,7 @@ jQuery(document).ready(function() {
 			else{
 				anchor = anchor_arr[0];
 			}
-
+			console.log(anchor);
 			if( is_valid_jquery_selector('#' + anchor) && jQuery('#' + anchor).length ){
 				//expand any nested parents
 				jQuery('#' + anchor).parents('.collapseomatic_content').each(function(index) {
