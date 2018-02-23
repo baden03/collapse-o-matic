@@ -547,7 +547,7 @@ jQuery(document).ready(function() {
 	hashmaster(fullurl);
 
 	//handle no-link triggers within the same page
-	jQuery(document).on(com_binding, 'a.colomat-nolink', function(event) {
+	jQuery(document).on('click', 'a.colomat-nolink', function(event) {
 		event.preventDefault();
 	});
 
