@@ -571,7 +571,7 @@ jQuery(document).ready(function() {
 			else{
 				anchor = anchor_arr[0];
 			}
-			console.log(anchor);
+			
 			if( is_valid_jquery_selector('#' + anchor) && jQuery('#' + anchor).length ){
 				//expand any nested parents
 				jQuery('#' + anchor).parents('.collapseomatic_content').each(function(index) {
