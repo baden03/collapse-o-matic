@@ -341,16 +341,6 @@ jQuery(document).ready(function() {
 		collapse_init();
 	}
 
-	function is_valid_jquery_selector(sel) {
-		try {
-			jQuery(sel);
-			return true;
-		}
-		catch(ex) {
-			return false;
-		}
-	}
-
 	//jetpack infinite scroll catch-all
 	jQuery( document.body ).on( 'post-load', function () {
 		collapse_init();
@@ -571,8 +561,8 @@ jQuery(document).ready(function() {
 			else{
 				anchor = anchor_arr[0];
 			}
-			
-			if( is_valid_jquery_selector('#' + anchor) && jQuery('#' + anchor).length ){
+
+			if( jQuery('#' + anchor).length ){
 				//expand any nested parents
 				jQuery('#' + anchor).parents('.collapseomatic_content').each(function(index) {
 					parent_arr = jQuery(this).attr('id').split('-');
