@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
 Tested up to: 4.9.4
-Stable tag: 1.7.9
+Stable tag: 1.7.10a
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.7.10 =
+* improved random id generation when no id is assigned
 
 = 1.7.9 =
 * jQuery selector for expandanchor no longer needed.
