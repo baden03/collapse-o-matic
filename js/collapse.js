@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.14
+ * Collapse-O-Matic JavaSctipt v1.6.15
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2018, Twinpictures
@@ -534,7 +534,9 @@ jQuery(document).ready(function() {
 
 	//handle new page loads with anchor
 	var fullurl = document.location.toString();
-	hashmaster(fullurl);
+	if (fullurl.match('#(?!\!)')) {
+		hashmaster(fullurl);
+	}
 
 	//handle no-link triggers within the same page
 	jQuery(document).on('click', 'a.colomat-nolink', function(event) {
@@ -544,7 +546,9 @@ jQuery(document).ready(function() {
 	//manual hashtag changes in url
 	jQuery(window).on('hashchange', function (e) {
 		fullurl = document.location.toString();
-		hashmaster(fullurl);
+		if (fullurl.match('#(?!\!)')) {
+			hashmaster(fullurl);
+		}
 	});
 
 	//master url hash funciton
