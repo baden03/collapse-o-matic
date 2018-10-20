@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.15
+ * Collapse-O-Matic JavaSctipt v1.6.16
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2018, Twinpictures
@@ -379,7 +379,7 @@ jQuery(document).ready(function() {
 	});
 
 	//the main collapse/expand function
-	jQuery(document).on(com_binding, '.collapseomatic', function(event) {
+	jQuery(document.body).on(com_binding, '.collapseomatic', function(event) {
 		var offset_top;
 
 		//alert('phones ringin dude');
