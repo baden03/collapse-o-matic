@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.0.3
-Stable tag: 1.7.10d
+Tested up to: 5.1.0-RC1
+Stable tag: 1.7.10e
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,7 @@ No. Not even close.
 * target the document.body
 * improved random id generation when no id is assigned
 * added colomat shortcode as an alias for expand
+* added notitle to options page
 
 = 1.7.9 =
 * jQuery selector for expandanchor no longer needed.
@@ -366,5 +367,7 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
+* target the document.body
 * improved random id generation when no id is assigned
 * added colomat shortcode as an alias for expand
+* added notitle to options page

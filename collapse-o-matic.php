@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.10d
+Version: 1.7.10e
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.10d';
+	var $version = '1.7.10e';
 
 	/**
 	 * Used as prefix for options entry
@@ -53,6 +53,7 @@ class WP_Collapse_O_Matic {
 		'trigclass' => '',
 		'targtag' => 'div',
 		'targclass' => '',
+		'notitle' => '',
 		'duration' => 'fast',
 		'tabindex' => '0',
 		'slideEffect' => 'slideFade',
@@ -190,7 +191,7 @@ class WP_Collapse_O_Matic {
 			'swaptitle' => '',
 			'alt' => '',
 			'swapalt' => '',
-			'notitle' => '',
+			'notitle' => $options['notitle'],
 			'id' => 'id'.$ran,
 			'tag' => $options['tag'],
 			'trigclass' => $options['trigclass'],
@@ -611,6 +612,13 @@ class WP_Collapse_O_Matic {
 									<th><?php _e( 'Targclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[targclass]" name="<?php echo $this->options_name ?>[targclass]" value="<?php echo $options['targclass']; ?>" />
 										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#targclass" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
+
+								<tr>
+									<th><?php _e( 'No Title', 'jquery-collapse-o-matic' ) ?>:</th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[notitle]" name="<?php echo $this->options_name ?>[notitle]" value="1"  <?php echo checked( $options['notitle'], 1 ); ?> /> <?php _e('No Title', 'jquery-collapse-o-matic'); ?>
+										<br /><span class="description"><?php _e('Do not use title tags by default.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
