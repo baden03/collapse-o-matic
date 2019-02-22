@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.16
+ * Collapse-O-Matic JavaSctipt v1.6.17
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2018, Twinpictures
@@ -330,11 +330,11 @@ function colomat_collapseall(loop_items){
 jQuery(document).ready(function() {
 	//console.log(colomatduration, colomatslideEffect, colomatpauseInit);
 	com_binding = 'click';
-	if(colomattouchstart){
+	if (typeof colomattouchstart !== 'undefined' && colomattouchstart) {
 		com_binding = 'click touchstart';
 	}
 
-	if(colomatpauseInit){
+	if (typeof colomatpauseInit !== 'undefined' && colomatpauseInit) {
 		init_pause = setTimeout(collapse_init, colomatpauseInit);
 	}
 	else{
