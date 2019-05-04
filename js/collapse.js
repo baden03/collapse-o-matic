@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.17
+ * Collapse-O-Matic JavaSctipt v1.6.18
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2018, Twinpictures
@@ -44,6 +44,14 @@ function collapse_init() {
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
 			swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 		}
+		jQuery('[id^=extra][id$='+thisid+']').each( function( index ){
+			if(jQuery(this).data('swaptitle')){
+				old_swap_title = jQuery(this).data('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).data('swaptitle', old_title);
+			}
+		});
 	});
 }
 
@@ -180,6 +188,16 @@ function closeOtherGroups(rel){
 				swapTitle("#exerpt-"+id, "#swapexcerpt-"+id);
 			}
 
+			//external triggers
+			jQuery('[id^=extra][id$='+id+']').each( function( index ){
+				if(jQuery(this).data('swaptitle')){
+					old_swap_title = jQuery(this).data('swaptitle');
+					old_title = jQuery(this).html();
+					jQuery(this).html(old_swap_title);
+					jQuery(this).data('swaptitle', old_title);
+				}
+			});
+
 			toggleState (jQuery(this), id, false, false);
 
 			//check if there are nested children that need to be collapsed
@@ -216,6 +234,16 @@ function closeOtherMembers(rel, id){
 			if(jQuery("#swapexcerpt-"+thisid).length > 0){
 				swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 			}
+
+			//external triggers
+			jQuery('[id^=extra][id$='+thisid+']').each( function( index ){
+				if(jQuery(this).data('swaptitle')){
+					old_swap_title = jQuery(this).data('swaptitle');
+					old_title = jQuery(this).html();
+					jQuery(this).html(old_swap_title);
+					jQuery(this).data('swaptitle', old_title);
+				}
+			});
 
 			//check for snap-shut
 			if(!jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('snap-shut')){
@@ -271,6 +299,15 @@ function closeOtherMembers(rel, id){
 					if(jQuery("#swapexcerpt-"+thisid).length > 0){
 						swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 					}
+					//external triggers
+					jQuery('[id^=extra][id$='+thisid+']').each( function( index ){
+						if(jQuery(this).data('swaptitle')){
+							old_swap_title = jQuery(this).data('swaptitle');
+							old_title = jQuery(this).html();
+							jQuery(this).html(old_swap_title);
+							jQuery(this).data('swaptitle', old_title);
+						}
+					});
 					jQuery('#target-'+thisid).css('display', 'none');
 				}
 			})
@@ -294,6 +331,16 @@ function colomat_expandall(loop_items){
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
 			swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 		}
+
+		//external triggers
+		jQuery('[id^=extra][id$='+thisid+']').each( function( index ){
+			if(jQuery(this).data('swaptitle')){
+				old_swap_title = jQuery(this).data('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).data('swaptitle', old_title);
+			}
+		});
 
 		toggleState(jQuery(this), thisid, false, false);
 	});
@@ -320,6 +367,16 @@ function colomat_collapseall(loop_items){
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
 			swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 		}
+
+		//external triggers
+		jQuery('[id^=extra][id$='+thisid+']').each( function( index ){
+			if(jQuery(this).data('swaptitle')){
+				old_swap_title = jQuery(this).data('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).data('swaptitle', old_title);
+			}
+		});
 
 		toggleState(jQuery(this), thisid, false, false);
 
@@ -467,6 +524,16 @@ jQuery(document).ready(function() {
 		if(jQuery("#swapexcerpt-"+id).length > 0){
 			swapTitle("#excerpt-"+id, "#swapexcerpt-"+id);
 		}
+
+		//external triggers
+		jQuery('[id^=extra][id$='+id+']').each( function( index ){
+			if(jQuery(this).data('swaptitle')){
+				old_swap_title = jQuery(this).data('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).data('swaptitle', old_title);
+			}
+		});
 
 		//add visited class
 		jQuery(this).addClass('colomat-visited');
