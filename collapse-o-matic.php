@@ -83,16 +83,16 @@ class WP_Collapse_O_Matic {
 	 * PHP5 constructor
 	 */
 	function __construct() {
-		// set option values
+		//set option values
 		$this->_set_options();
 
-		// load text domain for translations
+		//load text domain for translations
 		load_plugin_textdomain( 'jquery-collapse-o-matic' );
 
-		//load the script and style if viewing the front-end
-		add_action('wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
-
-		// add actions
+		//add actions
+		add_action( 'init', array( $this, 'register_colomat_block' ) );
+		//add_action( 'wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'collapsTronicInit' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'plugin_actions' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -102,12 +102,12 @@ class WP_Collapse_O_Matic {
 		else{
 			add_action('wp_head', array( $this, 'colomat_js_vars' ) );
 		}
-		add_shortcode('expand', array($this, 'shortcode'));
-		add_shortcode('colomat', array($this, 'shortcode'));
+		add_shortcode('expand', array($this, 'colomat_shortcode'));
+		add_shortcode('colomat', array($this, 'colomat_shortcode'));
 
 		//add expandsub shortcodes
 		for ($i=1; $i<30; $i++) {
-			add_shortcode('expandsub'.$i, array($this, 'shortcode'));
+			add_shortcode('expandsub'.$i, array($this, 'colomat_shortcode'));
 		}
 
 		// Add shortcode support for widgets
@@ -116,17 +116,67 @@ class WP_Collapse_O_Matic {
 
 	//global javascript vars
 	function colomat_js_vars(){
+		/*
 		echo "<script type='text/javascript'>\n";
 		echo "var colomatduration = '".$this->options['duration']."';\n";
 		echo "var colomatslideEffect = '".$this->options['slideEffect']."';\n";
 		echo "var colomatpauseInit = '".$this->options['pauseinit']."';\n";
 		echo "var colomattouchstart = '".$this->options['touch_start']."';\n";
 		echo "</script>";
+		*/
 		if( !empty( $this->options['custom_css'] ) ){
 			echo "\n<style>\n";
 			echo $this->options['custom_css'];
 			echo "\n</style>\n";
 		}
+	}
+
+	/**
+ 	* Register block
+ 	*/
+	function register_colomat_block() {
+
+		if ( ! function_exists( 'register_block_type' ) ) {
+			// Gutenberg is not active.
+			return;
+		}
+
+		wp_register_script(
+			'colomat-block',
+			plugin_dir_url(__FILE__) . 'block.js',
+			array(
+				'wp-blocks',
+				'wp-element',
+				'wp-components',
+				'wp-i18n',
+				'wp-editor',
+			),
+			'0.3',
+			true
+		);
+
+		register_block_type( 'colomat/expand', array(
+			'editor_script' => 'colomat-block',
+			'render_callback' => [$this, 'colomat_shortcode'],
+			'attributes' => [
+				'title' => [
+					'type' => 'string',
+					'default' => ''
+					],
+				'swaptitle' => [
+					'type' => 'string',
+					'default' => ''
+					],
+				'tag' => [
+					'type' => 'string',
+					'default' => 'DIV'
+					],
+				'id' => [
+					'type' => 'string',
+					'default' => ''
+					],
+			]
+		) );
 	}
 
 	/**
@@ -138,7 +188,10 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.6.18', $load_in_footer);
+
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.7', $load_in_footer);
+		wp_localize_script('collapseomatic-js', 'colomat', $this->options );
+
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -172,9 +225,9 @@ class WP_Collapse_O_Matic {
 	}
 
 	/**
-	 * Callback shortcode
+	 * Callback colomt_shortcode
 	 */
-	function shortcode($atts, $content = null){
+	function colomat_shortcode($atts, $content = null){
 		$options = $this->options;
 		if( !empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');

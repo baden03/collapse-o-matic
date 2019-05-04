@@ -1,8 +1,8 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.18
+ * Collapse-O-Matic JavaSctipt v1.7
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
- * Copyright 2018, Twinpictures
+ * Copyright 2019, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -87,8 +87,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 	}
 
 	//reset effect and duration to default
-	com_effect = colomatslideEffect;
-	com_duration = colomatduration;
+	com_effect = colomat['slideEffect'];
+	com_duration = colomat['duration'];
 
 	//effect override
 	if( obj.attr('data-animation_effect') ){
@@ -385,14 +385,13 @@ function colomat_collapseall(loop_items){
 
 
 jQuery(document).ready(function() {
-	//console.log(colomatduration, colomatslideEffect, colomatpauseInit);
 	com_binding = 'click';
-	if (typeof colomattouchstart !== 'undefined' && colomattouchstart) {
+	if (typeof colomat['touchstart'] !== 'undefined' && colomat['touchstart']) {
 		com_binding = 'click touchstart';
 	}
 
-	if (typeof colomatpauseInit !== 'undefined' && colomatpauseInit) {
-		init_pause = setTimeout(collapse_init, colomatpauseInit);
+	if (typeof colomat['pauseInit'] !== 'undefined' && colomat['pauseInit']) {
+		init_pause = setTimeout(collapse_init, colomat['pauseInit']);
 	}
 	else{
 		collapse_init();
@@ -649,10 +648,10 @@ jQuery(document).ready(function() {
 				}
 			}
 
-			if(typeof colomatoffset !== 'undefined'){
+			if(typeof colomat['offset'] !== 'undefined' && colomat['offset']){
 				var anchor_offset = jQuery('#' + anchor).offset();
-				colomatoffset = colomatoffset + anchor_offset.top;
-				jQuery('html, body').animate({scrollTop:colomatoffset}, 50);
+				moveto = colomat['offset'] + anchor_offset.top;
+				jQuery('html, body').animate({scrollTop:moveto}, 50);
 			}
 
 		}
