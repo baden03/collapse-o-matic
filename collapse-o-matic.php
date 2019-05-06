@@ -91,8 +91,8 @@ class WP_Collapse_O_Matic {
 
 		//add actions
 		add_action( 'init', array( $this, 'register_colomat_block' ) );
-		//add_action( 'wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
-		add_action( 'enqueue_block_assets', array( $this, 'collapsTronicInit' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
+		//add_action( 'enqueue_block_assets', array( $this, 'collapsTronicInit' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'plugin_actions' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -116,14 +116,6 @@ class WP_Collapse_O_Matic {
 
 	//global javascript vars
 	function colomat_js_vars(){
-		/*
-		echo "<script type='text/javascript'>\n";
-		echo "var colomatduration = '".$this->options['duration']."';\n";
-		echo "var colomatslideEffect = '".$this->options['slideEffect']."';\n";
-		echo "var colomatpauseInit = '".$this->options['pauseinit']."';\n";
-		echo "var colomattouchstart = '".$this->options['touch_start']."';\n";
-		echo "</script>";
-		*/
 		if( !empty( $this->options['custom_css'] ) ){
 			echo "\n<style>\n";
 			echo $this->options['custom_css'];
@@ -135,7 +127,6 @@ class WP_Collapse_O_Matic {
  	* Register block
  	*/
 	function register_colomat_block() {
-
 		if ( ! function_exists( 'register_block_type' ) ) {
 			// Gutenberg is not active.
 			return;
@@ -151,31 +142,17 @@ class WP_Collapse_O_Matic {
 				'wp-i18n',
 				'wp-editor',
 			),
-			'0.3',
+			'0.4',
 			true
 		);
+		wp_localize_script('colomat-block', 'colomat', $this->options );
+
+		//pass default options to js
+
 
 		register_block_type( 'colomat/expand', array(
 			'editor_script' => 'colomat-block',
-			'render_callback' => [$this, 'colomat_shortcode'],
-			'attributes' => [
-				'title' => [
-					'type' => 'string',
-					'default' => ''
-					],
-				'swaptitle' => [
-					'type' => 'string',
-					'default' => ''
-					],
-				'tag' => [
-					'type' => 'string',
-					'default' => 'DIV'
-					],
-				'id' => [
-					'type' => 'string',
-					'default' => ''
-					],
-			]
+			//'render_callback' => [$this, 'colomat_shortcode'],
 		) );
 	}
 
@@ -227,6 +204,7 @@ class WP_Collapse_O_Matic {
 	/**
 	 * Callback colomt_shortcode
 	 */
+
 	function colomat_shortcode($atts, $content = null){
 		$options = $this->options;
 		if( !empty($this->options['script_check']) ){
@@ -253,7 +231,6 @@ class WP_Collapse_O_Matic {
 			'targpos' => '',
 			'trigpos' => 'above',
 			'rel' => '',
-			'group' => '',
 			'togglegroup' => '',
 			'expanded' => '',
 			'excerpt' => '',
@@ -333,6 +310,10 @@ class WP_Collapse_O_Matic {
 			wp_reset_postdata();
 		}
 
+		if(empty($content && !empty($atts['content']))){
+			$content = $atts['content'];
+		}
+
 		//content filtering
 		if(empty($filter) || $filter == 'false'){
 			$content = do_shortcode($content);
@@ -347,6 +328,11 @@ class WP_Collapse_O_Matic {
 
 		//id does not allow spaces
 		$id = preg_replace('/\s+/', '_', $id);
+
+		//just to be sure...
+		if(empty($id)){
+			$id = 'id'.$ran;
+		}
 
 		//placeholders
 		$placeholder_arr = array('%(%', '%)%', '%{%', '%}%');
@@ -433,10 +419,6 @@ class WP_Collapse_O_Matic {
 		}
 
 		$groupatt = '';
-		//legacy
-		if($group && !$togglegroup){
-			$togglegroup = $group;
-		}
 
 		if($togglegroup){
 			$groupatt = 'data-togglegroup="'.$togglegroup.'"';
@@ -917,10 +899,6 @@ class WP_Collapse_O_Matic {
 		// set options
 		$saved_options = get_option( $this->options_name );
 
-		// backwards compatible (old values)
-		if ( empty( $saved_options ) ) {
-			$saved_options = get_option( $this->domain . 'options' );
-		}
 		// set all options
 		if ( !empty( $saved_options ) ) {
 			foreach ( $this->options AS $key => $option ) {
