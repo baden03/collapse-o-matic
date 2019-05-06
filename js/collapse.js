@@ -38,9 +38,21 @@ function collapse_init() {
 	//inital swaptitle for pre-expanded elements
 	jQuery('.collapseomatic.colomat-close').each(function(index) {
 		var thisid = jQuery(this).attr('id');
+		if(!thisid){
+			return false;
+		}
+		//old way
 		if(jQuery("#swap-"+thisid).length > 0){
 			swapTitle(this, "#swap-"+thisid );
 		}
+		//new way
+		if(jQuery(this).attr('swaptitle')){
+			old_swap_title = jQuery(this).attr('swaptitle');
+			old_title = jQuery(this).html();
+			jQuery(this).html(old_swap_title);
+			jQuery(this).attr('swaptitle', old_title);
+		}
+
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
 			swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
 		}
@@ -175,12 +187,24 @@ function closeOtherGroups(rel){
 		if(jQuery(this).hasClass('colomat-close') && jQuery(this).attr('rel') !== undefined){
 			jQuery(this).removeClass('colomat-close');
 			var id = jQuery(this).attr('id');
+			if(!id){
+				return false;
+			}
 			//remove parent highlight class
 			jQuery('#parent-'+id).removeClass('colomat-parent-highlight');
 
 			//check if the title needs to be swapped out
+			//old way
 			if(jQuery("#swap-"+id).length > 0){
 				swapTitle(this, "#swap-"+id);
+			}
+
+			//new way
+			if(jQuery(this).attr('swaptitle')){
+				old_swap_title = jQuery(this).attr('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).attr('swaptitle', old_title);
 			}
 
 			//check if the excerpt needs to be swapped out
@@ -222,12 +246,25 @@ function closeOtherMembers(rel, id){
 			//collapse the element
 			jQuery(this).removeClass('colomat-close');
 			var thisid = jQuery(this).attr('id');
+			if(!thisid){
+				return false;
+			}
 			//remove parent highlight class
 			jQuery('#parent-'+thisid).removeClass('colomat-parent-highlight');
 
 			//check if the title needs to be swapped out
+
+			//old way
 			if(jQuery("#swap-"+thisid).length > 0){
 				swapTitle(this, "#swap-"+thisid);
+			}
+
+			//new way
+			if(jQuery(this).attr('swaptitle')){
+				old_swap_title = jQuery(this).attr('swaptitle');
+				old_title = jQuery(this).html();
+				jQuery(this).html(old_swap_title);
+				jQuery(this).attr('swaptitle', old_title);
 			}
 
 			//check if the excerpt needs to be swapped out
@@ -291,10 +328,23 @@ function closeOtherMembers(rel, id){
 				if(jQuery(this).attr('id').indexOf('bot-') == '-1'){
 					jQuery(this).removeClass('colomat-close');
 					var thisid = jQuery(this).attr('id');
+					if(!thisid){
+						return false;
+					}
 					//check if the title needs to be swapped out
+					//old way
 					if(jQuery("#swap-"+thisid).length > 0){
 						swapTitle(this, "#swap-"+thisid);
 					}
+
+					//new way
+					if(jQuery(this).attr('swaptitle')){
+						old_swap_title = jQuery(this).attr('swaptitle');
+						old_title = jQuery(this).html();
+						jQuery(this).html(old_swap_title);
+						jQuery(this).attr('swaptitle', old_title);
+					}
+
 					//check if the excerpt needs to be swapped out
 					if(jQuery("#swapexcerpt-"+thisid).length > 0){
 						swapTitle("#excerpt-"+thisid, "#swapexcerpt-"+thisid);
@@ -322,10 +372,21 @@ function colomat_expandall(loop_items){
 	loop_items.each(function(index) {
 		jQuery(this).addClass('colomat-close');
 		var thisid = jQuery(this).attr('id');
+		if(!thisid){
+			return false;
+		}
 		jQuery('#parent-'+thisid).addClass('colomat-parent-highlight');
 
 		if(jQuery("#swap-"+thisid).length > 0){
 			swapTitle(this, "#swap-"+thisid);
+		}
+
+		//new way
+		if(jQuery(this).attr('swaptitle')){
+			old_swap_title = jQuery(this).attr('swaptitle');
+			old_title = jQuery(this).html();
+			jQuery(this).html(old_swap_title);
+			jQuery(this).attr('swaptitle', old_title);
 		}
 
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
@@ -358,10 +419,21 @@ function colomat_collapseall(loop_items){
 
 		jQuery(this).removeClass('colomat-close');
 		var thisid = jQuery(this).attr('id');
+		if(!thisid){
+			return false;
+		}
 		jQuery('#parent-'+thisid).removeClass('colomat-parent-highlight');
 
 		if(jQuery("#swap-"+thisid).length > 0){
 			swapTitle(this, "#swap-"+thisid);
+		}
+
+		//new way
+		if(jQuery(this).attr('swaptitle')){
+			old_swap_title = jQuery(this).attr('swaptitle');
+			old_title = jQuery(this).html();
+			jQuery(this).html(old_swap_title);
+			jQuery(this).attr('swaptitle', old_title);
 		}
 
 		if(jQuery("#swapexcerpt-"+thisid).length > 0){
@@ -450,31 +522,9 @@ jQuery(document).ready(function() {
 
 		var id = jQuery(this).attr('id');
 
-		//deal with any scroll to links
-		if(jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('scroll-to-trigger')){
-			offset_top = jQuery('#scrollonclose-'+id).attr('name');
-			if (offset_top == 'auto') {
-				var target_offset = jQuery('#'+id).offset();
-				offset_top = target_offset.top;
-			}
-		}
-
-		var id_arr = id.split('-');
-
-		//deal with extra tirggers
-		if (id_arr[0].indexOf('extra') != '-1') {
-			//console.log('this is an extra trigger');
-			pre = id_arr.splice(0, 1);
-			id = id_arr.join('-');
-
-			//deal with any scroll to links from the Extra Collapse Trigger
-			if(jQuery(this).hasClass('scroll-to-trigger')){
-				var target_offset = jQuery('#'+id).offset();
-				offset_top = target_offset.top;
-			}
-
-			//deal with any scroll to links from the Title Trigger
-			if(jQuery('#'+id).hasClass('scroll-to-trigger')){
+		if(id){
+			//deal with any scroll to links
+			if(jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('scroll-to-trigger')){
 				offset_top = jQuery('#scrollonclose-'+id).attr('name');
 				if (offset_top == 'auto') {
 					var target_offset = jQuery('#'+id).offset();
@@ -482,86 +532,118 @@ jQuery(document).ready(function() {
 				}
 			}
 
-			//toggle master trigger arrow
-			jQuery('#'+id).toggleClass('colomat-close');
+			var id_arr = id.split('-');
 
-			//toggle any other extra trigger arrows
-			jQuery('[id^=extra][id$='+id+']').toggleClass('colomat-close');
-		}
+			//deal with extra tirggers
+			if (id_arr[0].indexOf('extra') != '-1') {
+				//console.log('this is an extra trigger');
+				pre = id_arr.splice(0, 1);
+				id = id_arr.join('-');
 
-		else if(id.indexOf('bot-') != '-1'){
-			id = id.substr(4);
-			jQuery('#'+id).toggleClass('colomat-close');
-
-			//deal with any scroll to links from the Internal Collapse Trigger
-			if(jQuery(this).hasClass('scroll-to-trigger')){
-				var target_offset = jQuery('#'+id).offset();
-				offset_top = target_offset.top;
-			}
-
-			//deal with any scroll to links from the Title Trigger
-			if(jQuery('#'+id).hasClass('scroll-to-trigger')){
-				offset_top = jQuery('#scrollonclose-'+id).attr('name');
-				if (offset_top == 'auto') {
+				//deal with any scroll to links from the Extra Collapse Trigger
+				if(jQuery(this).hasClass('scroll-to-trigger')){
 					var target_offset = jQuery('#'+id).offset();
 					offset_top = target_offset.top;
 				}
+
+				//deal with any scroll to links from the Title Trigger
+				if(jQuery('#'+id).hasClass('scroll-to-trigger')){
+					offset_top = jQuery('#scrollonclose-'+id).attr('name');
+					if (offset_top == 'auto') {
+						var target_offset = jQuery('#'+id).offset();
+						offset_top = target_offset.top;
+					}
+				}
+
+				//toggle master trigger arrow
+				jQuery('#'+id).toggleClass('colomat-close');
+
+				//toggle any other extra trigger arrows
+				jQuery('[id^=extra][id$='+id+']').toggleClass('colomat-close');
 			}
-		}
-		else{
-			jQuery(this).toggleClass('colomat-close');
-			//toggle any extra triggers
-			jQuery('[id^=extra][id$='+id+']').toggleClass('colomat-close');
-		}
 
-		//check if the title needs to be swapped out
-		if(jQuery("#swap-"+id).length > 0){
-			swapTitle(jQuery('#'+id), "#swap-"+id);
-		}
+			else if(id.indexOf('bot-') != '-1'){
+				id = id.substr(4);
+				jQuery('#'+id).toggleClass('colomat-close');
 
-		//check if the excerpt needs to be swapped out
-		if(jQuery("#swapexcerpt-"+id).length > 0){
-			swapTitle("#excerpt-"+id, "#swapexcerpt-"+id);
-		}
+				//deal with any scroll to links from the Internal Collapse Trigger
+				if(jQuery(this).hasClass('scroll-to-trigger')){
+					var target_offset = jQuery('#'+id).offset();
+					offset_top = target_offset.top;
+				}
 
-		//external triggers
-		jQuery('[id^=extra][id$='+id+']').each( function( index ){
-			if(jQuery(this).data('swaptitle')){
-				old_swap_title = jQuery(this).data('swaptitle');
-				old_title = jQuery(this).html();
-				jQuery(this).html(old_swap_title);
-				jQuery(this).data('swaptitle', old_title);
-			}
-		});
-
-		//add visited class
-		jQuery(this).addClass('colomat-visited');
-
-		//toggle parent highlight class
-		var parentID = 'parent-'+id;
-		jQuery('#' + parentID).toggleClass('colomat-parent-highlight');
-
-		//check for snap-shut
-		if(!jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('snap-shut')){
-			jQuery('#target-'+id).hide();
-		}
-		else{
-			toggleState (jQuery(this), id, true, id);
-		}
-
-		//deal with grouped items if needed
-		if(jQuery(this).attr('rel') !== undefined){
-			var rel = jQuery(this).attr('rel');
-			if(rel.indexOf('-highlander') != '-1'){
-				closeOtherMembers(rel, id);
+				//deal with any scroll to links from the Title Trigger
+				if(jQuery('#'+id).hasClass('scroll-to-trigger')){
+					offset_top = jQuery('#scrollonclose-'+id).attr('name');
+					if (offset_top == 'auto') {
+						var target_offset = jQuery('#'+id).offset();
+						offset_top = target_offset.top;
+					}
+				}
 			}
 			else{
-				closeOtherGroups(rel);
+				jQuery(this).toggleClass('colomat-close');
+				//toggle any extra triggers
+				jQuery('[id^=extra][id$='+id+']').toggleClass('colomat-close');
 			}
-		}
 
-		if(offset_top){
-			jQuery('html, body').animate({scrollTop:offset_top}, 500);
+			//check if the title needs to be swapped out
+			if(jQuery("#swap-"+id).length > 0){
+				swapTitle(jQuery('#'+id), "#swap-"+id);
+			}
+
+			//new way
+			if(jQuery(this).attr('swaptitle')){
+				old_swap_title = jQuery('#'+id).attr('swaptitle');
+				old_title = jQuery('#'+id).html();
+				jQuery('#'+id).html(old_swap_title);
+				jQuery('#'+id).attr('swaptitle', old_title);
+			}
+
+			//check if the excerpt needs to be swapped out
+			if(jQuery("#swapexcerpt-"+id).length > 0){
+				swapTitle("#excerpt-"+id, "#swapexcerpt-"+id);
+			}
+
+			//external triggers
+			jQuery('[id^=extra][id$='+id+']').each( function( index ){
+				if(jQuery(this).data('swaptitle')){
+					old_swap_title = jQuery(this).data('swaptitle');
+					old_title = jQuery(this).html();
+					jQuery(this).html(old_swap_title);
+					jQuery(this).data('swaptitle', old_title);
+				}
+			});
+
+			//add visited class
+			jQuery(this).addClass('colomat-visited');
+
+			//toggle parent highlight class
+			var parentID = 'parent-'+id;
+			jQuery('#' + parentID).toggleClass('colomat-parent-highlight');
+
+			//check for snap-shut
+			if(!jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('snap-shut')){
+				jQuery('#target-'+id).hide();
+			}
+			else{
+				toggleState (jQuery(this), id, true, id);
+			}
+
+			//deal with grouped items if needed
+			if(jQuery(this).attr('rel') !== undefined){
+				var rel = jQuery(this).attr('rel');
+				if(rel.indexOf('-highlander') != '-1'){
+					closeOtherMembers(rel, id);
+				}
+				else{
+					closeOtherGroups(rel);
+				}
+			}
+
+			if(offset_top){
+				jQuery('html, body').animate({scrollTop:offset_top}, 500);
+			}
 		}
 	});
 
