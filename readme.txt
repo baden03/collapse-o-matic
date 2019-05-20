@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.1.1
-Stable tag: 1.7.11a
+Tested up to: 5.2
+Stable tag: 1.7.11
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,6 +53,7 @@ No. Not even close.
 
 = 1.7.11 =
 * added swaptitle capability to extra triggers
+* fully tested with WordPress 5.2
 
 = 1.7.10 =
 * target the document.body
@@ -74,7 +75,7 @@ No. Not even close.
 * added Initial Pause option to pause initial collapse of expand elements on page load
 * tabindex allows for a value of 0
 * if cid is provided and no cid exists, shortcode will return blank
-* added collapse-commander display id and title options for shortcodes 
+* added collapse-commander display id and title options for shortcodes
 * merged is_valid_jquery_selector function from csummer on github
 * added touchstart to click bindings
 * fully tested with WordPress 4.9.0
@@ -116,7 +117,7 @@ No. Not even close.
 
 = 1.6.14 =
 * hash-bang (#!) that are used in urls will not be processed as url anchors
-* now checks if a url anchor is actually an existing element before trying to process it 
+* now checks if a url anchor is actually an existing element before trying to process it
 * changed language domain to jquery-collapse-o-matic to work with WordPress’ new translation process
 * updated tested up to tag to 4.3.1
 
@@ -335,13 +336,13 @@ Fixed auto-expand of urls with id-anchors
 * Plug-in now degrades gracefully if JS is disabled. Added swaptitle attribute to change the title on expand/collapse.
 
 = 1.3.5 =
-* Random ID's now start with letters, for valid xhtml. 
+* Random ID's now start with letters, for valid xhtml.
 
 = 1.3.4 =
-* Changed '-member' to '-highlander' because it sounds better. 
+* Changed '-member' to '-highlander' because it sounds better.
 
 = 1.3.3 =
-* Added the ability to have only one member of a group expanded by adding '-member' to the rel attribute value. 
+* Added the ability to have only one member of a group expanded by adding '-member' to the rel attribute value.
 
 = 1.3.2 =
 * Added Expanded attribute that sets the default position expanded open.
@@ -371,7 +372,5 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* target the document.body
-* improved random id generation when no id is assigned
-* added colomat shortcode as an alias for expand
-* added notitle to options page
+* added swaptitle capability to extra triggers
+* fully tested with WordPress 5.2
