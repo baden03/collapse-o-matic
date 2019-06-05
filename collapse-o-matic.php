@@ -393,7 +393,7 @@ class WP_Collapse_O_Matic {
 		if(!empty($tabindex) || $tabindex == 0 ){
 			$inexatt = 'tabindex="'.$tabindex.'"';
 		}
-		if($expanded){
+		if($expanded && $expanded != 'false'){
 			$trigclass .= ' colomat-close';
 		}
 		$anchor = '';
