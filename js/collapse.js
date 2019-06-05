@@ -2,7 +2,7 @@
  * Collapse-O-Matic JavaSctipt v1.6.18
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
- * Copyright 2018, Twinpictures
+ * Copyright 2019, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
