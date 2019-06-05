@@ -4,7 +4,7 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.2
+Tested up to: 5.2.1
 Stable tag: 1.7.11
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -53,7 +53,7 @@ No. Not even close.
 
 = 1.7.11 =
 * added swaptitle capability to extra triggers
-* fully tested with WordPress 5.2
+* fully tested with WordPress 5.2.1
 
 = 1.7.10 =
 * target the document.body
