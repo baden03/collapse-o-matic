@@ -8,7 +8,7 @@ Author URI: https://plugins.twinpictures.de/
 Author: twinpictures
 Donate link: https://plugins.twinpictures.de/flying-houseboat/
 Requires at least: 5.0
-Tested up to: 5.2.1
+Tested up to: 5.2.2
 Stable tag: 2.0
 Requires PHP: 7.0
 License: GPLv2 or later
