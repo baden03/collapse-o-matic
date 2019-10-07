@@ -5,7 +5,7 @@ Collapse-O-Matic
 * Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 * Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 * Requires at least: 5.0
-* Tested up to: 5.2
+* Tested up to: 5.2.2
 * Stable tag: 2.0
 * Requires PHP: 7.0
 * License: GPLv2 or later
@@ -14,7 +14,7 @@ Collapse-O-Matic
 Description
 -----------
 
-Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
+Collapse-O-Matic adds an advanced accordion element that will wrap any content into an expanding and collapsing div.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
 
 Installation
 ------------
