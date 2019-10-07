@@ -903,7 +903,7 @@ class WP_Collapse_O_Matic {
 		if ( !empty( $saved_options ) ) {
 			foreach ( $this->options AS $key => $option ) {
 				if($key == 'tabindex'){
-					$this->options[ $key ] = $saved_options[ $key ];
+					$this->options[ $key ] = in_array( $key, $saved_options ) ? $saved_options[ $key ] : 0;
 				}
 				else{
 					$this->options[ $key ] = ( empty( $saved_options[ $key ] ) ) ? '' : $saved_options[ $key ];
