@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.2.1
-Stable tag: 1.7.11
+Tested up to: 5.4.<
+Stable tag: 1.7.12b
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,10 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.7.12 =
+* fixed expand_all triggers to work with maptastic
+* fully tested with WordPress 5.4.1
 
 = 1.7.11 =
 * added swaptitle capability to extra triggers
@@ -372,5 +376,5 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* added swaptitle capability to extra triggers
-* fully tested with WordPress 5.2
+* fixed expand_all triggers to work with maptastic
+* fully tested with WordPress 5.4.1

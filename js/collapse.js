@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.18
+ * Collapse-O-Matic JavaSctipt v1.6.19
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2019, Twinpictures
@@ -342,7 +342,7 @@ function colomat_expandall(loop_items){
 			}
 		});
 
-		toggleState(jQuery(this), thisid, false, false);
+		toggleState(jQuery(this), thisid, true, false);
 	});
 }
 
