@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.12
+Version: 1.7.13a
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.12';
+	var $version = '1.7.13a';
 
 	/**
 	 * Used as prefix for options entry
@@ -576,6 +576,12 @@ class WP_Collapse_O_Matic {
 									<th><?php _e( 'CID Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[cid]" name="<?php echo $this->options_name ?>[cid]" value="<?php echo $options['cid']; ?>" />
 										<br /><span class="description"><?php printf( __('Default %sCollapse Commander%s ID', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
+								<?php else: ?>
+								<tr>
+									<th><?php _e( 'Collapse Management', 'colpromat' ) ?></th>
+									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'colpromat' ), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/">', '</a>'); ?>
 									</td>
 								</tr>
 								<?php endif; ?>
