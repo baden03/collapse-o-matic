@@ -10,11 +10,11 @@ Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Remove clutter, save space: display and hide additional content in a SEO friendly way by wrapping content in an [expand] shortcode.
+Remove clutter and save space by placing content inside an expanding/collapsing accordion element. Accordion elements are SEO friendly: content will be indexed by search engines.
 
 == Description ==
 
-Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
+Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, including other shortcodes, into an accordion expanding and collapsing element.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
 
 == Installation ==
 
