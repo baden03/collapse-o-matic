@@ -1,8 +1,8 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.19
+ * Collapse-O-Matic JavaSctipt v1.6.20
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
- * Copyright 2019, Twinpictures
+ * Copyright 2020, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -211,23 +211,34 @@ function closeOtherGroups(rel){
 	});
 }
 
-function closeOtherMembers(rel, id){
+function closeOtherRelMembers(rel, id){
 	jQuery('.collapseomatic[rel="' + rel +'"]').each(function(index) {
-		if(jQuery(this).hasClass('colomat-expand-only') && jQuery(this).hasClass('colomat-close')){
+		closeOtherMembers( this, id);
+	});
+}
+
+function closeOtherTogMembers(togname, id){
+	jQuery('.collapseomatic[data-togglegroup="' + togname +'"]').each(function(index) {
+		closeOtherMembers( this, id);
+	});
+}
+
+function closeOtherMembers(obj, id){
+		if(jQuery(obj).hasClass('colomat-expand-only') && jQuery(obj).hasClass('colomat-close')){
 			return;
 		}
 
 		//add close class if open
-		if(jQuery(this).attr('id') != id && jQuery(this).hasClass('colomat-close') && jQuery(this).attr('rel') !== undefined){
+		if(jQuery(obj).attr('id') != id && jQuery(obj).hasClass('colomat-close')){
 			//collapse the element
-			jQuery(this).removeClass('colomat-close');
-			var thisid = jQuery(this).attr('id');
+			jQuery(obj).removeClass('colomat-close');
+			var thisid = jQuery(obj).attr('id');
 			//remove parent highlight class
 			jQuery('#parent-'+thisid).removeClass('colomat-parent-highlight');
 
 			//check if the title needs to be swapped out
 			if(jQuery("#swap-"+thisid).length > 0){
-				swapTitle(this, "#swap-"+thisid);
+				swapTitle(obj, "#swap-"+thisid);
 			}
 
 			//check if the excerpt needs to be swapped out
@@ -246,11 +257,11 @@ function closeOtherMembers(rel, id){
 			});
 
 			//check for snap-shut
-			if(!jQuery(this).hasClass('colomat-close') && jQuery(this).hasClass('snap-shut')){
+			if(!jQuery(obj).hasClass('colomat-close') && jQuery(obj).hasClass('snap-shut')){
 				jQuery('#target-'+thisid).hide();
 			}
 			else{
-				toggleState (jQuery(this), thisid, false, false);
+				toggleState (jQuery(obj), thisid, false, false);
 			}
 
 			//check if there are nested children that need to be collapsed
@@ -312,7 +323,6 @@ function closeOtherMembers(rel, id){
 				}
 			})
 		}
-	});
 }
 
 function colomat_expandall(loop_items){
@@ -444,8 +454,13 @@ jQuery(document).ready(function() {
 			return;
 		}
 
-		//highlander must be one
+		// rel highlander must be one
 		if(jQuery(this).attr('rel') && jQuery(this).attr('rel').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
+			return;
+		}
+
+		//toggle group highlander must be one
+		if(jQuery(this).data('togglegroup') && jQuery(this).data('togglegroup').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
 			return;
 		}
 
@@ -554,10 +569,18 @@ jQuery(document).ready(function() {
 		if(jQuery(this).attr('rel') !== undefined){
 			var rel = jQuery(this).attr('rel');
 			if(rel.indexOf('-highlander') != '-1'){
-				closeOtherMembers(rel, id);
+				closeOtherGroups(rel);
+				closeOtherRelMembers(rel, id);
 			}
 			else{
 				closeOtherGroups(rel);
+			}
+		}
+
+		if(jQuery(this).data('togglegroup') !== undefined){
+			var togname = jQuery(this).data('togglegroup');
+			if(togname.indexOf('-highlander') != '-1'){
+				closeOtherTogMembers(togname, id);
 			}
 		}
 

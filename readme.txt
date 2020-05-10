@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
 Tested up to: 5.4.1
-Stable tag: 1.7.12
+Stable tag: 1.7.13b
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,12 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.7.13 =
+* corrected typos
+* cleanded up code
+* added togglegroup highlander grouping
+* rel highlander grouping auto collpases other rel groups
 
 = 1.7.12 =
 * fixed expand_all triggers to work with maptastic
@@ -107,7 +113,7 @@ No. Not even close.
 
 = 1.7.1 =
 * integrated new collapse-commander image trigger feature
-* added new togglegroup shortcode attribute and data-togglegroup html attribute to reference groups of expand elements with out auto-collapsing other groups, such as when using the real attribute
+* added new togglegroup shortcode attribute and data-togglegroup html attribute to reference groups of expand elements with out auto-collapsing other groups, such as when using the rel attribute
 * added the ability to load plugin css only when shortcode is used
 * removed language files in favour of WordPress language packs
 * fully tested to work with WordPress 4.5
