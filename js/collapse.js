@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.20
+ * Collapse-O-Matic JavaSctipt v1.6.22
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2020, Twinpictures
@@ -117,13 +117,16 @@ function toggleState (obj, id, maptastic, trig_id) {
 			//deal with any findme links
 			if(trig_id && jQuery('#'+trig_id).is('.find-me.colomat-close')){
 				//offset_top = jQuery('#find-'+trig_id).attr('name');
-				offset_top = jQuery('#'+trig_id).attr('data-findme');
+				findme = jQuery('#'+trig_id).attr('data-findme');
+				target_offset = jQuery('#'+trig_id).offset();
 
-				if(!offset_top || offset_top == 'auto'){
-					target_offset = jQuery('#'+trig_id).offset();
-					offset_top = target_offset.top;
+				if( findme == 'auto' || findme == 'target'){
+					target_offset = jQuery('#target-'+trig_id).offset();
 				}
-				jQuery('html, body').animate({scrollTop:offset_top}, 500);
+				if( findme == 'trigger'){
+					target_offset = jQuery('#'+trig_id).offset();
+				}
+				jQuery('html, body').animate({scrollTop:target_offset.top}, 500);
 			}
 		});
 	}
@@ -140,14 +143,16 @@ function toggleState (obj, id, maptastic, trig_id) {
 
 			//deal with any findme links
 			if(trig_id && jQuery('#'+trig_id).is('.find-me.colomat-close')){
-				//offset_top = jQuery('#find-'+trig_id).attr('name');
-				offset_top = jQuery('#'+trig_id).attr('data-findme');
+				findme = jQuery('#'+trig_id).attr('data-findme');
+				target_offset = jQuery('#'+trig_id).offset();
 
-				if(!offset_top || offset_top == 'auto'){
-					target_offset = jQuery('#'+trig_id).offset();
-					offset_top = target_offset.top;
+				if( findme == 'auto' || findme == 'target'){
+					target_offset = jQuery('#target-'+trig_id).offset();
 				}
-				jQuery('html, body').animate({scrollTop:offset_top}, 500);
+				if( findme == 'trigger'){
+					target_offset = jQuery('#'+trig_id).offset();
+				}
+				jQuery('html, body').animate({scrollTop:target_offset.top}, 500);
 			}
 		});
 	}
@@ -455,12 +460,12 @@ jQuery(document).ready(function() {
 		}
 
 		// rel highlander must be one
-		if(jQuery(this).attr('rel') && jQuery(this).attr('rel').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
+		if(jQuery(this).attr('rel') && jQuery(this).attr('rel').toString().indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
 			return;
 		}
 
 		//toggle group highlander must be one
-		if(jQuery(this).data('togglegroup') && jQuery(this).data('togglegroup').indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
+		if(jQuery(this).data('togglegroup') && jQuery(this).data('togglegroup').toString().indexOf('-highlander') != '-1' && jQuery(this).hasClass('must-be-one') && jQuery(this).hasClass('colomat-close')){
 			return;
 		}
 
@@ -567,7 +572,7 @@ jQuery(document).ready(function() {
 
 		//deal with grouped items if needed
 		if(jQuery(this).attr('rel') !== undefined){
-			var rel = jQuery(this).attr('rel');
+			var rel = jQuery(this).attr('rel').toString();
 			if(rel.indexOf('-highlander') != '-1'){
 				closeOtherGroups(rel);
 				closeOtherRelMembers(rel, id);
@@ -578,7 +583,7 @@ jQuery(document).ready(function() {
 		}
 
 		if(jQuery(this).data('togglegroup') !== undefined){
-			var togname = jQuery(this).data('togglegroup');
+			var togname = jQuery(this).data('togglegroup').toString();
 			if(togname.indexOf('-highlander') != '-1'){
 				closeOtherTogMembers(togname, id);
 			}
