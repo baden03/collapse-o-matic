@@ -57,6 +57,7 @@ No. Not even close.
 * added togglegroup highlander grouping
 * fixed issue of rel or group values that consist only of numbers
 * findme now supports auto, trigger, target and numeric values
+* removed excerpt the_content filtering, added added filters for excerpt and swapexcerpt
 
 = 1.7.12 =
 * fixed expand_all triggers to work with maptastic
@@ -388,3 +389,4 @@ Fixed auto-expand of urls with id-anchors
 * added togglegroup highlander grouping
 * fixed issue of rel or group values that consist only of numbers
 * findme now supports auto, trigger, target and numeric values
+* removed excerpt the_content filtering, added added filters for excerpt and swapexcerpt

@@ -221,7 +221,10 @@ class WP_Collapse_O_Matic {
 		), $atts, 'expand'));
 
 		//collapse commander
-		if(!empty($cid)){
+		if( !empty($cid) && is_plugin_active( 'collapse-commander/collapse-commander.php') ){
+			$meta_values = WP_CollapseCommander::meta_grabber($cid);
+			extract(shortcode_atts($meta_values, $atts));
+
 			$args = array(
 				'post_type'	=> 'expand-element',
 				'p'		=> $cid,
@@ -231,53 +234,17 @@ class WP_Collapse_O_Matic {
 				while ( $query_commander->have_posts() ) {
 					$query_commander->the_post();
 					$title = get_the_title();
-
-					//meta values
-					$meta_values = get_post_meta( $cid );
-					foreach($meta_values as $key => $value){
-						if(!empty($value) && $key[0] != '_'){
-							${substr($key, 9)} = $value[0];
-						}
-					}
-					if(!empty($triggertext)){
-						$title = $triggertext;
-					}
-					if(!empty($highlander) && !empty($rel)){
-						$rel .= '-highlander';
-					}
-
-					//content
 					$content = get_the_content();
 				}
-			}else{
-				return null;
 			}
 			wp_reset_postdata();
-		}
 
-		//expand templates from collapse commander
-		if(!empty($template_id)){
-			$args = array(
-				'post_type'	=> 'expand-template',
-				'p'			=> $template_id,
-			);
-			$query_commander = new WP_Query( $args );
-			if ( $query_commander->have_posts() ) {
-				while ( $query_commander->have_posts() ) {
-					$query_commander->the_post();
-					$meta_values = get_post_meta( $template_id );
-					foreach($meta_values as $key => $value){
-						if(!empty($value) && $key[0] != '_'){
-							//var_dump( substr($key, 9), $value[0]);
-							${substr($key, 9)} = $value[0];
-						}
-					}
-					if(!empty($highlander) && !empty($rel)){
-						$rel .= '-highlander';
-					}
-				}
+			if(!empty($triggertext)){
+				$title = $triggertext;
 			}
-			wp_reset_postdata();
+			if(!empty($highlander) && !empty($rel)){
+				$rel .= '-highlander';
+			}
 		}
 
 		//content filtering
@@ -336,13 +303,8 @@ class WP_Collapse_O_Matic {
 
 		if($excerpt){
 			$excerpt = str_replace($placeholder_arr, $swapout_arr, $excerpt);
-			if(empty($filter) || $filter == 'false'){
-				$excerpt = do_shortcode($excerpt);
-			}
-			else{
-				$excerpt = apply_filters( 'the_content', $excerpt );
-				$excerpt = str_replace( ']]>', ']]&gt;', $excerpt );
-			}
+			$excerpt = do_shortcode($excerpt);
+			$excerpt = apply_filters( 'colomat_excerpt', $excerpt );
 
 			if($targpos == 'inline'){
 				$excerpt .= $eDiv;
@@ -357,13 +319,8 @@ class WP_Collapse_O_Matic {
 			//swapexcerpt
 			if($swapexcerpt !== false){
 				$swapexcerpt = str_replace($placeholder_arr, $swapout_arr, $swapexcerpt);
-				if(empty($filter) || $filter == 'false'){
-					$swapexcerpt = do_shortcode($swapexcerpt);
-				}
-				else{
-					$swapexcerpt = apply_filters( 'the_content', $swapexcerpt );
-					$swapexcerpt = str_replace( ']]>', ']]&gt;', $swapexcerpt );
-				}
+				$swapexcerpt = do_shortcode($swapexcerpt);
+				$swapexcerpt = apply_filters( 'colomat_swapexcerpt', $swapexcerpt );
 				$nibble .= '<'.$excerpttag.' id="swapexcerpt-'.$id.'" style="display:none;">'.$swapexcerpt.'</'.$excerpttag.'>';
 			}
 		}
