@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.22
+ * Collapse-O-Matic JavaSctipt v1.6.23
  * http://plugins.twinpictures.de/plugins/collapse-o-matic/
  *
  * Copyright 2020, Twinpictures
@@ -574,7 +574,6 @@ jQuery(document).ready(function() {
 		if(jQuery(this).attr('rel') !== undefined){
 			var rel = jQuery(this).attr('rel').toString();
 			if(rel.indexOf('-highlander') != '-1'){
-				closeOtherGroups(rel);
 				closeOtherRelMembers(rel, id);
 			}
 			else{
