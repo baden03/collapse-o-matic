@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.4.2
-Stable tag: 1.7.13e
+Tested up to: 5.5
+Stable tag: 1.7.13
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,7 +53,7 @@ No. Not even close.
 
 = 1.7.13 =
 * corrected typos
-* cleanded up code
+* cleaned up code
 * added togglegroup highlander grouping
 * fixed issue of rel or group values that consist only of numbers
 * findme now supports auto, trigger, target and numeric values
@@ -385,7 +385,7 @@ Fixed auto-expand of urls with id-anchors
 
 == Upgrade Notice ==
 * corrected typos
-* cleanded up code
+* cleaned up code
 * added togglegroup highlander grouping
 * fixed issue of rel or group values that consist only of numbers
 * findme now supports auto, trigger, target and numeric values
