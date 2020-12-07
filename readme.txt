@@ -4,7 +4,7 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.5
+Tested up to: 5.6.0
 Stable tag: 1.7.13
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -58,6 +58,7 @@ No. Not even close.
 * fixed issue of rel or group values that consist only of numbers
 * findme now supports auto, trigger, target and numeric values
 * removed excerpt the_content filtering, added added filters for excerpt and swapexcerpt
+* fully tested with WordPress 5.6.0
 
 = 1.7.12 =
 * fixed expand_all triggers to work with maptastic
