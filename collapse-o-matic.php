@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.13
+Version: 1.7.14a
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.13';
+	var $version = '1.7.14a';
 
 	/**
 	 * Used as prefix for options entry
@@ -184,46 +184,49 @@ class WP_Collapse_O_Matic {
 		}
 		//find a random number, if no id is assigned
 		$ran = uniqid();
-		extract(shortcode_atts(array(
-			'title' => '',
-			'cid' => $options['cid'],
-			'template_id' => '',
-			'swaptitle' => '',
-			'alt' => '',
-			'swapalt' => '',
-			'notitle' => $options['notitle'],
-			'id' => 'id'.$ran,
-			'tag' => $options['tag'],
-			'trigclass' => $options['trigclass'],
-			'targtag' => $options['targtag'],
-			'targclass' => $options['targclass'],
-			'targpos' => '',
-			'trigpos' => 'above',
-			'rel' => '',
-			'group' => '',
-			'togglegroup' => '',
-			'expanded' => '',
-			'excerpt' => '',
-			'swapexcerpt' => false,
-			'excerptpos' => 'below-trigger',
-			'excerpttag' => 'div',
-			'excerptclass' => '',
-			'findme' => '',
-			'scrollonclose' => '',
-			'startwrap' => '',
-			'endwrap' => '',
-			'elwraptag' => '',
-			'elwrapclass' => '',
-			'filter' => $options['filter_content'],
-			'tabindex' => $options['tabindex'],
-			'animation_effect' => '',
-			'duration' => '',
-		), $atts, 'expand'));
+		$atts = shortcode_atts(
+			array(
+				'title' => '',
+				'cid' => $options['cid'],
+				'template_id' => '',
+				'swaptitle' => '',
+				'alt' => '',
+				'swapalt' => '',
+				'notitle' => $options['notitle'],
+				'id' => 'id'.$ran,
+				'tag' => $options['tag'],
+				'trigclass' => $options['trigclass'],
+				'targtag' => $options['targtag'],
+				'targclass' => $options['targclass'],
+				'targpos' => '',
+				'trigpos' => 'above',
+				'rel' => '',
+				'group' => '',
+				'togglegroup' => '',
+				'expanded' => '',
+				'excerpt' => '',
+				'swapexcerpt' => false,
+				'excerptpos' => 'below-trigger',
+				'excerpttag' => 'div',
+				'excerptclass' => '',
+				'findme' => '',
+				'scrollonclose' => '',
+				'startwrap' => '',
+				'endwrap' => '',
+				'elwraptag' => '',
+				'elwrapclass' => '',
+				'filter' => $options['filter_content'],
+				'tabindex' => $options['tabindex'],
+				'animation_effect' => '',
+				'duration' => ''
+			), 
+			$atts
+		);
 
 		//collapse commander
 		if( !empty($cid) && is_plugin_active( 'collapse-commander/collapse-commander.php') ){
 			$meta_values = WP_CollapseCommander::meta_grabber($cid);
-			extract(shortcode_atts($meta_values, $atts));
+			$atts = shortcode_atts($meta_values, $atts);
 
 			$args = array(
 				'post_type'	=> 'expand-element',
