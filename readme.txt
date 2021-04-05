@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
 Tested up to: 5.7.0
-Stable tag: 1.7.13
+Stable tag: 1.7.14a
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,10 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.7.14 =
+* tried to fixed spacing issue by forcing elwraptag as a div, but this will effect inline expands. Will need to add elwraptag as an option.
+* fully tested with WordPress 5.7.0
 
 = 1.7.13 =
 * corrected typos

@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.13
+Version: 1.7.14a
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.13';
+	var $version = '1.7.14a';
 
 	/**
 	 * Used as prefix for options entry
@@ -238,13 +238,13 @@ class WP_Collapse_O_Matic {
 				}
 			}
 			wp_reset_postdata();
+		}
 
-			if(!empty($triggertext)){
-				$title = $triggertext;
-			}
-			if(!empty($highlander) && !empty($rel)){
-				$rel .= '-highlander';
-			}
+		if(!empty($triggertext)){
+			$title = $triggertext;
+		}
+		if(!empty($highlander) && !empty($rel)){
+			$rel .= '-highlander';
 		}
 
 		//content filtering
@@ -255,6 +255,13 @@ class WP_Collapse_O_Matic {
 			$content = apply_filters( 'the_content', $content );
 			$content = str_replace( ']]>', ']]&gt;', $content );
 		}
+
+		if( !empty($cid) && get_edit_post_link($cid) ){
+			$content .= '<div class="com_edit_link"><a class="post-edit-link" href="'.get_edit_post_link($cid).'">'.__('Edit').'</a></div>';
+		}
+
+		//id does not allow spaces
+		$id = preg_replace('/\s+/', '_', $id);
 
 		$ewo = '';
 		$ewc = '';
@@ -280,8 +287,8 @@ class WP_Collapse_O_Matic {
 		if(empty($targtag)){
 			$targtag = 'div';
 		}
-
-		if($elwraptag){
+		
+		if(!empty($elwraptag)){
 			$ewclass = '';
 			if($elwrapclass){
 				$ewclass = 'class="'.$elwrapclass.'"';
@@ -291,6 +298,7 @@ class WP_Collapse_O_Matic {
 		}
 
 		$eDiv = '';
+
 		if($content){
 			$inline_class = '';
 			$collapse_class = 'collapseomatic_content ';
@@ -300,7 +308,6 @@ class WP_Collapse_O_Matic {
 			}
 			$eDiv = '<'.$targtag.' id="target-'.$id.'" class="'.$collapse_class.$inline_class.$targclass.'">'.$content.'</'.$targtag.'>';
 		}
-
 		if($excerpt){
 			$excerpt = str_replace($placeholder_arr, $swapout_arr, $excerpt);
 			$excerpt = do_shortcode($excerpt);
