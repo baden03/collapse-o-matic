@@ -2,9 +2,9 @@
 /*
 Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
-Plugin URI: https://plugins.twinpictures.de/plugins/collapse-o-matic/
+Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.14a
+Version: 1.7.14
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -17,7 +17,7 @@ License: GPL2
  */
 
 if(!defined('PLUGIN_OVEN_URL')){
-	define( 'PLUGIN_OVEN_URL', 'https://plugins.twinpictures.de' );
+	define( 'PLUGIN_OVEN_URL', 'https://pluginoven.com/' );
 }
 if(!defined('PLUGIN_OVEN_CC')){
 	define( 'PLUGIN_OVEN_CC', 'Collapse Commander' );
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.14a';
+	var $version = '1.7.14';
 
 	/**
 	 * Used as prefix for options entry
@@ -539,13 +539,13 @@ class WP_Collapse_O_Matic {
 								<tr>
 									<th><?php _e( 'CID Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[cid]" name="<?php echo $this->options_name ?>[cid]" value="<?php echo $options['cid']; ?>" />
-										<br /><span class="description"><?php printf( __('Default %sCollapse Commander%s ID', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf( __('Default %sCollapse Commander%s ID', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/premium-plugins/collapse-commander/" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								<?php else: ?>
 								<tr>
 									<th><?php _e( 'Collapse Management', 'colpromat' ) ?></th>
-									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'colpromat' ), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/">', '</a>'); ?>
+									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'colpromat' ), '<a href="https://pluginoven.com/premium-plugins/collapse-commander/">', '</a>'); ?>
 									</td>
 								</tr>
 								<?php endif; ?>
@@ -553,35 +553,35 @@ class WP_Collapse_O_Matic {
 								<tr>
 									<th><?php _e( 'Tag Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[tag]" name="<?php echo $this->options_name ?>[tag]" value="<?php echo $options['tag']; ?>" />
-										<br /><span class="description"><?php printf(__('HTML tag use to wrap the trigger text. See %sTag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#tag" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('HTML tag use to wrap the trigger text. See %sTag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#tag-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Trigclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[trigclass]" name="<?php echo $this->options_name ?>[trigclass]" value="<?php echo $options['trigclass']; ?>" />
-										<br /><span class="description"><?php printf(__('Default class assigned to the trigger element. See %sTrigclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#trigclass" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('Default class assigned to the trigger element. See %sTrigclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#trigclass-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Tabindex Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[tabindex]" name="<?php echo $this->options_name ?>[tabindex]" value="<?php echo $options['tabindex']; ?>" />
-										<br /><span class="description"><?php printf(__('Default tabindex value to be assigned to the trigger element. See %sTabindex Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#tabindex" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('Default tabindex value to be assigned to the trigger element. See %sTabindex Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#tabindex-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Targtag Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[targtag]" name="<?php echo $this->options_name ?>[targtag]" value="<?php echo $options['targtag']; ?>" />
-										<br /><span class="description"><?php printf(__('HTML tag use for the target element. See %sTargtag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#targtag" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('HTML tag use for the target element. See %sTargtag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#targtag-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Targclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="<?php echo $this->options_name ?>[targclass]" name="<?php echo $this->options_name ?>[targclass]" value="<?php echo $options['targclass']; ?>" />
-										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#targclass" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#targclass-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
@@ -715,13 +715,13 @@ class WP_Collapse_O_Matic {
 								<?php if( !is_plugin_active( 'collapse-commander/collapse-commander.php' ) ) : ?>
 								<tr>
 									<th><strong><?php _e( 'Take Command!', 'jquery-collapse-o-matic' ) ?></strong></th>
-									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'jquery-collapse-o-matic' ), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">', '</a>'); ?>
+									<td><?php printf(__( '%sCollapse Commander%s is an add-on plugin that introduces an advanced management interface to better organize expand elements and simplify expand shortcodes.', 'jquery-collapse-o-matic' ), '<a href="https://pluginoven.com/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">', '</a>'); ?>
 									</td>
 								</tr>
 								<?php endif; ?>
 								<tr>
 									<th><strong><?php _e( 'Level Up!', 'jquery-collapse-o-matic' ) ?></strong></th>
-									<td><?php printf(__( '%sCollapse-Pro-Matic%s is our premium plugin that offers additional attributes and features for <i>ultimate</i> flexibility, in addition to a very %shigh level of personal support%s.', 'jquery-collapse-o-matic' ), '<a href="https://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-o-matic-pro">', '</a>', '<a href="https://plugins.twinpictures.de/testimonial/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-o-matic-support">', '</a>'); ?>
+									<td><?php printf(__( '%sCollapse-Pro-Matic%s is our premium plugin that offers additional attributes and features for <i>ultimate</i> flexibility, in addition to a very %shigh level of personal support%s.', 'jquery-collapse-o-matic' ), '<a href="https://pluginoven.com/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-o-matic-pro">', '</a>', '<a href="https://pluginoven.com/premium-plugins/collapse-pro-matic/testimonials/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-o-matic-support">', '</a>'); ?>
 									</td>
 								</tr>
 								</table>
@@ -746,10 +746,10 @@ class WP_Collapse_O_Matic {
 						<p><?php _e( 'Remove clutter, save space. Display and hide additional content in a SEO friendly way. Wrap any content&mdash;including other shortcodes&mdash;into a lovely jQuery expanding and collapsing element.', 'jquery-collapse-o-matic') ?></p>
 						<?php /*<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Last Chance for 2015 Prices:</strong> <a href="https://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-pro-year-end">Update to Collapse-Pro-Matic</a> before January 2016 to take advantage of 2015 pricing.</p> */ ?>
 						<ul>
-							<li><?php printf( __( '%sDetailed documentation%s, complete with working demonstrations of all shortcode attributes, is available for your instructional enjoyment.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/" target="_blank">', '</a>'); ?></li>
+							<li><?php printf( __( '%sDetailed documentation%s, complete with working demonstrations of all shortcode attributes, is available for your instructional enjoyment.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/" target="_blank">', '</a>'); ?></li>
 							<li><?php printf( __( '%sFree Opensource Support%s', 'jquery-collapse-o-matic'), '<a href="https://wordpress.org/support/plugin/jquery-collapse-o-matic" target="_blank">', '</a>'); ?></li>
 							<li><?php printf( __( 'If this plugin %s, please consider %sreviewing it at WordPress.org%s to help others.', 'jquery-collapse-o-matic'), $like_it, '<a href="https://wordpress.org/support/view/plugin-reviews/jquery-collapse-o-matic" target="_blank">', '</a>' ) ?></li>
-							<li><a href="https://wordpress.org/plugins/jquery-collapse-o-matic/" target="_blank">WordPress.org</a> | <a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/" target="_blank">Twinpictues Plugin Oven</a></li>
+							<li><a href="https://wordpress.org/plugins/jquery-collapse-o-matic/" target="_blank">WordPress.org</a> | <a href="https://pluginoven.com/plugins/collapse-o-matic/" target="_blank">Twinpictues Plugin Oven</a></li>
 						</ul>
 					</div>
 				</div>
@@ -764,7 +764,7 @@ class WP_Collapse_O_Matic {
 				<div class="postbox">
 					<h3 class="handle"><?php _e( 'Register Collapse Commander', 'jquery-collapse-o-matic') ?></h3>
 					<div class="inside">
-                                            <p><?php printf( __('To receive plugin updates you must register your plugin. Enter your Collapse Commander licence key below. Licence keys may be viewed and manged by logging into %syour account%s.', 'colpromat'), '<a href="https://plugins.twinpictures.de/your-account/" target="_blank">', '</a>'); ?></p>
+                                            <p><?php printf( __('To receive plugin updates you must register your plugin. Enter your Collapse Commander licence key below. Licence keys may be viewed and manged by logging into %syour account%s.', 'colpromat'), '<a href="https://pluginoven.com/my-account/" target="_blank">', '</a>'); ?></p>
 						<form method="post" action="options.php">
                             <?php
                                 settings_fields( $this->license_group );
@@ -816,7 +816,7 @@ class WP_Collapse_O_Matic {
 					<div class="handlediv" title="<?php _e( 'Click to toggle', 'jquery-collapse-o-matic' ) ?>"><br/></div>
 					<h3 class="hndle">Collapse Commander</h3>
 						<div class="inside">
-							<p>A brief and not-exactly-sober overview of <a href="https://plugins.twinpictures.de/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">Collapse Commander</a>, a new add-on plugin for Collapse-O-Matic and Collapse-Pro-Matic that adds and advanded expand shortcode management system.</p>
+							<p>A brief and not-exactly-sober overview of <a href="https://pluginoven.com/premium-plugins/collapse-commander/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-commander&utm_campaign=collapse-o-matic-commander">Collapse Commander</a>, a new add-on plugin for Collapse-O-Matic and Collapse-Pro-Matic that adds and advanded expand shortcode management system.</p>
 							<iframe width="100%" height="300" src="//www.youtube.com/embed/w9X4nXpAEfo" frameborder="0" allowfullscreen></iframe>
 						</div>
 				</div>

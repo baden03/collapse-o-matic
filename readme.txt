@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.7
-Tested up to: 5.7.0
-Stable tag: 1.7.14a
+Tested up to: 5.9-alpha-51872
+Stable tag: 1.7.14
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Remove clutter and save space by placing content inside an expanding/collapsing 
 
 == Description ==
 
-Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, including other shortcodes, into an accordion expanding and collapsing element.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
+Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, including other shortcodes, into an accordion expanding and collapsing element.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
 
 == Installation ==
 
@@ -38,7 +38,7 @@ Yes, yes... <a href='https://www.facebook.com/twinpictures'>Twinpictures is on F
 Ah yes! <a href='https://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
 
 = How does one use the shortcode, exactly? =
-A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
+A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
 = Is Galato the same as Ice Cream? =
 No. Not even close.
@@ -53,7 +53,8 @@ No. Not even close.
 
 = 1.7.14 =
 * tried to fixed spacing issue by forcing elwraptag as a div, but this will effect inline expands. Will need to add elwraptag as an option.
-* fully tested with WordPress 5.7.0
+* fully tested with WordPress 5.8.1
+* migrated plugins home over to pluginoven.com
 
 = 1.7.13 =
 * corrected typos

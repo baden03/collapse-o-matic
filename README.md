@@ -10,7 +10,7 @@
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ##Description
-Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
+Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>free community</a> support.
 
 #Installation
 1. Old-school: upload the `collapse-o-matic` folder to the `/wp-content/plug-ins/` directory via FTP.  Hipster: Ironically add collapse-o-matic via the WordPress Plug-ins menu.
@@ -32,7 +32,7 @@ Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` 
 * Ah yes! <a href='https://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
 
 <b>How does one use the shortcode, exactly?</b>
-* A <a href='https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
+* A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
 <b>Is Galato the same as Ice Cream?</b>
 * No. Not even close.
