@@ -5,7 +5,7 @@ Donate link: https://plugins.twinpictures.de/plugins/collapse-o-matic/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.9
 Tested up to: 5.8.1
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,9 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.0 =
+* options passed using the preferred wp_add_inline_script
 
 = 1.8.0 =
 * improved collapse-commander integration
@@ -396,7 +399,4 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* improved collapse-commander integration
-* improved method of adding custom css
-* options passed using wp_localize_script
-* escaped options to improve security
+* options passed using the preferred wp_add_inline_script

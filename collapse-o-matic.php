@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.0
+Version: 1.8.1
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.0';
+	var $version = '1.8.1';
 
 	/**
 	 * Used as prefix for options entry
@@ -69,6 +69,8 @@ class WP_Collapse_O_Matic {
 		'cc_display_title' => '',
 		'touch_start' => '',
 	);
+
+	var $com_options = [];
 
 	var $license_group = 'colomat_licenseing';
 
@@ -121,26 +123,26 @@ class WP_Collapse_O_Matic {
 		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.7.0', $load_in_footer);
 		
 		//localize with options
-		$com_options = array(
+		$this->com_options = array(
 			'colomatduration' => $this->options['duration'],
 			'colomatslideEffect' => $this->options['slideEffect'],
 			'colomatpauseInit' => $this->options['pauseinit'],
 			'colomattouchstart' => $this->options['touch_start']
 		);
-		wp_localize_script('collapseomatic-js', 'com_options', $com_options );
 
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
+			wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $this->com_options ), 'before' );
 		}
 
 		//css
 		if ($this->options['style'] !== 'none') {
 			wp_register_style( 'collapseomatic-css', plugins_url('/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
-			if( !empty( $this->options['custom_css'] ) ){
-				wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
-			}
 			if( empty($this->options['css_check']) ){
 				wp_enqueue_style( 'collapseomatic-css' );
+				if( !empty( $this->options['custom_css'] ) ){
+					wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
+				}
 			}
 		}
 	}
@@ -190,9 +192,13 @@ class WP_Collapse_O_Matic {
 		$options = $this->options;
 		if( !empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
+			wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $this->com_options ), 'before' );
 		}
 		if( !empty($this->options['css_check']) ){
 			wp_enqueue_style( 'collapseomatic-css' );
+			if( !empty( $this->options['custom_css'] ) ){
+				wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
+			}
 		}
 		//find a random number, if no id is assigned
 		$ran = uniqid();
