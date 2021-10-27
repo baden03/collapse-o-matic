@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.7.14
+Version: 1.8.0
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.7.14';
+	var $version = '1.8.0';
 
 	/**
 	 * Used as prefix for options entry
@@ -91,17 +91,12 @@ class WP_Collapse_O_Matic {
 
 		//load the script and style if viewing the front-end
 		add_action('wp_enqueue_scripts', array( $this, 'collapsTronicInit' ) );
+		add_action('admin_enqueue_scripts', array( $this, 'codemirror_enqueue_scripts') );
 
 		// add actions
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'plugin_actions' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		if($this->options['script_location'] == 'footer' ){
-			add_action( 'wp_footer', array( $this, 'colomat_js_vars' ) );
-		}
-		else{
-			add_action('wp_head', array( $this, 'colomat_js_vars' ) );
-		}
 		add_shortcode('expand', array($this, 'shortcode'));
 		add_shortcode('colomat', array($this, 'shortcode'));
 
@@ -114,21 +109,6 @@ class WP_Collapse_O_Matic {
 		add_filter('widget_text', 'do_shortcode');
 	}
 
-	//global javascript vars
-	function colomat_js_vars(){
-		echo "<script type='text/javascript'>\n";
-		echo "var colomatduration = '".$this->options['duration']."';\n";
-		echo "var colomatslideEffect = '".$this->options['slideEffect']."';\n";
-		echo "var colomatpauseInit = '".$this->options['pauseinit']."';\n";
-		echo "var colomattouchstart = '".$this->options['touch_start']."';\n";
-		echo "</script>";
-		if( !empty( $this->options['custom_css'] ) ){
-			echo "\n<style>\n";
-			echo $this->options['custom_css'];
-			echo "\n</style>\n";
-		}
-	}
-
 	/**
 	 * Callback init
 	 */
@@ -138,7 +118,17 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.6.23', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.7.0', $load_in_footer);
+		
+		//localize with options
+		$com_options = array(
+			'colomatduration' => $this->options['duration'],
+			'colomatslideEffect' => $this->options['slideEffect'],
+			'colomatpauseInit' => $this->options['pauseinit'],
+			'colomattouchstart' => $this->options['touch_start']
+		);
+		wp_localize_script('collapseomatic-js', 'com_options', $com_options );
+
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
@@ -146,9 +136,31 @@ class WP_Collapse_O_Matic {
 		//css
 		if ($this->options['style'] !== 'none') {
 			wp_register_style( 'collapseomatic-css', plugins_url('/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
+			if( !empty( $this->options['custom_css'] ) ){
+				wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
+			}
 			if( empty($this->options['css_check']) ){
 				wp_enqueue_style( 'collapseomatic-css' );
 			}
+		}
+	}
+
+	function codemirror_enqueue_scripts($hook) {
+		if($hook == 'settings_page_collapse-o-matic-options'){
+			wp_register_script('cm_js', plugins_url('js/admin_codemirror.js', __FILE__), array('jquery'), '0.1.0', true);
+			$cm_settings = wp_enqueue_code_editor(
+				[
+					'type' => 'text/css',
+					'codemirror' => [
+						'lineNumbers' => false,
+						'autoRefresh' => true
+					]
+				]
+			);
+			wp_localize_script('cm_js', 'cm_settings', $cm_settings);
+			wp_enqueue_script( 'cm_js' );
+			wp_enqueue_script( 'wp-theme-plugin-editor' );
+			wp_enqueue_style( 'wp-codemirror' );
 		}
 	}
 
@@ -224,20 +236,6 @@ class WP_Collapse_O_Matic {
 		if( !empty($cid) && is_plugin_active( 'collapse-commander/collapse-commander.php') ){
 			$meta_values = WP_CollapseCommander::meta_grabber($cid);
 			extract(shortcode_atts($meta_values, $atts));
-
-			$args = array(
-				'post_type'	=> 'expand-element',
-				'p'		=> $cid,
-			);
-			$query_commander = new WP_Query( $args );
-			if ( $query_commander->have_posts() ) {
-				while ( $query_commander->have_posts() ) {
-					$query_commander->the_post();
-					$title = get_the_title();
-					$content = get_the_content();
-				}
-			}
-			wp_reset_postdata();
 		}
 
 		if(!empty($triggertext)){
@@ -258,6 +256,13 @@ class WP_Collapse_O_Matic {
 
 		if( !empty($cid) && get_edit_post_link($cid) ){
 			$content .= '<div class="com_edit_link"><a class="post-edit-link" href="'.get_edit_post_link($cid).'">'.__('Edit').'</a></div>';
+		}
+
+		if( !empty($sub_cids) ){
+			foreach($sub_cids as $sub_cid){
+				$args = array('cid' => $sub_cid);
+				$content .= $this->shortcode($args);
+			}
 		}
 
 		//id does not allow spaces
@@ -493,7 +498,6 @@ class WP_Collapse_O_Matic {
 		$like_it = $like_it_arr[$rand_key];
 	?>
 		<div class="wrap">
-			<div class="icon32" id="icon-options-custom" style="background:url( <?php echo plugins_url( 'images/collapse-o-matic-icon.png', __FILE__ ) ?> ) no-repeat 50% 50%"><br></div>
 			<h2>Collapse-O-Matic</h2>
 		</div>
 
@@ -512,7 +516,7 @@ class WP_Collapse_O_Matic {
 								<table class="form-table">
 								<tr>
 									<th><?php _e( 'Style', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><select id="<?php echo $this->options_name ?>[style]" name="<?php echo $this->options_name ?>[style]">
+									<td><label><select id="style" name="<?php echo esc_attr($this->options_name); ?>[style]">
 										<?php
 											if(empty($options['style'])){
 												$options['style'] = 'light';
@@ -527,7 +531,7 @@ class WP_Collapse_O_Matic {
 												if($options['style'] == $value){
 													$selected = 'SELECTED';
 												}
-												echo '<option value="'.$value.'" '.$selected.'>'.$key.'</option>';
+												echo '<option value="'.esc_attr($value).'" '.$selected.'>'.esc_attr($key).'</option>';
 											}
 										?>
 										</select>
@@ -538,7 +542,7 @@ class WP_Collapse_O_Matic {
 								<?php if( is_plugin_active( 'collapse-commander/collapse-commander.php' ) ) : ?>
 								<tr>
 									<th><?php _e( 'CID Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[cid]" name="<?php echo $this->options_name ?>[cid]" value="<?php echo $options['cid']; ?>" />
+									<td><label><input type="text" id="cid" name="<?php echo esc_attr($this->options_name); ?>[cid]" value="<?php echo esc_attr($options['cid']); ?>" />
 										<br /><span class="description"><?php printf( __('Default %sCollapse Commander%s ID', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/premium-plugins/collapse-commander/" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
@@ -552,56 +556,56 @@ class WP_Collapse_O_Matic {
 
 								<tr>
 									<th><?php _e( 'Tag Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[tag]" name="<?php echo $this->options_name ?>[tag]" value="<?php echo $options['tag']; ?>" />
+									<td><label><input type="text" id="tag" name="<?php echo esc_attr($this->options_name); ?>[tag]" value="<?php echo esc_attr($options['tag']); ?>" />
 										<br /><span class="description"><?php printf(__('HTML tag use to wrap the trigger text. See %sTag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#tag-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Trigclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[trigclass]" name="<?php echo $this->options_name ?>[trigclass]" value="<?php echo $options['trigclass']; ?>" />
+									<td><label><input type="text" id="trigclass" name="<?php echo esc_attr($this->options_name); ?>[trigclass]" value="<?php echo esc_attr($options['trigclass']); ?>" />
 										<br /><span class="description"><?php printf(__('Default class assigned to the trigger element. See %sTrigclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#trigclass-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Tabindex Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[tabindex]" name="<?php echo $this->options_name ?>[tabindex]" value="<?php echo $options['tabindex']; ?>" />
+									<td><label><input type="text" id="tabindex" name="<?php echo esc_attr($this->options_name); ?>[tabindex]" value="<?php echo esc_attr($options['tabindex']); ?>" />
 										<br /><span class="description"><?php printf(__('Default tabindex value to be assigned to the trigger element. See %sTabindex Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#tabindex-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Targtag Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[targtag]" name="<?php echo $this->options_name ?>[targtag]" value="<?php echo $options['targtag']; ?>" />
+									<td><label><input type="text" id="targtag" name="<?php echo esc_attr($this->options_name); ?>[targtag]" value="<?php echo esc_attr($options['targtag']); ?>" />
 										<br /><span class="description"><?php printf(__('HTML tag use for the target element. See %sTargtag Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#targtag-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Targclass Attribute', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[targclass]" name="<?php echo $this->options_name ?>[targclass]" value="<?php echo $options['targclass']; ?>" />
+									<td><label><input type="text" id="targclass" name="<?php echo esc_attr($this->options_name); ?>[targclass]" value="<?php echo esc_attr($options['targclass']); ?>" />
 										<br /><span class="description"><?php printf(__('Default class assigned to the target element. See %sTargclass Attribute%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/shortcode/#targclass-attribute" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'No Title', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[notitle]" name="<?php echo $this->options_name ?>[notitle]" value="1"  <?php echo checked( $options['notitle'], 1 ); ?> /> <?php _e('No Title', 'jquery-collapse-o-matic'); ?>
+									<td><label><input type="checkbox" id="notitle" name="<?php echo esc_attr($this->options_name); ?>[notitle]" value="1"  <?php echo checked( $options['notitle'], 1 ); ?> /> <?php _e('No Title', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Do not use title tags by default.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Add touchstart', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[touch_start]" name="<?php echo $this->options_name ?>[touch_start]" value="1"  <?php echo checked( $options['touch_start'], 1 ); ?> /> <?php _e('Add touchstart', 'jquery-collapse-o-matic'); ?>
+									<td><label><input type="checkbox" id="touch_start" name="<?php echo esc_attr($this->options_name); ?>[touch_start]" value="1"  <?php echo checked( $options['touch_start'], 1 ); ?> /> <?php _e('Add touchstart', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Add jQuery touchstart binding to triggers.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Initial Pause', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="number" id="<?php echo $this->options_name ?>[pauseinit]" name="<?php echo $this->options_name ?>[pauseinit]" value="<?php echo $options['pauseinit']; ?>" />
+									<td><label><input type="number" id="pauseinit" name="<?php echo esc_attr($this->options_name); ?>[pauseinit]" value="<?php echo esc_attr($options['pauseinit']); ?>" />
 										<br /><span class="description"><?php _e('Amount of time in milliseconds to pause before the initial collapse is triggered on page load.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
@@ -613,14 +617,14 @@ class WP_Collapse_O_Matic {
 										}
 									?>
 									<th><?php _e( 'Collapse/Expand Duration', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="text" id="<?php echo $this->options_name ?>[duration]" name="<?php echo $this->options_name ?>[duration]" value="<?php echo $options['duration']; ?>" />
+									<td><label><input type="text" id="duration" name="<?php echo esc_attr($this->options_name); ?>[duration]" value="<?php echo esc_attr($options['duration']); ?>" />
 										<br /><span class="description"><?php printf(__('A string or number determining how long the animation will run. See %sDuration%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#duration" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Animation Effect', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><select id="<?php echo $this->options_name ?>[slideEffect]" name="<?php echo $this->options_name ?>[slideEffect]">
+									<td><label><select id="slideEffect" name="<?php echo esc_attr($this->options_name); ?>[slideEffect]">
 										<?php
 											if(empty($options['slideEffect'])){
 												$options['slideEffect'] = 'slideFade';
@@ -634,7 +638,7 @@ class WP_Collapse_O_Matic {
 												if($options['slideEffect'] == $value){
 													$selected = 'SELECTED';
 												}
-												echo '<option value="'.$value.'" '.$selected.'>'.$key.'</option>';
+												echo '<option value="'.esc_attr($value).'" '.$selected.'>'.esc_attr($key).'</option>';
 											}
 										?>
 										</select>
@@ -644,14 +648,14 @@ class WP_Collapse_O_Matic {
 
 								<tr>
 									<th><?php _e( 'Custom Style', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><textarea id="<?php echo $this->options_name ?>[custom_css]" name="<?php echo $this->options_name ?>[custom_css]" style="width: 100%; height: 150px;"><?php echo $options['custom_css']; ?></textarea>
+									<td><label><textarea id="custom_css" name="<?php echo esc_attr($this->options_name); ?>[custom_css]"><?php echo esc_textarea($options['custom_css']); ?></textarea>
 										<br /><span class="description"><?php _e( 'Custom CSS style for <em>ultimate flexibility</em>', 'jquery-collapse-o-matic' ) ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Content Filter', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[filter_content]" name="<?php echo $this->options_name ?>[filter_content]" value="1"  <?php echo checked( $options['filter_content'], 1 ); ?> /> <?php _e('Apply filter', 'jquery-collapse-o-matic'); ?>
+									<td><label><input type="checkbox" id="filter_content" name="<?php echo esc_attr($this->options_name); ?>[filter_content]" value="1"  <?php echo checked( $options['filter_content'], 1 ); ?> /> <?php _e('Apply filter', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Apply the_content filter to target content.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
@@ -662,14 +666,14 @@ class WP_Collapse_O_Matic {
 								?>
 								<tr>
 									<th><?php _e( 'Display ID', 'colpromat' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[cc_display_id]" name="<?php echo $this->options_name ?>[cc_display_id]" value="1"  <?php echo checked( $options['cc_display_id'], 1 ); ?> /> <?php _e('Display ID', 'colpromat'); ?>
+									<td><label><input type="checkbox" id="cc_display_id" name="<?php echo esc_attr($this->options_name); ?>[cc_display_id]" value="1"  <?php echo checked( $options['cc_display_id'], 1 ); ?> /> <?php _e('Display ID', 'colpromat'); ?>
 										<br /><span class="description"><?php _e('Display custom ID attribute in shortcodes if set for easier shortcode managment.', 'colpromat'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Display Title', 'colpromat' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[cc_display_title]" name="<?php echo $this->options_name ?>[cc_display_title]" value="1"  <?php echo checked( $options['cc_display_title'], 1 ); ?> /> <?php _e('Display Title', 'colpromat'); ?>
+									<td><label><input type="checkbox" id="cc_display_title" name="<?php echo esc_attr($this->options_name); ?>[cc_display_title]" value="1"  <?php echo checked( $options['cc_display_title'], 1 ); ?> /> <?php _e('Display Title', 'colpromat'); ?>
 										<br /><span class="description"><?php _e('Display custom eT attribute in shortcodes that shows expand title for easier shortcode managment.', 'colpromat'); ?></span></label>
 									</td>
 								</tr>
@@ -677,21 +681,21 @@ class WP_Collapse_O_Matic {
 
 								<tr>
 									<th><?php _e( 'Shortcode Loads Scripts', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[script_check]" name="<?php echo $this->options_name ?>[script_check]" value="1"  <?php echo checked( $options['script_check'], 1 ); ?> /> <?php _e('Only load scripts with shortcode.', 'jquery-collapse-o-matic'); ?>
+									<td><label><input type="checkbox" id="script_check" name="<?php echo esc_attr($this->options_name); ?>[script_check]" value="1"  <?php echo checked( $options['script_check'], 1 ); ?> /> <?php _e('Only load scripts with shortcode.', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Only load Collapse-O-Matic scripts if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Shortcode Loads CSS', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[css_check]" name="<?php echo $this->options_name ?>[css_check]" value="1"  <?php echo checked( $options['css_check'], 1 ); ?> /> <?php _e('Only load CSS with shortcode.', 'jquery-collapse-o-matic'); ?>
+									<td><label><input type="checkbox" id="css_check" name="<?php echo esc_attr($this->options_name); ?>[css_check]" value="1"  <?php echo checked( $options['css_check'], 1 ); ?> /> <?php _e('Only load CSS with shortcode.', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Only load Collapse-O-Matic CSS if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
 									<th><?php _e( 'Script Load Location', 'jquery-collapse-o-matic' ) ?>:</th>
-									<td><label><select id="<?php echo $this->options_name ?>[script_location]" name="<?php echo $this->options_name ?>[script_location]">
+									<td><label><select id="script_location" name="<?php echo esc_attr($this->options_name); ?>[script_location]">
 										<?php
 											if(empty($options['script_location'])){
 												$options['script_location'] = 'footer';
@@ -705,7 +709,7 @@ class WP_Collapse_O_Matic {
 												if($options['script_location'] == $value){
 													$selected = 'SELECTED';
 												}
-												echo '<option value="'.$value.'" '.$selected.'>'.$key.'</option>';
+												echo '<option value="'.esc_attr($value).'" '.$selected.'>'.esc_attr($key).'</option>';
 											}
 										?>
 										</select>
@@ -742,9 +746,8 @@ class WP_Collapse_O_Matic {
 					<div class="handlediv" title="<?php _e( 'Click to toggle', 'jquery-collapse-o-matic' ) ?>"><br/></div>
 					<h3 class="hndle"><?php _e( 'About' ) ?></h3>
 					<div class="inside">
-						<h4><img src="<?php echo plugins_url( 'images/collapse-o-matic-icon.png', __FILE__ ) ?>" width="16" height="16"/> Collapse-O-Matic Version <?php echo $this->version; ?></h4>
+						<h4><img src="<?php echo plugins_url( 'images/collapse-o-matic-icon.png', __FILE__ ) ?>" width="16" height="16"/> Collapse-O-Matic Version <?php echo esc_attr($this->version); ?></h4>
 						<p><?php _e( 'Remove clutter, save space. Display and hide additional content in a SEO friendly way. Wrap any content&mdash;including other shortcodes&mdash;into a lovely jQuery expanding and collapsing element.', 'jquery-collapse-o-matic') ?></p>
-						<?php /*<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Last Chance for 2015 Prices:</strong> <a href="https://plugins.twinpictures.de/premium-plugins/collapse-pro-matic/?utm_source=collapse-o-matic&utm_medium=plugin-settings-page&utm_content=collapse-pro-matic&utm_campaign=collapse-pro-year-end">Update to Collapse-Pro-Matic</a> before January 2016 to take advantage of 2015 pricing.</p> */ ?>
 						<ul>
 							<li><?php printf( __( '%sDetailed documentation%s, complete with working demonstrations of all shortcode attributes, is available for your instructional enjoyment.', 'jquery-collapse-o-matic'), '<a href="https://pluginoven.com/plugins/collapse-o-matic/documentation/" target="_blank">', '</a>'); ?></li>
 							<li><?php printf( __( '%sFree Opensource Support%s', 'jquery-collapse-o-matic'), '<a href="https://wordpress.org/support/plugin/jquery-collapse-o-matic" target="_blank">', '</a>'); ?></li>
@@ -776,8 +779,8 @@ class WP_Collapse_O_Matic {
 									<tbody>
 										<tr>
 											<th><?php _e( 'License Key', 'colpromat' ) ?>:</th>
-											<td><label for="<?php echo $this->license_name ?>[collapse_commander_license_key]"><input type="text" id="<?php echo $this->license_name ?>[collapse_commander_license_key]" name="<?php echo $this->license_name ?>[collapse_commander_license_key]" value="<?php esc_attr_e( $cc_licence ); ?>" style="width: 100%" />
-												<br /><span class="description"><?php _e('Enter your license key', 'colpromat'); ?></span></label>
+											<td><label for="collapse_commander_license_key"><input type="text" id="collapse_commander_license_key" name="<?php echo esc_attr($this->license_name); ?>[collapse_commander_license_key]" value="<?php echo esc_attr( $cc_licence ); ?>" style="width: 100%" />
+												<br /><span class="description"><?php _e('Enter your license key', 'jquery-collapse-o-matic'); ?></span></label>
 											</td>
 
 										</tr>
@@ -788,14 +791,14 @@ class WP_Collapse_O_Matic {
 											<td>
 											    <?php if( isset($options['collapse_commander_license_status']) && $options['collapse_commander_license_status'] == 'valid' ) { ?>
 												<span style="color:green;"><?php _e('active'); ?></span><br/>
-												<input type="submit" class="button-secondary" name="edd_cc_license_deactivate" value="<?php _e('Deactivate License'); ?>"/>
+												<input type="submit" class="button-secondary" name="edd_cc_license_deactivate" value="<?php _e('Deactivate License', 'jquery-collapse-o-matic'); ?>"/>
 											    <?php } else {
 												    if( isset($options['collapse_commander_license_status']) ){ ?>
-													<span style="color: red"><?php echo $options['collapse_commander_license_status']; ?></span><br/>
+													<span style="color: red"><?php echo esc_attr($options['collapse_commander_license_status']); ?></span><br/>
 												<?php } else { ?>
-													<span style="color: grey">inactive</span><br/>
+													<span style="color: grey"><?php _e('inactive', 'jquery-collapse-o-matic'); ?></span><br/>
 												<?php } ?>
-												    <input type="submit" class="button-secondary" name="edd_cc_license_activate" value="<?php _e('Activate License'); ?>"/>
+												    <input type="submit" class="button-secondary" name="edd_cc_license_activate" value="<?php _e('Activate License', 'jquery-collapse-o-matic'); ?>"/>
 											    <?php } ?>
 											    </td>
 										    </tr>
@@ -803,7 +806,7 @@ class WP_Collapse_O_Matic {
 									</tbody>
 								</table>
 							</fieldset>
-							<?php submit_button( __( 'Register', 'colpromat') ); ?>
+							<?php submit_button( __( 'Register', 'jquery-collapse-o-matic') ); ?>
 						</form>
 					</div>
 				</div>
