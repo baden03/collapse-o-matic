@@ -1,8 +1,8 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.6.23
- * http://plugins.twinpictures.de/plugins/collapse-o-matic/
+ * Collapse-O-Matic JavaSctipt v1.7.0
+ * https://pluginoven.com/plugins/collapse-o-matic/
  *
- * Copyright 2020, Twinpictures
+ * Copyright 2021, Twinpictures
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 function collapse_init() {
 	//force collapse
 	jQuery('.force_content_collapse').each(function(index) {
@@ -87,8 +88,8 @@ function toggleState (obj, id, maptastic, trig_id) {
 	}
 
 	//reset effect and duration to default
-	com_effect = colomatslideEffect;
-	com_duration = colomatduration;
+	com_effect = com_options.colomatslideEffect;
+	com_duration = com_options.colomatduration;
 
 	//effect override
 	if( obj.attr('data-animation_effect') ){
@@ -400,14 +401,13 @@ function colomat_collapseall(loop_items){
 
 
 jQuery(document).ready(function() {
-	//console.log(colomatduration, colomatslideEffect, colomatpauseInit);
 	com_binding = 'click';
-	if (typeof colomattouchstart !== 'undefined' && colomattouchstart) {
+	if (typeof com_options.colomattouchstart !== 'undefined' && com_options.colomattouchstart) {
 		com_binding = 'click touchstart';
 	}
 
-	if (typeof colomatpauseInit !== 'undefined' && colomatpauseInit) {
-		init_pause = setTimeout(collapse_init, colomatpauseInit);
+	if (typeof com_options.colomatpauseInit !== 'undefined' && com_options.colomatpauseInit) {
+		init_pause = setTimeout(collapse_init, com_options.colomatpauseInit);
 	}
 	else{
 		collapse_init();
