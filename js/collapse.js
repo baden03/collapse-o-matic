@@ -3,25 +3,6 @@
  * https://pluginoven.com/plugins/collapse-o-matic/
  *
  * Copyright 2021, Twinpictures
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, blend, trade,
- * bake, hack, scramble, difiburlate, digest and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  */
 
 function collapse_init() {
@@ -402,11 +383,11 @@ function colomat_collapseall(loop_items){
 
 jQuery(document).ready(function() {
 	com_binding = 'click';
-	if (typeof com_options.colomattouchstart !== 'undefined' && com_options.colomattouchstart) {
+	if (com_options.colomattouchstart) {
 		com_binding = 'click touchstart';
 	}
 
-	if (typeof com_options.colomatpauseInit !== 'undefined' && com_options.colomatpauseInit) {
+	if (com_options.colomatpauseInit) {
 		init_pause = setTimeout(collapse_init, com_options.colomatpauseInit);
 	}
 	else{
