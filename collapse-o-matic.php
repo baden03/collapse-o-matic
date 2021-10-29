@@ -127,7 +127,7 @@ class WP_Collapse_O_Matic {
 			'colomatpauseInit' => $this->options['pauseinit'],
 			'colomattouchstart' => $this->options['touch_start']
 		];
-		wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $this->com_options ), 'before' );
+		wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $com_options ), 'before' );
 
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
@@ -135,7 +135,7 @@ class WP_Collapse_O_Matic {
 
 		//css
 		if ($this->options['style'] !== 'none') {
-			wp_register_style( 'collapseomatic-css', plugins_url('/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
+			wp_register_style( 'collapseomatic-css', plugins_url('css/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
 			if( !empty( $this->options['custom_css'] ) ){
 				wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
 			}
@@ -152,7 +152,7 @@ class WP_Collapse_O_Matic {
 				[
 					'type' => 'text/css',
 					'codemirror' => [
-						'lineNumbers' => false,
+						'lineNumbers' => true,
 						'autoRefresh' => true
 					]
 				]
@@ -161,6 +161,8 @@ class WP_Collapse_O_Matic {
 			wp_enqueue_script( 'cm_js' );
 			wp_enqueue_script( 'wp-theme-plugin-editor' );
 			wp_enqueue_style( 'wp-codemirror' );
+			wp_register_style( 'com-admin-css', plugins_url('css/admin_style.css', __FILE__) , array (), '1.0.0' );
+			wp_enqueue_style( 'com-admin-css' );
 		}
 	}
 
@@ -616,7 +618,7 @@ class WP_Collapse_O_Matic {
 												$options['duration'] = 'fast';
 										}
 									?>
-									<th><?php _e( 'Collapse/Expand Duration', 'jquery-collapse-o-matic' ) ?>:</th>
+									<th><?php _e( 'Animation Duration', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="text" id="duration" name="<?php echo esc_attr($this->options_name); ?>[duration]" value="<?php echo esc_attr($options['duration']); ?>" />
 										<br /><span class="description"><?php printf(__('A string or number determining how long the animation will run. See %sDuration%s in the documentation for more info.', 'jquery-collapse-o-matic'), '<a href="https://plugins.twinpictures.de/plugins/collapse-o-matic/documentation/#duration" target="_blank">', '</a>'); ?></span></label>
 									</td>
@@ -680,14 +682,14 @@ class WP_Collapse_O_Matic {
 								<?php endif; ?>
 
 								<tr>
-									<th><?php _e( 'Shortcode Loads Scripts', 'jquery-collapse-o-matic' ) ?>:</th>
+									<th><?php _e( 'Shortcode Scripts', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="checkbox" id="script_check" name="<?php echo esc_attr($this->options_name); ?>[script_check]" value="1"  <?php echo checked( $options['script_check'], 1 ); ?> /> <?php _e('Only load scripts with shortcode.', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Only load Collapse-O-Matic scripts if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
 								</tr>
 
 								<tr>
-									<th><?php _e( 'Shortcode Loads CSS', 'jquery-collapse-o-matic' ) ?>:</th>
+									<th><?php _e( 'Shortcode CSS', 'jquery-collapse-o-matic' ) ?>:</th>
 									<td><label><input type="checkbox" id="css_check" name="<?php echo esc_attr($this->options_name); ?>[css_check]" value="1"  <?php echo checked( $options['css_check'], 1 ); ?> /> <?php _e('Only load CSS with shortcode.', 'jquery-collapse-o-matic'); ?>
 										<br /><span class="description"><?php _e('Only load Collapse-O-Matic CSS if [expand] shortcode is used.', 'jquery-collapse-o-matic'); ?></span></label>
 									</td>
