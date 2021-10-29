@@ -61,8 +61,6 @@ function swapTitle(origObj, swapObj){
 }
 
 function toggleState (obj, id, maptastic, trig_id) {
-	//toggletarget class
-	//jQuery('[id^=target][id$='+id+']').toggleClass('colomat-targ-visable');
 
 	if (maptastic && jQuery('[id^=target][id$='+id+']').hasClass('maptastic') ) {
 		jQuery('[id^=target][id$='+id+']').removeClass('maptastic');
