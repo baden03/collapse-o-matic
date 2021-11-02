@@ -51,7 +51,7 @@ No. Not even close.
 
 == Changelog ==
 
-= 1.8.0 =
+= 1.8.1 =
 * options passed using the preferred wp_add_inline_script
 
 = 1.8.0 =
