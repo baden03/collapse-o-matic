@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.1
+Version: 1.8.2
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.1';
+	var $version = '1.8.2';
 
 	/**
 	 * Used as prefix for options entry
@@ -134,12 +134,15 @@ class WP_Collapse_O_Matic {
 		}
 
 		//css
-		if ($this->options['style'] !== 'none') {
-			wp_register_style( 'collapseomatic-css', plugins_url('css/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
-			if( !empty( $this->options['custom_css'] ) ){
-				wp_add_inline_style( 'collapseomatic-css', $this->options['custom_css'] );
-			}
-			if( empty($this->options['css_check']) ){
+		wp_register_style( 'collapscore-css', plugins_url('css/core_style.css', __FILE__) , array (), '1.0' );
+		wp_register_style( 'collapseomatic-css', plugins_url('css/'.$this->options['style'].'_style.css', __FILE__) , array (), '1.6' );
+		if( !empty( $this->options['custom_css'] ) ){
+			wp_add_inline_style( 'collapscore-css', $this->options['custom_css'] );
+		}
+
+		if( empty($this->options['css_check'])){
+			wp_enqueue_style( 'collapscore-css' );
+			if ($this->options['style'] !== 'none') {
 				wp_enqueue_style( 'collapseomatic-css' );
 			}
 		}
@@ -193,9 +196,14 @@ class WP_Collapse_O_Matic {
 		if( !empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
 		}
-		if( !empty($this->options['css_check']) ){
-			wp_enqueue_style( 'collapseomatic-css' );
+
+		if( !empty($this->options['css_check'])){
+			wp_enqueue_style( 'collapscore-css' );
+			if ($this->options['style'] !== 'none') {
+				wp_enqueue_style( 'collapseomatic-css' );
+			}
 		}
+
 		//find a random number, if no id is assigned
 		$ran = uniqid();
 		extract(shortcode_atts(array(
