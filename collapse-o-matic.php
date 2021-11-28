@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.2
+Version: 1.8.3-alpha-20211128
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.2';
+	var $version = '1.8.3-alpha-20211128';
 
 	/**
 	 * Used as prefix for options entry
@@ -127,7 +127,8 @@ class WP_Collapse_O_Matic {
 			'colomatpauseInit' => $this->options['pauseinit'],
 			'colomattouchstart' => $this->options['touch_start']
 		];
-		wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $com_options ), 'before' );
+		//wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $com_options ), 'before' );
+		wp_localize_script( 'collapseomatic-js', 'com_options', $com_options);
 
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
