@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.7.0
+ * Collapse-O-Matic JavaSctipt v1.7.1
  * https://pluginoven.com/plugins/collapse-o-matic/
  *
  * Copyright 2021, Twinpictures
@@ -116,6 +116,29 @@ function toggleState (obj, id, maptastic, trig_id) {
 			height: "toggle",
 			opacity: "toggle"
 		}, com_duration, function (){
+			//Animation complete
+			if( jQuery(this).hasClass('colomat-inline') && jQuery(this).is(':visible') ){
+				jQuery(this).css('display', 'inline');
+			}
+
+			//deal with any findme links
+			if(trig_id && jQuery('#'+trig_id).is('.find-me.colomat-close')){
+				findme = jQuery('#'+trig_id).attr('data-findme');
+				target_offset = jQuery('#'+trig_id).offset();
+
+				if( findme == 'auto' || findme == 'target'){
+					target_offset = jQuery('#target-'+trig_id).offset();
+				}
+				if( findme == 'trigger'){
+					target_offset = jQuery('#'+trig_id).offset();
+				}
+				jQuery('html, body').animate({scrollTop:target_offset.top}, 500);
+			}
+		});
+	}
+
+	else if(com_effect == 'fadeOnly'){
+		jQuery('#target-'+id).fadeToggle(com_duration, function() {
 			//Animation complete
 			if( jQuery(this).hasClass('colomat-inline') && jQuery(this).is(':visible') ){
 				jQuery(this).css('display', 'inline');

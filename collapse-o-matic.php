@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.3
+Version: 1.8.3 RC 1
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.3';
+	var $version = '1.8.3 RC 1';
 
 	/**
 	 * Used as prefix for options entry
@@ -118,7 +118,7 @@ class WP_Collapse_O_Matic {
 		if($this->options['script_location'] == 'footer' ){
 			$load_in_footer = true;
 		}
-		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.7.0', $load_in_footer);
+		wp_register_script('collapseomatic-js', plugins_url('js/collapse.js', __FILE__), array('jquery'), '1.7.1', $load_in_footer);
 		
 		//prep options for injection
 		$com_options = [
@@ -127,8 +127,7 @@ class WP_Collapse_O_Matic {
 			'colomatpauseInit' => $this->options['pauseinit'],
 			'colomattouchstart' => $this->options['touch_start']
 		];
-		//wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $com_options ), 'before' );
-		wp_localize_script( 'collapseomatic-js', 'com_options', $com_options);
+		wp_add_inline_script( 'collapseomatic-js', 'const com_options = ' . json_encode( $com_options ), 'before' );
 
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('collapseomatic-js');
@@ -642,7 +641,8 @@ class WP_Collapse_O_Matic {
 											}
 											$se_array = array(
 												__('Slide Only', 'jquery-collapse-o-matic') => 'slideToggle',
-												__('Slide & Fade', 'jquery-collapse-o-matic') => 'slideFade'
+												__('Slide & Fade', 'jquery-collapse-o-matic') => 'slideFade',
+												__('Fade Only', 'jquery-collapse-o-matic') => 'fadeOnly'
 											);
 											foreach( $se_array as $key => $value){
 												$selected = '';
