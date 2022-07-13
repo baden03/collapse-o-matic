@@ -1,8 +1,8 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.7.1
+ * Collapse-O-Matic JavaSctipt v1.7.2
  * https://pluginoven.com/plugins/collapse-o-matic/
  *
- * Copyright 2021, Twinpictures
+ * Copyright 2022, Twinpictures
  */
 
 function collapse_init() {
@@ -51,11 +51,9 @@ function swapTitle(origObj, swapObj){
 
 		jQuery(origObj).html(swaphtml);
 		jQuery(swapObj).html(orightml);
-
-		//is cufon involved? if so, do that thing
-		if(swaphtml.indexOf("<cufon") != -1){
-			var trigelem = jQuery(this).get(0).tagName;
-			Cufon.replace(trigelem);
+		if(jQuery(origObj).attr('title')){
+			jQuery(origObj).attr('title',swaphtml);
+			jQuery(swapObj).attr('title',orightml);
 		}
 	}
 }
