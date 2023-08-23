@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.3
+Version: 1.8.4
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.3';
+	var $version = '1.8.4';
 
 	/**
 	 * Used as prefix for options entry
@@ -240,11 +240,13 @@ class WP_Collapse_O_Matic {
 				'tabindex' => $options['tabindex'],
 				'animation_effect' => '',
 				'duration' => '',
+				'orderby' => '',
+				'order' => ''
 			), $atts, 'expand'));
 
 		//collapse commander
 		if( !empty($cid) && is_plugin_active( 'collapse-commander/collapse-commander.php') ){
-			$meta_values = WP_CollapseCommander::meta_grabber($cid);
+			$meta_values = WP_CollapseCommander::meta_grabber($cid, $orderby, $order);
 			extract(shortcode_atts($meta_values, $atts));
 		}
 
@@ -308,8 +310,8 @@ class WP_Collapse_O_Matic {
 			if($elwrapclass){
 				$ewclass = 'class="'.esc_attr($elwrapclass).'"';
 			}
-			$ewo = '<'.$elwraptag.' '.$ewclass.'>';
-			$ewc = '</'.$elwraptag.'>';
+			$ewo = '<'. esc_attr( $elwraptag ) .' '.$ewclass.'>';
+			$ewc = '</'. esc_attr( $elwraptag ) .'>';
 		}
 
 		$eDiv = '';
@@ -321,7 +323,7 @@ class WP_Collapse_O_Matic {
 				$inline_class = 'colomat-inline ';
 				$collapse_class = 'collapseomatic_content_inline ';
 			}
-			$eDiv = '<'.$targtag.' id="target-'.$id.'" class="'.esc_attr($collapse_class.$inline_class.$targclass).'">'.$content.'</'.$targtag.'>';
+			$eDiv = '<'. esc_attr(  $targtag ) .' id="target-'.$id.'" class="'.esc_attr($collapse_class.$inline_class.$targclass).'">'.$content.'</'. esc_attr(  $targtag ) .'>';
 		}
 		if($excerpt){
 			$excerpt = str_replace($placeholder_arr, $swapout_arr, $excerpt);
@@ -333,17 +335,17 @@ class WP_Collapse_O_Matic {
 				$eDiv = '';
 			}
 			if($excerptpos == 'above-trigger'){
-				$nibble = '<'.$excerpttag.' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">'.$excerpt.'</'.$excerpttag.'>';
+				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">'. esc_html( $excerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 			else{
-				$nibble = '<'.$excerpttag.' id="excerpt-'.esc_attr($id).'" class="collapseomatic_excerpt '.esc_attr($excerptclass).'">'.$excerpt.'</'.$excerpttag.'>';
+				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="collapseomatic_excerpt '.esc_attr($excerptclass).'">'. esc_html( $excerpt ) .'</'. esc_attr( $excerpttag ) .'>';
 			}
 			//swapexcerpt
 			if($swapexcerpt !== false){
 				$swapexcerpt = str_replace($placeholder_arr, $swapout_arr, $swapexcerpt);
 				$swapexcerpt = do_shortcode($swapexcerpt);
 				$swapexcerpt = apply_filters( 'colomat_swapexcerpt', $swapexcerpt );
-				$nibble .= '<'.$excerpttag.' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">'.$swapexcerpt.'</'.$excerpttag.'>';
+				$nibble .= '<'. esc_attr( $excerpttag ) .' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">'. esc_html( $swapexcerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 		}
 		$altatt = '';
@@ -417,7 +419,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($trigtype) && $trigtype == 'image' && !empty($triggerimage)){
 				$title =  wp_get_attachment_image( $triggerimage, 'full' );
 			}
-			$link = $closeanchor.'<'.$tag.' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.$startwrap.$title.$endwrap.'</'.$tag.'>';
+			$link = $closeanchor.'<'. esc_attr($tag) .' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.esc_html($startwrap).esc_html($title).esc_html($endwrap).'</'. esc_attr($tag) .'>';
 		}
 
 		//swap image
@@ -433,9 +435,9 @@ class WP_Collapse_O_Matic {
 		if($swaptitle){
 			$swapalt_attr = '';
 			if(!empty($swapalt)){
-				$swapalt_attr = "alt='".$swapalt."'";
+				$swapalt_attr = "alt='".esc_attr($swapalt)."'";
 			}
-			$link .= "<".$tag." id='swap-".esc_attr($id)."' ".$swapalt_attr." class='colomat-swap' style='display:none;'>".$startwrap.$swaptitle.$endwrap."</".$tag.">";
+			$link .= "<". esc_attr($tag) ." id='swap-".esc_attr($id)."' ".esc_attr($swapalt_attr)." class='colomat-swap' style='display:none;'>".esc_html($startwrap). esc_html( $swaptitle ).esc_html($endwrap)."</". esc_attr($tag) .">";
 		}
 
 		if($excerpt){
