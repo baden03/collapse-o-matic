@@ -5,7 +5,7 @@ Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.9
 Tested up to: 6.3.0
-Stable tag: 1.8.5.1
+Stable tag: 1.8.5.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -51,8 +51,11 @@ No. Not even close.
 
 == Changelog ==
 
+= 1.8.5.2 =
+* no longer escaping swaptitle
+
 = 1.8.5.1 =
-* no longer sanitising title string
+* no longer escaping or sanatizing title string
 
 = 1.8.5 =
 * using sanatize_title for the title tag

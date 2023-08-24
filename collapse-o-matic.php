@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.5.1
+Version: 1.8.5.2
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.5.1';
+	var $version = '1.8.5.2';
 
 	/**
 	 * Used as prefix for options entry
@@ -419,7 +419,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($trigtype) && $trigtype == 'image' && !empty($triggerimage)){
 				$title =  wp_get_attachment_image( $triggerimage, 'full' );
 			}
-			$link = $closeanchor.'<'. esc_attr($tag) .' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.esc_attr($startwrap).$title.esc_attr($endwrap).'</'. esc_attr($tag) .'>';
+			$link = $closeanchor.'<'. esc_attr($tag) .' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.$startwrap.$title.$endwrap.'</'. esc_attr($tag) .'>';
 		}
 
 		//swap image
@@ -437,7 +437,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($swapalt)){
 				$swapalt_attr = "alt='".esc_attr($swapalt)."'";
 			}
-			$link .= "<". esc_attr($tag) ." id='swap-".esc_attr($id)."' ".esc_attr($swapalt_attr)." class='colomat-swap' style='display:none;'>".esc_attr($startwrap). esc_attr( $swaptitle ).esc_attr($endwrap)."</". esc_attr($tag) .">";
+			$link .= "<". esc_attr($tag) ." id='swap-".esc_attr($id)."' ".esc_attr($swapalt_attr)." class='colomat-swap' style='display:none;'>".$startwrap.$swaptitle.$endwrap."</". esc_attr($tag) .">";
 		}
 
 		if($excerpt){
