@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.4
+Version: 1.8.5
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.4';
+	var $version = '1.8.5';
 
 	/**
 	 * Used as prefix for options entry
@@ -335,17 +335,17 @@ class WP_Collapse_O_Matic {
 				$eDiv = '';
 			}
 			if($excerptpos == 'above-trigger'){
-				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">'. esc_html( $excerpt ).'</'. esc_attr( $excerpttag ) .'>';
+				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="'.esc_attr($excerptclass).'">'. esc_attr( $excerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 			else{
-				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="collapseomatic_excerpt '.esc_attr($excerptclass).'">'. esc_html( $excerpt ) .'</'. esc_attr( $excerpttag ) .'>';
+				$nibble = '<'. esc_attr( $excerpttag ) .' id="excerpt-'.esc_attr($id).'" class="collapseomatic_excerpt '.esc_attr($excerptclass).'">'. esc_attr( $excerpt ) .'</'. esc_attr( $excerpttag ) .'>';
 			}
 			//swapexcerpt
 			if($swapexcerpt !== false){
 				$swapexcerpt = str_replace($placeholder_arr, $swapout_arr, $swapexcerpt);
 				$swapexcerpt = do_shortcode($swapexcerpt);
 				$swapexcerpt = apply_filters( 'colomat_swapexcerpt', $swapexcerpt );
-				$nibble .= '<'. esc_attr( $excerpttag ) .' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">'. esc_html( $swapexcerpt ).'</'. esc_attr( $excerpttag ) .'>';
+				$nibble .= '<'. esc_attr( $excerpttag ) .' id="swapexcerpt-'.esc_attr($id).'" style="display:none;">'. esc_attr( $swapexcerpt ).'</'. esc_attr( $excerpttag ) .'>';
 			}
 		}
 		$altatt = '';
@@ -419,7 +419,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($trigtype) && $trigtype == 'image' && !empty($triggerimage)){
 				$title =  wp_get_attachment_image( $triggerimage, 'full' );
 			}
-			$link = $closeanchor.'<'. esc_attr($tag) .' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.esc_html($startwrap).esc_html($title).esc_html($endwrap).'</'. esc_attr($tag) .'>';
+			$link = $closeanchor.'<'. esc_attr($tag) .' class="collapseomatic '.esc_attr($trigclass).'" id="'.esc_attr($id).'" '.$relatt.' '.$inexatt.' '.$altatt.' '.$anchor.' '.$groupatt.' '.$effatt.' '.$duratt.'>'.esc_attr($startwrap).sanitize_title($title).esc_attr($endwrap).'</'. esc_attr($tag) .'>';
 		}
 
 		//swap image
@@ -437,7 +437,7 @@ class WP_Collapse_O_Matic {
 			if(!empty($swapalt)){
 				$swapalt_attr = "alt='".esc_attr($swapalt)."'";
 			}
-			$link .= "<". esc_attr($tag) ." id='swap-".esc_attr($id)."' ".esc_attr($swapalt_attr)." class='colomat-swap' style='display:none;'>".esc_html($startwrap). esc_html( $swaptitle ).esc_html($endwrap)."</". esc_attr($tag) .">";
+			$link .= "<". esc_attr($tag) ." id='swap-".esc_attr($id)."' ".esc_attr($swapalt_attr)." class='colomat-swap' style='display:none;'>".esc_attr($startwrap). esc_attr( $swaptitle ).esc_attr($endwrap)."</". esc_attr($tag) .">";
 		}
 
 		if($excerpt){
