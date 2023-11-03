@@ -310,8 +310,11 @@ class WP_Collapse_O_Matic {
 			if($elwrapclass){
 				$ewclass = 'class="'.esc_attr($elwrapclass).'"';
 			}
-			$ewo = '<'. esc_attr( $elwraptag ) .' '.$ewclass.'>';
-			$ewc = '</'. esc_attr( $elwraptag ) .'>';
+			$allowed_tags = ["div", "p", "li", "ul"];
+			$elwraptag = filter_allowed_tags( $elwraptag, $allowed_tags );
+
+			$ewo = '<'. $elwraptag .' '.$ewclass.'>';
+			$ewc = '</'. $elwraptag .'>';
 		}
 
 		$eDiv = '';
@@ -917,6 +920,20 @@ class WP_Collapse_O_Matic {
 
             // $license_data->license will be either "valid" or "invalid"
             return $license_data->license;
+	}
+
+	/**
+	 * Filter $input to allow only tags from $allowed_tags array
+	 */
+	function filter_allowed_tags( $input, $allowed_tags ) {
+		$pattern = '/\A(' . implode( '|', $allowed_tags ) . ')\Z/';
+		if ( preg_match( $pattern, $input, $matches ) ) {
+			$output = $matches[0];
+		} else {
+			$output = '';
+		}
+
+		return $output;
 	}
 
 } // end class WP_Collapse_O_Matic
