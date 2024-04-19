@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.5.4
+Version: 1.8.5.6
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.5.4';
+	var $version = '1.8.5.6';
 
 	/**
 	 * Used as prefix for options entry
@@ -290,6 +290,17 @@ class WP_Collapse_O_Matic {
 		$placeholder_arr = array('%(%', '%)%', '%{%', '%}%');
 		$swapout_arr = array('<', '>', '[', ']');
 
+		$allowed_tags = [
+			"div", "span", "p", "li", "ul", "ol", "strong", "b",
+			"em", "i", "u", "h1", "h2", "h3", "h4", "h5", "h6",
+			"blockquote", "a", "img", "tr", "td", "th", "caption", "small", "cite", "q"
+		];
+
+		
+		if(!empty($tag)){
+			$tag = $this->filter_allowed_tags( $tag, $allowed_tags );
+		}
+
 		$title = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $title));
 		if($swaptitle){
 			$swaptitle = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $swaptitle));
@@ -301,17 +312,20 @@ class WP_Collapse_O_Matic {
 			$endwrap = do_shortcode(str_replace($placeholder_arr, $swapout_arr, $endwrap));
 		}
 		//need to check for a few versions, because of new option setting. can be removed after a few revisiosn.
-		if(empty($targtag)){
+		if(!empty($targtag)){
+			$targtag = $this->filter_allowed_tags( $targtag, $allowed_tags );
+		}
+		else{
 			$targtag = 'div';
 		}
+
 		
 		if(!empty($elwraptag)){
 			$ewclass = '';
 			if($elwrapclass){
 				$ewclass = 'class="'.esc_attr($elwrapclass).'"';
 			}
-			$allowed_tags = ["div", "p", "li", "ul"];
-			$elwraptag = filter_allowed_tags( $elwraptag, $allowed_tags );
+			$elwraptag = $this->filter_allowed_tags( $elwraptag, $allowed_tags );
 
 			$ewo = '<'. $elwraptag .' '.$ewclass.'>';
 			$ewc = '</'. $elwraptag .'>';
