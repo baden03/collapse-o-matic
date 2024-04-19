@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
 Requires at least: 4.9
-Tested up to: 6.3.1
-Stable tag: 1.8.5.4
+Tested up to: 6.5.2
+Stable tag: 1.8.5.6
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,12 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.5.6 =
+* the tag, targtag and elwrap will be filtered to only allow certain tags
+
+= 1.8.5.5 =
+* removed escaping on excerpt/swapexcerpt
 
 = 1.8.5.4 =
 * removed the wp_kses_post sanitising from content
@@ -429,4 +435,4 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* removed the wp_kses_post sanitising from content
+* the tag, targtag and elwrap will be filtered to only allow certain tags
