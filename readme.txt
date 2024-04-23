@@ -2,15 +2,15 @@
 
 Contributors: twinpictures, baden03
 Donate link: https://pluginoven.com/panares-fund/
-Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
+Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
 Tested up to: 6.5.2
-Stable tag: 1.8.5.6
+Stable tag: 1.8.5.7
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Remove clutter and save space by placing content inside an expanding/collapsing accordion element. Accordion elements are SEO friendly: content will be indexed by search engines.
+Add an expanding/collapsing accordion shortcode.
 
 == Description ==
 
@@ -50,6 +50,10 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.5.7 =
+* the tag, targtag and elwrap will now also allow the tag defined as the default tag attribute in the plugin settings page.
+* button has been added to the allowed html tag list
 
 = 1.8.5.6 =
 * the tag, targtag and elwrap will be filtered to only allow certain tags
@@ -435,4 +439,5 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* the tag, targtag and elwrap will be filtered to only allow certain tags
+* the tag, targtag and elwrap will now also allow the tag defined as the default tag attribute in the plugin settings page.
+* button has been added to the allowed html tag list

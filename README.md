@@ -1,13 +1,15 @@
 #Collapse-O-Matic
 * Contributors: twinpictures, baden03
 * Donate link: https://pluginoven.com/panares-fund/
-* Tags: collapse, expand, collapsible, expandable, expandable content, collapsable content, shortcode, hidden, hide, display, accordion, accordion, jQuery, javascript, roll-your-own, twinpictures, read me, read more, more, plugin oven
+* Tags: collapse, expand, accordion, accordion
 * Requires at least: 4.9
 * Tested up to: 6.5.3
-* Stable tag: 1.8.5.6
+* Stable tag: 1.8.5.7
 * Requires PHP: 7.2
 * License: GPLv2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Add an expanding/collapsing accordion shortcode.
 
 ##Description
 Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>free community</a> support.
