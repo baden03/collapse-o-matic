@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.5.7
+Version: 1.8.5.8
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.5.7';
+	var $version = '1.8.5.8';
 
 	/**
 	 * Used as prefix for options entry
@@ -277,14 +277,11 @@ class WP_Collapse_O_Matic {
 			}
 		}
 
-		//id does not allow spaces
-		$id = preg_replace('/\s+/', '_', $id);
-
 		$ewo = '';
 		$ewc = '';
 
-		//id does not allow spaces
-		$id = preg_replace('/\s+/', '_', $id);
+		//id does not allow spaces or any funny business
+		$id = preg_replace('/\s+/', '_', esc_attr($id));
 
 		//placeholders
 		$placeholder_arr = array('%(%', '%)%', '%{%', '%}%');

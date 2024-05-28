@@ -5,7 +5,7 @@ Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
 Tested up to: 6.5.2
-Stable tag: 1.8.5.7
+Stable tag: 1.8.5.8
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,10 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.5.8 =
+* the id attribute is escaped to prevent any funny business
+
 
 = 1.8.5.7 =
 * the tag, targtag and elwrap will now also allow the tag defined as the default tag attribute in the plugin settings page.
@@ -439,5 +443,4 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* the tag, targtag and elwrap will now also allow the tag defined as the default tag attribute in the plugin settings page.
-* button has been added to the allowed html tag list
+* the id attribute is escaped to prevent any funny business
