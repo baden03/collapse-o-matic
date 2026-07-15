@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03
 Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
-Tested up to: 6.5.2
-Stable tag: 1.8.5.8
+Tested up to: 7.0
+Stable tag: 1.8.5.9
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,10 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.5.9 =
+* Security: hardened output escaping of [expand] shortcode attributes to fix a Contributor+ stored XSS (CVE-2024-4095).
+* Compatibility: tested up to WordPress 7.0 and raised the minimum PHP version to 7.4.
 
 = 1.8.5.8 =
 * the id attribute is escaped to prevent any funny business
