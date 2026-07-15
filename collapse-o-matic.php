@@ -4,7 +4,7 @@ Plugin Name: Collapse-O-Matic
 Text Domain: jquery-collapse-o-matic
 Plugin URI: https://pluginoven.com/plugins/collapse-o-matic/
 Description: Collapse-O-Matic adds an [expand] shortcode that wraps content into a lovely, jQuery collapsible div.
-Version: 1.8.5.8
+Version: 1.8.5.9
 Author: twinpictures, baden03
 Author URI: https://twinpictures.de/
 License: GPL2
@@ -29,7 +29,7 @@ class WP_Collapse_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.8.5.8';
+	var $version = '1.8.5.9';
 
 	/**
 	 * Used as prefix for options entry
@@ -315,6 +315,12 @@ class WP_Collapse_O_Matic {
 			$targtag = 'div';
 		}
 
+		//excerpttag is used as a raw HTML tag name, so restrict it to the same allow-list as tag/targtag
+		$excerpttag = $this->filter_allowed_tags( $excerpttag, $allowed_tags );
+		if(empty($excerpttag)){
+			$excerpttag = 'div';
+		}
+
 		
 		if(!empty($elwraptag)){
 			$ewclass = '';
@@ -398,7 +404,7 @@ class WP_Collapse_O_Matic {
 				$offset = $findme;
 			}
 			//$anchor = '<input type="hidden" id="find-'.$id.'" name="'.$offset.'"/>';
-			$anchor = 'data-findme="'.$offset.'"';
+			$anchor = 'data-findme="'.esc_attr($offset).'"';
 		}
 
 		//effect
