@@ -1,10 +1,10 @@
 === Collapse-O-Matic ===
 
-Contributors: twinpictures, baden03
+Contributors: twinpictures, baden03, lukas-prelovsky
 Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
-Tested up to: 7.0
+Tested up to: 7.0.2
 Stable tag: 1.8.5.9
 Requires PHP: 7.4
 License: GPLv2 or later
