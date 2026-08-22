@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version from tag
+        id: version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Validate version matches plugin files
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          PLUGIN_VERSION=$(grep -m1 '^Version:' collapse-o-matic.php | awk '{print $2}')
+          STABLE_TAG=$(grep -m1 '^Stable tag:' readme.txt | awk '{print $3}')
+
+          if [ "$VERSION" != "$PLUGIN_VERSION" ] || [ "$VERSION" != "$STABLE_TAG" ]; then
+            echo "Version mismatch:"
+            echo "  tag:         $VERSION"
+            echo "  plugin file: $PLUGIN_VERSION"
+            echo "  readme.txt:  $STABLE_TAG"
+            exit 1
+          fi
+
+      - name: Build clean plugin zip
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BUILD_DIR="build/collapse-o-matic"
+
+          mkdir -p "$BUILD_DIR"
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='README.md' \
+            --exclude='blueprint.json' \
+            --exclude='*.psd' \
+            ./ "$BUILD_DIR/"
+
+          cd build
+          zip -r "../collapse-o-matic-${VERSION}.zip" collapse-o-matic
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "${{ steps.version.outputs.version }}"
+          files: collapse-o-matic-${{ steps.version.outputs.version }}.zip
+          generate_release_notes: true
