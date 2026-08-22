@@ -70,7 +70,6 @@ Nope. Not even close.
 = 1.8.5.8 =
 * the id attribute is escaped to prevent any funny business
 
-
 = 1.8.5.7 =
 * the tag, targtag and elwrap will now also allow the tag defined as the default tag attribute in the plugin settings page.
 * button has been added to the allowed html tag list
