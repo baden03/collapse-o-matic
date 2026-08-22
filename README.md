@@ -3,16 +3,16 @@
 * Donate link: https://pluginoven.com/panares-fund/
 * Tags: collapse, expand, accordion, accordion
 * Requires at least: 4.9
-* Tested up to: 7.0.2
-* Stable tag: 1.8.5.9
-* Requires PHP: 7.2
+* Tested up to: 7.1
+* Stable tag: 1.8.6
+* Requires PHP: 7.4
 * License: GPLv2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Add an expanding/collapsing accordion shortcode.
 
 ##Description
-Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>free community</a> support.
+Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` shortcode that will wrap any content, including other shortcodes, into a lovely jQuery expanding and collapsing div.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://github.com/baden03/collapse-o-matic/issues'>free community</a> support on GitHub.
 
 #Installation
 1. Old-school: upload the `collapse-o-matic` folder to the `/wp-content/plug-ins/` directory via FTP.  Hipster: Ironically add collapse-o-matic via the WordPress Plug-ins menu.
@@ -20,21 +20,20 @@ Collapse-O-Matic adds an `[expand title="trigger text"]hidden content[/expand]` 
 1. Add a the shortcode to your post like so: `[expand title="Displayed Title Goes Here"]Hidden content goes here[/expand]`
 1. Test that the this plug-in meets your demanding needs.
 1. Tweak the CSS to match your flavour.
-1. Rate the plug-in and verify if it works at wordpress.org.
-1. Leave a comment regarding bugs, feature request, cocktail recipes at https://wordpress.org/tags/jquery-collapse-o-matic/
+1. Report bugs or request features at https://github.com/baden03/collapse-o-matic/issues
 
 #Frequently Asked Questions
-<b>Where can I translate this plugin into my favourite language?</b>
-* <a href='https://translate.wordpress.org/projects/wp-plugins/jquery-collapse-o-matic'>Community translation for Collapse-O-Matic</a> is available via the WordPress Translation project.
+<b>How can I translate this plugin into my favourite language?</b>
+* A .pot template is in the languages directory. German (de_DE) translations are bundled. Use Poedit or msgfmt to create additional locales.
 
 <b>I am a Social Netwookiee, might Twinpictures have a Facebook page?</b>
-* Yes, yes... <a href='https://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.
+* Nope.
 
 <b>Does Twinpictures do the Twitter?</b>
-* Ah yes! <a href='https://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
+* Nope.
 
 <b>How does one use the shortcode, exactly?</b>
 * A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
 <b>Is Galato the same as Ice Cream?</b>
-* No. Not even close.
+* Nope. Not even close.

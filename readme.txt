@@ -4,8 +4,8 @@ Contributors: twinpictures, baden03, lukas-prelovsky
 Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
-Tested up to: 7.0.2
-Stable tag: 1.8.5.9
+Tested up to: 7.1
+Stable tag: 1.8.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Add an expanding/collapsing accordion shortcode.
 
 == Description ==
 
-Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, including other shortcodes, into an accordion expanding and collapsing element.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://wordpress.org/support/plugin/jquery-collapse-o-matic'>free community</a> support.
+Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, including other shortcodes, into an accordion expanding and collapsing element.  A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options and attribute demos</a> are available, as well as <a href='https://github.com/baden03/collapse-o-matic/issues'>free community</a> support on GitHub.
 
 == Installation ==
 
@@ -23,25 +23,24 @@ Collapse-O-Matic adds an `[expand]` shortcode that will wrap any content, includ
 1. Add a the shortcode to your post like so: `[expand title="Displayed Title Goes Here"]Hidden content goes here[/expand]`
 1. Test that the this plug-in meets your demanding needs.
 1. Tweak the CSS to match your flavour.
-1. Rate the plug-in and verify if it works at wordpress.org.
-1. Leave a comment regarding bugs, feature request, cocktail recipes at https://wordpress.org/tags/jquery-collapse-o-matic/
+1. Report bugs or request features at https://github.com/baden03/collapse-o-matic/issues
 
 == Frequently Asked Questions ==
 
-= Where can I translate this plugin into my favourite language? =
-<a href='https://translate.wordpress.org/projects/wp-plugins/jquery-collapse-o-matic'>Community translation for Collapse-O-Matic</a> is available via the WordPress Translation project.
+= How can I translate this plugin into my favourite language? =
+A .pot template is included in the languages directory. German (de_DE) translations are bundled as collapse-o-matic-de_DE.po and collapse-o-matic-de_DE.mo. Use Poedit or msgfmt to create additional locales from the template.
 
 = I am a Social Netwookiee, might Twinpictures have a Facebook page? =
-Yes, yes... <a href='https://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.
+Nope.
 
 = Does Twinpictures do the Twitter? =
-Ah yes! <a href='https://twitter.com/#!/twinpictures'>@Twinpictures</a> does the twitter tweeting around here.
+Nope.
 
 = How does one use the shortcode, exactly? =
 A <a href='https://pluginoven.com/plugins/collapse-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
 = Is Galato the same as Ice Cream? =
-No. Not even close.
+Nope. Not even close.
 
 == Screenshots ==
 
@@ -50,6 +49,19 @@ No. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.6 =
+* Security: settings are now sanitized on save; the Custom Style field can no longer break out of the inline <style> block (multisite privilege escalation).
+* Security: the tag allow-list is regex-quoted, so the Tag option can no longer widen it into a wildcard.
+* Security: removed sslverify=false from the license API call, and hardened the response handling.
+* Security: added an ABSPATH guard and escaped late throughout the settings screen.
+* Fixed a fatal error on the front end when an [expand] shortcode used the cid attribute.
+* i18n: corrected strings using the wrong 'colpromat' text domain, moved all URLs out of translatable strings, numbered every printf placeholder, added translator comments, and shipped a languages/collapse-o-matic.pot template.
+* i18n: renamed the text domain from jquery-collapse-o-matic to collapse-o-matic throughout the plugin and translation files.
+* i18n: added bundled German (de_DE) translations (collapse-o-matic-de_DE.po / .mo).
+* Compatibility: tested up to WordPress 7.1; translations now load on init (WP 6.7+), and jQuery 4 deprecations removed from collapse.js.
+* Distribution: removed all WordPress.org plugin directory references (support forum, reviews, plugin listing, and downloads.wordpress.org).
+* Distribution: support and bug reports now point to GitHub Issues; blueprint.json installs from the GitHub repository.
 
 = 1.8.5.9 =
 * Security: hardened output escaping of [expand] shortcode attributes to fix a Contributor+ stored XSS (CVE-2024-4095).
@@ -193,7 +205,7 @@ No. Not even close.
 = 1.6.14 =
 * hash-bang (#!) that are used in urls will not be processed as url anchors
 * now checks if a url anchor is actually an existing element before trying to process it
-* changed language domain to jquery-collapse-o-matic to work with WordPress’ new translation process
+* changed language domain to collapse-o-matic to work with WordPress’ new translation process
 * updated tested up to tag to 4.3.1
 
 = 1.6.13 =
@@ -447,4 +459,4 @@ Fixed auto-expand of urls with id-anchors
 * The plug-in came to be.
 
 == Upgrade Notice ==
-* the id attribute is escaped to prevent any funny business
+* Security and internationalisation release. Settings are sanitized on save, a front-end fatal error with the cid attribute is fixed, and a .pot translation template is now bundled.

@@ -1,5 +1,5 @@
 /*!
- * Collapse-O-Matic JavaSctipt v1.7.2
+ * Collapse-O-Matic JavaScript v1.7.3
  * https://pluginoven.com/plugins/collapse-o-matic/
  *
  * Copyright 2022, Twinpictures
@@ -445,9 +445,9 @@ jQuery(document).ready(function() {
 
 	//tabindex enter
 	jQuery(document).on('keypress','.collapseomatic', function(event) {
-		if (event.which == 13) {
+		if (event.key === 'Enter' || event.which === 13) {
 			event.currentTarget.click();
-		};
+		}
 	});
 
 	//the main collapse/expand function
@@ -663,16 +663,16 @@ jQuery(document).ready(function() {
 			if( jQuery('#' + anchor).length ){
 				//expand any nested parents
 				jQuery('#' + anchor).parents('.collapseomatic_content').each(function(index) {
-					parent_arr = jQuery(this).attr('id').split('-');
-					junk = parent_arr.splice(0, 1);
-					parent = parent_arr.join('-');
-					if(!jQuery('#' + parent).hasClass('colomat-close')){
-						jQuery('#' + parent).click();
+					var parent_arr = jQuery(this).attr('id').split('-');
+					parent_arr.splice(0, 1);
+					var parent_id = parent_arr.join('-');
+					if(!jQuery('#' + parent_id).hasClass('colomat-close')){
+						jQuery('#' + parent_id).trigger('click');
 					}
 				})
 				//now expand the target anchor
 				if(!jQuery('#' + anchor).hasClass('colomat-close')){
-					jQuery('#' + anchor).click();
+					jQuery('#' + anchor).trigger('click');
 				}
 			}
 

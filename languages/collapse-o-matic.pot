@@ -1,0 +1,407 @@
+# Copyright (C) 2026 Twinpictures
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Collapse-O-Matic 1.8.6\n"
+"Report-Msgid-Bugs-To: https://github.com/baden03/collapse-o-matic/issues\n"
+"POT-Creation-Date: 2026-08-22 15:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: collapse-o-matic\n"
+"X-Generator: xgettext\n"
+
+#. Plugin Name of the plugin
+msgid "Collapse-O-Matic"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Collapse-O-Matic adds an [expand] shortcode that wraps content into a "
+"lovely, jQuery collapsible div."
+msgstr ""
+
+#. Author of the plugin
+msgid "twinpictures, baden03"
+msgstr ""
+
+#: collapse-o-matic.php:205
+msgid "Collapse-O-Matic Options"
+msgstr ""
+
+#: collapse-o-matic.php:302
+msgid "Edit"
+msgstr ""
+
+#: collapse-o-matic.php:545
+msgid "Settings"
+msgstr ""
+
+#: collapse-o-matic.php:592 collapse-o-matic.php:867 collapse-o-matic.php:961
+msgid "Click to toggle"
+msgstr ""
+
+#: collapse-o-matic.php:593
+msgid "Default Collapse-O-Matic Settings"
+msgstr ""
+
+#: collapse-o-matic.php:603
+msgid "Style"
+msgstr ""
+
+#: collapse-o-matic.php:610
+msgid "Light"
+msgstr ""
+
+#: collapse-o-matic.php:611
+msgid "Dark"
+msgstr ""
+
+#: collapse-o-matic.php:612
+msgid "None"
+msgstr ""
+
+#: collapse-o-matic.php:620
+msgid ""
+"Select Light for sites with lighter backgrounds. Select Dark for sites with "
+"darker backgrounds. Select None to handle styling yourself."
+msgstr ""
+
+#: collapse-o-matic.php:626
+msgid "CID Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:630
+#, php-format
+msgid "Default %1$sCollapse Commander%2$s ID"
+msgstr ""
+
+#: collapse-o-matic.php:637
+msgid "Collapse Management"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:640 collapse-o-matic.php:837
+#, php-format
+msgid ""
+"%1$sCollapse Commander%2$s is an add-on plugin that introduces an advanced "
+"management interface to better organize expand elements and simplify expand "
+"shortcodes."
+msgstr ""
+
+#: collapse-o-matic.php:648
+msgid "Tag Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:652
+#, php-format
+msgid ""
+"HTML tag use to wrap the trigger text. See %1$sTag Attribute%2$s in the "
+"documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:659
+msgid "Trigclass Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:663
+#, php-format
+msgid ""
+"Default class assigned to the trigger element. See %1$sTrigclass "
+"Attribute%2$s in the documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:670
+msgid "Tabindex Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:674
+#, php-format
+msgid ""
+"Default tabindex value to be assigned to the trigger element. See "
+"%1$sTabindex Attribute%2$s in the documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:681
+msgid "Targtag Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:685
+#, php-format
+msgid ""
+"HTML tag use for the target element. See %1$sTargtag Attribute%2$s in the "
+"documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:692
+msgid "Targclass Attribute"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:696
+#, php-format
+msgid ""
+"Default class assigned to the target element. See %1$sTargclass "
+"Attribute%2$s in the documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:703 collapse-o-matic.php:704
+msgid "No Title"
+msgstr ""
+
+#: collapse-o-matic.php:705
+msgid "Do not use title tags by default."
+msgstr ""
+
+#: collapse-o-matic.php:710 collapse-o-matic.php:711
+msgid "Add touchstart"
+msgstr ""
+
+#: collapse-o-matic.php:712
+msgid "Add jQuery touchstart binding to triggers."
+msgstr ""
+
+#: collapse-o-matic.php:717
+msgid "Initial Pause"
+msgstr ""
+
+#: collapse-o-matic.php:719
+msgid ""
+"Amount of time in milliseconds to pause before the initial collapse is "
+"triggered on page load."
+msgstr ""
+
+#: collapse-o-matic.php:729
+msgid "Animation Duration"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:733
+#, php-format
+msgid ""
+"A string or number determining how long the animation will run. See "
+"%1$sDuration%2$s in the documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:740
+msgid "Animation Effect"
+msgstr ""
+
+#: collapse-o-matic.php:747
+msgid "Slide Only"
+msgstr ""
+
+#: collapse-o-matic.php:748
+msgid "Slide & Fade"
+msgstr ""
+
+#: collapse-o-matic.php:749
+msgid "Fade Only"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:759
+#, php-format
+msgid ""
+"Animation effect to use while collapsing and expanding. See %1$sAnimation "
+"Effect%2$s in the documentation for more info."
+msgstr ""
+
+#: collapse-o-matic.php:766
+msgid "Custom Style"
+msgstr ""
+
+#: collapse-o-matic.php:768
+msgid "Custom CSS style for <em>ultimate flexibility</em>"
+msgstr ""
+
+#: collapse-o-matic.php:773
+msgid "Content Filter"
+msgstr ""
+
+#: collapse-o-matic.php:774
+msgid "Apply filter"
+msgstr ""
+
+#: collapse-o-matic.php:775
+msgid "Apply the_content filter to target content."
+msgstr ""
+
+#: collapse-o-matic.php:784 collapse-o-matic.php:785
+msgid "Display ID"
+msgstr ""
+
+#: collapse-o-matic.php:786
+msgid ""
+"Display custom ID attribute in shortcodes if set for easier shortcode "
+"managment."
+msgstr ""
+
+#: collapse-o-matic.php:791 collapse-o-matic.php:792
+msgid "Display Title"
+msgstr ""
+
+#: collapse-o-matic.php:793
+msgid ""
+"Display custom eT attribute in shortcodes that shows expand title for easier "
+"shortcode managment."
+msgstr ""
+
+#: collapse-o-matic.php:799
+msgid "Shortcode Scripts"
+msgstr ""
+
+#: collapse-o-matic.php:800
+msgid "Only load scripts with shortcode."
+msgstr ""
+
+#: collapse-o-matic.php:801
+msgid "Only load Collapse-O-Matic scripts if [expand] shortcode is used."
+msgstr ""
+
+#: collapse-o-matic.php:806
+msgid "Shortcode CSS"
+msgstr ""
+
+#: collapse-o-matic.php:807
+msgid "Only load CSS with shortcode."
+msgstr ""
+
+#: collapse-o-matic.php:808
+msgid "Only load Collapse-O-Matic CSS if [expand] shortcode is used."
+msgstr ""
+
+#: collapse-o-matic.php:813
+msgid "Script Load Location"
+msgstr ""
+
+#: collapse-o-matic.php:820
+msgid "Header"
+msgstr ""
+
+#: collapse-o-matic.php:821
+msgid "Footer"
+msgstr ""
+
+#: collapse-o-matic.php:829
+msgid "Where should the script be loaded, in the Header or the Footer?"
+msgstr ""
+
+#: collapse-o-matic.php:834
+msgid "Take Command!"
+msgstr ""
+
+#: collapse-o-matic.php:844
+msgid "Level Up!"
+msgstr ""
+
+#. translators: %1$s: opening link tag to the plugin page, %2$s: closing link tag, %3$s: opening link tag to the testimonials page, %4$s: closing link tag.
+#: collapse-o-matic.php:847
+#, php-format
+msgid ""
+"%1$sCollapse-Pro-Matic%2$s is our premium plugin that offers additional "
+"attributes and features for <i>ultimate</i> flexibility, in addition to a "
+"very %3$shigh level of personal support%4$s."
+msgstr ""
+
+#: collapse-o-matic.php:856
+msgid "Save Changes"
+msgstr ""
+
+#: collapse-o-matic.php:868
+msgid "About"
+msgstr ""
+
+#. translators: %s: plugin version number.
+#: collapse-o-matic.php:872
+#, php-format
+msgid "Collapse-O-Matic Version %s"
+msgstr ""
+
+#: collapse-o-matic.php:874
+msgid ""
+"Remove clutter, save space. Display and hide additional content in a SEO "
+"friendly way. Wrap any content&mdash;including other shortcodes&mdash;into a "
+"lovely jQuery expanding and collapsing element."
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:878
+#, php-format
+msgid ""
+"%1$sDetailed documentation%2$s, complete with working demonstrations of all "
+"shortcode attributes, is available for your instructional enjoyment."
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:851
+#, php-format
+msgid "%1$sGitHub Issues%2$s"
+msgstr ""
+
+#: collapse-o-matic.php:874
+msgid "Register Collapse Commander"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag.
+#: collapse-o-matic.php:910
+#, php-format
+msgid ""
+"To receive plugin updates you must register your plugin. Enter your Collapse "
+"Commander licence key below. Licence keys may be viewed and managed by "
+"logging into %1$syour account%2$s."
+msgstr ""
+
+#: collapse-o-matic.php:923
+msgid "License Key"
+msgstr ""
+
+#: collapse-o-matic.php:925
+msgid "Enter your license key"
+msgstr ""
+
+#: collapse-o-matic.php:932
+msgid "License Status"
+msgstr ""
+
+#: collapse-o-matic.php:935
+msgid "active"
+msgstr ""
+
+#: collapse-o-matic.php:936
+msgid "Deactivate License"
+msgstr ""
+
+#: collapse-o-matic.php:941
+msgid "inactive"
+msgstr ""
+
+#: collapse-o-matic.php:943
+msgid "Activate License"
+msgstr ""
+
+#: collapse-o-matic.php:951
+msgid "Register"
+msgstr ""
+
+#: collapse-o-matic.php:967
+#, php-format
+msgid ""
+"A brief and not-exactly-sober overview of %1$sCollapse Commander%2$s, a new "
+"add-on plugin for Collapse-O-Matic and Collapse-Pro-Matic that adds an "
+"advanced expand shortcode management system."
+msgstr ""
+
+#: collapse-o-matic.php:972
+msgid "Collapse Commander overview"
+msgstr ""

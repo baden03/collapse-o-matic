@@ -15,7 +15,7 @@
       "step": "installPlugin",
       "pluginZipFile": {
         "resource": "url",
-        "url": "https://downloads.wordpress.org/plugin/jquery-collapse-o-matic.1.8.5.7.zip"
+        "url": "https://github.com/baden03/collapse-o-matic/archive/refs/heads/master.zip"
       },
       "options": {
         "activate": true
