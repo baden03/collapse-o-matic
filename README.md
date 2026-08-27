@@ -4,7 +4,7 @@
 * Tags: collapse, expand, accordion, accordion
 * Requires at least: 4.9
 * Tested up to: 7.1
-* Stable tag: 1.8.6
+* Stable tag: 1.8.7
 * Requires PHP: 7.4
 * License: GPLv2 or later
 * License URI: https://www.gnu.org/licenses/gpl-2.0.html

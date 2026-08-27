@@ -1,0 +1,10 @@
+# Files and folders that should never end up in a distributed build
+# (used by both the release zip and the WordPress.org deploy).
+.git
+.github
+.gitignore
+.distignore
+.DS_Store
+README.md
+blueprint.json
+*.psd
