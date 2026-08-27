@@ -5,7 +5,7 @@ Donate link: https://pluginoven.com/panares-fund/
 Tags: collapse, expand, accordion, accordion
 Requires at least: 4.9
 Tested up to: 7.1
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,11 @@ Nope. Not even close.
 3. Options Page? Yes, Options Page!
 
 == Changelog ==
+
+= 1.8.7 =
+* Release process: tagging a release on GitHub now also pushes the release to the WordPress.org SVN repository (trunk and /tags/<version>), so both are published from a single tag instead of a separate manual SVN commit.
+* Release process: added a .distignore file so the GitHub release zip and the WordPress.org deploy share one exclusion list.
+* No changes to plugin functionality.
 
 = 1.8.6 =
 * Security: settings are now sanitized on save; the Custom Style field can no longer break out of the inline <style> block (multisite privilege escalation).

@@ -4,7 +4,9 @@ on:
   push:
     tags:
       - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: write
@@ -12,6 +14,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -42,14 +46,7 @@ jobs:
           BUILD_DIR="build/collapse-o-matic"
 
           mkdir -p "$BUILD_DIR"
-          rsync -a \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            --exclude='README.md' \
-            --exclude='blueprint.json' \
-            --exclude='*.psd' \
-            ./ "$BUILD_DIR/"
+          rsync -a --exclude-from=.distignore ./ "$BUILD_DIR/"
 
           cd build
           zip -r "../collapse-o-matic-${VERSION}.zip" collapse-o-matic
@@ -60,3 +57,26 @@ jobs:
           name: "${{ steps.version.outputs.version }}"
           files: collapse-o-matic-${{ steps.version.outputs.version }}.zip
           generate_release_notes: true
+
+  # Pushes the same tag to the WordPress.org SVN repository (trunk + /tags/<version>).
+  # No local SVN required: the action does the checkout and commit inside the runner.
+  #
+  # Disabled until the plugin listing is reopened -- committing to a closed
+  # plugin's SVN does not republish it. To enable, set the repository variable
+  # DEPLOY_TO_WPORG to "true" and add the SVN_USERNAME / SVN_PASSWORD secrets.
+  wordpress-org:
+    needs: release
+    if: vars.DEPLOY_TO_WPORG == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          # The WordPress.org slug is NOT the GitHub repo name.
+          SLUG: jquery-collapse-o-matic
+          VERSION: ${{ needs.release.outputs.version }}
